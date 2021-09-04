@@ -1,44 +1,109 @@
 html * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
 .header {
-    z-index: 1;
-}
-.header h1 {
-    color: white;
-}
-
-.containerHome {
-    width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 2.5vh;
 }
 .containerHero {
-    width: 100%;
-    height: 100vh;
-    background-size: cover;
-    background-position: center;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+}
+.nav {
+  width: 18vw;
+  height: 16vh;
+}
+h1 {
+  text-shadow: 1px 1px 7px black;
+  margin-left: 15px;
+  color: white;
+}
+.navbar .navbar-nav {
+  flex-direction: column !important;
 }
 
-@media only screen and (min-width: 425px){
+.logoUser img {
+  width: 50px;
+  height: 50px;
+  margin-left: -5px;
 }
 
-@media only screen and (min-width: 768px){
-    /* .containerHero {
-        background-image: url("/assets/backGround768.jpg");
-    } */
+.navbar-nav {
+  background-color: rgb(255, 255, 255);
+  padding: 0vh 5vw;
+  margin-left: -57px;
+    border-radius: 10px;
+  margin-top: -57px;
+}
+@media only screen and (min-width: 375px) {
+  .logoUser {
+    outline: none;
+    border: none;
+    background-color: inherit;
+  }
+
+  .header {
+    align-items: center;
+  }
+
+  .navbar {
+    width: 30%;
+    height: 10vh;
+  }
+  .navbar-collapse {
+    margin-top: 15vh;
+  }
+  .containerHome {
+    width: 100vw;
+  }
+}
+
+
+
+@media only screen and (min-width: 425px) {
+  .navbar-nav {
+    background-color: rgb(255, 255, 255);
+    padding: 0vh 5vw;
+    border-radius: 10px;
+    margin-top: -13vh;
+}
+}
+@media only screen and (min-width: 576px) {
+  .logoUser img {
+    margin-left: 9px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .logoUser img {
+    margin-left: 37px;
+  }
+}
+@media only screen and (min-width: 991px) {
+    .logoUser img {
+      margin-left: 55px;
+    }
     
 }
 
-@media only screen and (min-width: 1024px){
-    
+@media only screen and (min-width: 1024px) {
+  .navbar-nav {
+    background-color: rgb(255, 255, 255);
+    padding: 0vh 5vw;
+    border-radius: 10px;
+
+    margin-left: -61px;
+}
 }
 
-@media only screen and (min-width: 1440px){
-    
+@media only screen and (min-width: 1440px) {
 }
 
-@media only screen and (min-width: 2560px){
-    
+@media only screen and (min-width: 2560px) {
 }
