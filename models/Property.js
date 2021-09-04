@@ -10,7 +10,7 @@ const propertySchema = new mongoose.Schema({
     district: {type: String, required: true},
     photosURL: [],
     videoURL: {type: String, default: null},
-    isNew: {type: Boolean, default: false},
+    isBrandNew: {type: Boolean, default: false},
     isHouse: {type: Boolean, default: false},
     houseStyle: {type: String, required: true},
     forSale: {type: Boolean, default: false},

@@ -10,7 +10,7 @@ const router = express.Router()
 
 // USERS ROUTES
 router.route('/users') // BORRAR ANTES DE DEPLOY
-.get(userControllers.getAllUsers)
+// .get(userControllers.getAllUsers)
 router.route('/user/register')
 .post(
     validatorControllers.validatorSignUp,
@@ -21,12 +21,12 @@ router.route('/user/login')
 router.route('/user/validate')
 .get(
     passport.authenticate('jwt', {session: false}),
-    userControllers.isValidUser
+    // userControllers.isValidUser
 )
 router.route('/user/wishlist')
 .get(
     passport.authenticate('jwt', {session: false}),
-    userControllers.getWishList
+    // userControllers.getWishList
 )
 
 // CITY ROUTES
@@ -39,13 +39,13 @@ router.route('/city')
     passport.authenticate('jwt', {session: false}),
     cityControllers.postACity
 )
-.delete(
-    passport.authenticate('jwt', {session: false}),
-    cityControllers.removeACity
-)
 .put(
     passport.authenticate('jwt', {session: false}),
     cityControllers.modifyACity
+)
+.delete(
+    passport.authenticate('jwt', {session: false}),
+    cityControllers.removeACity
 )
 
 // AGENT ROUTES
