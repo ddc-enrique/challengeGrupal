@@ -3,7 +3,9 @@ import Header from "./Header";
 import HomeFilter from "./HomeFilter";
 
 const Hero = () => {
-  return (
+
+
+return (
     <div
       className="containerHero"
       style={{ backgroundImage: `url("/assets/backGround375.jpg")` }}
