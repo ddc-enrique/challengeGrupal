@@ -3,11 +3,23 @@ html * {
   padding: 0;
   box-sizing: border-box;
 }
+
+.navbar {
+   width: 30%;
+   height: 10vh;
+ }
+ .navbar-collapse {
+   margin-top: 15vh;
+ }
+ .containerHome {
+    width: 100vw;
+ }
+
 .header {
   display: flex;
   justify-content: space-between;
   padding-top: 2.5vh;
-}
+ }
 .containerHero {
   width: 100%;
   height: 100vh;
@@ -52,17 +64,112 @@ h1 {
   .header {
     align-items: center;
   }
+  
+.homeFilter {
+    /* background-color: blue; */
+    width: 95%;
+    height: 16rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
-  .navbar {
-    width: 30%;
-    height: 10vh;
-  }
-  .navbar-collapse {
-    margin-top: 15vh;
-  }
-  .containerHome {
-    width: 100vw;
-  }
+.homeFilter > * {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+.firstRow {
+    width: 100%;
+}
+
+.firstRow ul {
+    list-style-type: none;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.firstRow li {
+    background-color: black;
+    color: white;
+    padding: 0.3rem;
+    border-radius: 5px;
+    position: relative;
+}
+
+li.active {
+    background-color: white;
+    color: black;
+}
+
+li.active::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #FFF;
+    position: absolute;
+    top: 26px;
+    left: calc((100% / 2) - 10px);
+}
+
+.secondRow {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.secondRow div {
+    width: 100%;
+    display: flex;
+}
+
+.secondRow select {
+    background-color: transparent;
+    border: none;
+    flex: 1;
+    height: 2.5rem; 
+}
+
+.secondRow select:focus {
+    border: 1px solid transparent;
+}
+
+.boxes {
+    background-color: transparent;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.5rem;
+    padding-left: 2rem;
+}
+
+.boxes input {
+    margin-right: 0.3rem;
+}
+
+.homeFilterButton {
+    width: 100%;
+}
+
+.homeFilterButton button {
+    width: 90%;
+    height: 2.5rem;
+    background-color: black;
+    color: white;
+    font-size: 1.4rem;
+    padding: 0.2rem;
+    border: none;
+    border-radius: 5px;
 }
 
 

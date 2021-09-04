@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "./Header";
+import HomeFilter from "./HomeFilter";
 
 const Hero = () => {
 
@@ -7,9 +8,10 @@ const Hero = () => {
 return (
     <div
       className="containerHero"
-      style={{backgroundImage: `url("/assets/backGround375.jpg")` }}
-      on>
-      <Header/>
+      style={{ backgroundImage: `url("/assets/backGround375.jpg")` }}
+    >
+      <Header />
+      <HomeFilter />
     </div>
   );
 };
