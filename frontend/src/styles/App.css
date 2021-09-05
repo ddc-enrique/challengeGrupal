@@ -8,13 +8,13 @@ html * {
   box-sizing: border-box;
 }
 
-
 header {
   width: 100%;
   display: flex;
   justify-content: space-around;
   padding-top: 0.5rem;
   align-items: center;
+  z-index: 1;
 }
 
 header h1 {
@@ -60,47 +60,21 @@ header h1 {
   background-color: inherit;
 }
 
-
-
 /*  FOOTER  */
 
-
 @media only screen and (min-width: 375px) {
-
 }
 
 @media only screen and (min-width: 425px) {
-  .navbar-nav {
-    background-color: rgb(255, 255, 255);
-    padding: 0vh 5vw;
-    border-radius: 10px;
-    margin-top: -13vh;
-  }
 }
 @media only screen and (min-width: 576px) {
-  .logoUser img {
-    margin-left: 9px;
-  }
 }
 @media only screen and (min-width: 768px) {
-  .logoUser img {
-    margin-left: 37px;
-  }
 }
 @media only screen and (min-width: 991px) {
-  .logoUser img {
-    margin-left: 55px;
-  }
 }
 
 @media only screen and (min-width: 1024px) {
-  .navbar-nav {
-    background-color: rgb(255, 255, 255);
-    padding: 0vh 5vw;
-    border-radius: 10px;
-
-    margin-left: -61px;
-  }
 }
 
 @media only screen and (min-width: 1440px) {

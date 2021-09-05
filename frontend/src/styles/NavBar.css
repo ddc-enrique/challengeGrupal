@@ -1,0 +1,32 @@
+.navBar button {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  padding-left: 1rem;
+}
+
+.navBar .userMenu {
+  background-color: #fff;
+  padding: 0rem 0.5rem;
+  border-radius: 0.3rem;
+  width: 6rem;
+}
+.navBar .userMenu > a {
+  padding: 1rem;
+  color: black;
+  text-decoration: none;
+  border-bottom: 1px solid rgb(0, 0, 0);
+}
+
+.navBar .closeDiv,
+.navBar .closeDiv1 {
+  background-color: rgba(0, 128, 0, 0.637);
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  right: 2vw;
+}
+
+.navBar .closeDiv1 {
+  background-color: blue;
+}
