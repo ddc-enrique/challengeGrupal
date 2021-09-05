@@ -1,32 +1,49 @@
+.navBar{
+  width: 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .navBar button {
   outline: none;
   border: none;
   background-color: transparent;
-  padding-left: 1rem;
+  align-self: center;
 }
 
 .navBar .userMenu {
+  width: 100%;
   background-color: #fff;
-  padding: 0rem 0.5rem;
   border-radius: 0.3rem;
-  width: 6rem;
 }
+
 .navBar .userMenu > a {
-  padding: 1rem;
+  width: 100%;
+  display: block;
   color: black;
+  padding: 1rem;
+  border-bottom: 0.2rem solid rgb(46, 110, 139);
+  text-align: center;
   text-decoration: none;
-  border-bottom: 1px solid rgb(0, 0, 0);
 }
 
-.navBar .closeDiv,
+.navBar .userMenu > a:last-child {
+  border-bottom: none;
+}
+
 .navBar .closeDiv1 {
-  background-color: rgba(0, 128, 0, 0.637);
   position: absolute;
-  width: 100vw;
-  height: 100vh;
-  right: 2vw;
+  width: 101vw;
+  height: 90vh;
+  top: 30vh;
+  right: 0;
 }
 
-.navBar .closeDiv1 {
-  background-color: blue;
+.navBar .closeDiv2 {
+  width: 76vw;
+  height: 18vh;
+  position: absolute;
+  top: 11vh;
+  right: 28vw;
 }

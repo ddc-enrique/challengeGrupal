@@ -1,26 +1,24 @@
-import "../styles/NavBar.css"
+import "../styles/NavBar.css";
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
 const NavBar = () => {
-  const [change, setChange] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
+
   const nav = [
-    { name: "Registrarse", ruta: "/logOut" },
-    { name: "Ingresar", ruta: "/logIn" },
+    { name: "Ingresar", ruta: "/SignIn" },
+    { name: "Registrarse", ruta: "/SignUp" },
   ];
   var navMap = nav.map((a, index) => (
     <Link key={index} to={a.ruta}>
-      <div className="links">{a.name}</div>
+      {a.name}
     </Link>
   ));
 
-  const runButton = () => {
-    setChange(!change);
-  };
-
   return (
     <div className="navBar">
-      <button onClick={runButton}>
+      <button onClick={() => setNavOpen(!navOpen)}>
         <img
           className="logoUser"
           src="/assets/logo.png"
@@ -29,11 +27,15 @@ const NavBar = () => {
           height="50px"
         />
       </button>
-      {change && (
+      {navOpen && (
         <>
           <nav className="userMenu">{navMap}</nav>
-          <div className="closeDiv" onClick={() => setChange(false)}></div>
-          <div className="closeDiv1" onClick={() => setChange(false)}></div>
+          <div className="closeDiv1" 
+            onClick={() => setNavOpen(false)}>
+          </div>
+          <div className="closeDiv2" 
+            onClick={() => setNavOpen(false)}>
+          </div>
         </>
       )}
     </div>
