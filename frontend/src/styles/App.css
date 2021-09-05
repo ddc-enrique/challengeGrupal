@@ -1,76 +1,41 @@
-html {
-  font-size: 4vw;
-}
 
 html * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
-header {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  padding-top: 0.5rem;
-  align-items: center;
-  z-index: 1;
-}
-
-header h1 {
-  text-shadow: 1px 1px 7px black;
-  color: white;
-  margin-bottom: 1.5rem;
-}
-
-.navbar {
-  width: 30%;
-  height: 10vh;
-}
-
-.navbar-collapse {
-  margin-top: 15vh;
-}
-
-.nav {
-  width: 18vw;
-  height: 16vh;
-}
-.navbar .navbar-nav {
-  flex-direction: column !important;
-}
-
-.logoUser img {
-  width: 50px;
-  height: 50px;
-  margin-left: -5px;
-}
-
-.navbar-nav {
-  background-color: rgb(255, 255, 255);
-  padding: 0vh 5vw;
-  margin-left: -57px;
-  border-radius: 10px;
-  margin-top: -57px;
-}
-
-.logoUser {
-  outline: none;
-  border: none;
-  background-color: inherit;
-}
-
-/*  FOOTER  */
-
 @media only screen and (min-width: 375px) {
+  html {
+    font-size: 4vw;
+  }
+  
+  header {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 0.5rem;
+    align-items: center;
+    z-index: 1;
+  }
+
+  header h1 {
+    text-shadow: 1px 1px 7px black;
+    color: white;
+    margin-bottom: 1.5rem;
+  }
+
 }
 
 @media only screen and (min-width: 425px) {
+
 }
+
 @media only screen and (min-width: 576px) {
 }
+
 @media only screen and (min-width: 768px) {
 }
+
 @media only screen and (min-width: 991px) {
 }
 
