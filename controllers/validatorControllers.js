@@ -10,6 +10,7 @@ const validatorControllers ={
             google: joi.boolean(),
             facebook: joi.boolean()
         })
+        //.pattern(/\p{L}+$/u)
         const validation = schema.validate(req.body, {abortEarly: false})
         if(!validation.error){
             next()

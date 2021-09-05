@@ -5,11 +5,21 @@ const handleError = (res,err) =>{
 }
 const propertyControllers = {
     getProperties:(req, res) =>{
-        // agregar filtro que viene en req.body.filter
+        // necesito que me manden de frontend todos los filtros dentro de body en {filter:{filtros...}} OJO dentro de filtros tener greater and lower
         console.log("Received Get Properties Petition:" + Date())
-        Property.find()
-        .then(properties => res.json({success: true, response: properties}))
-        .catch(err => handleError(res,err))
+        if (req.body.filter){
+            if (Object.keys(req.body.filter).length === 0){
+                Property.find()
+                .then(properties => res.json({success: true, response: properties}))
+                .catch(err => handleError(res,err))
+            }else{
+                Property.find({...req.body.filter, price: {$gte: req.body.filter.greater || 0, $lte: req.body.filter.lower || Number.MAX_VALUE}})
+                .then(properties => res.json({success: true, response: properties}))
+                .catch(err => handleError(res, err))
+            }     
+        }else{
+            res.json({sucess: false, response: "Body can't be blank, have to put something"})
+        }    
     },
     getAProperty:(req, res) =>{
         console.log("Received Get Property Petition:" + Date())
