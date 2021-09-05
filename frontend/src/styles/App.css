@@ -1,0 +1,49 @@
+
+html * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+@media only screen and (min-width: 375px) {
+  html {
+    font-size: 4vw;
+  }
+  
+  header {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 0.5rem;
+    align-items: center;
+    z-index: 1;
+  }
+
+  header h1 {
+    text-shadow: 1px 1px 7px black;
+    color: white;
+    margin-bottom: 1.5rem;
+  }
+
+}
+
+@media only screen and (min-width: 425px) {
+
+}
+
+@media only screen and (min-width: 576px) {
+}
+
+@media only screen and (min-width: 768px) {
+}
+
+@media only screen and (min-width: 991px) {
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (min-width: 1440px) {
+}
+
+@media only screen and (min-width: 2560px) {
+}

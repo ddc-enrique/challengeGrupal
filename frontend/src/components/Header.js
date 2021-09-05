@@ -3,12 +3,12 @@ import Navbar from "./Navbar";
 
 const Header = () => {
   return (
-    <div className="header">
-     <h1>MarDelCasas</h1>
-     <div className="nav">
-      <Navbar/>
-     </div>
-    </div>
+    <header>
+      <h1>MarDelCasas</h1>
+      <div className="nav">
+        <Navbar />
+      </div>
+    </header>
   );
 };
 

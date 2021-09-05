@@ -1,14 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "./Header";
 import HomeFilter from "./HomeFilter";
 
-const Hero = () => {
-
-
-return (
+const HeroHome = () => {
+  
+  return (
     <div
       className="containerHero"
-      style={{ backgroundImage: `url("/assets/backGround375.jpg")` }}
     >
       <Header />
       <HomeFilter />
@@ -16,4 +14,4 @@ return (
   );
 };
 
-export default Hero;
+export default HeroHome;
