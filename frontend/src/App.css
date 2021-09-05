@@ -14,6 +14,7 @@ html * {
 .containerHome {
     width: 100vw;
 }
+
 .containerHero {
     width: 100%;
     height: 100vh;
@@ -127,11 +128,6 @@ li.active::before {
     border: none;
     border-radius: 5px;
 }
-
-
-
-
-
 
 @media only screen and (min-width: 425px){
 }

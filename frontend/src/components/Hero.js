@@ -1,4 +1,5 @@
 import React from "react";
+import BigFilter from "./BigFilter";
 import Header from "./Header";
 import HomeFilter from "./HomeFilter";
 
@@ -9,7 +10,8 @@ const Hero = () => {
       style={{ backgroundImage: `url("/assets/backGround375.jpg")` }}
     >
       <Header />
-      <HomeFilter />
+      {/* <HomeFilter /> */}
+      <BigFilter />
     </div>
   );
 };

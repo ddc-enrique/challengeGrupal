@@ -39,11 +39,11 @@ const HomeFilter = () => {
                 <div className="boxes">
                     <div>
                         <input type="checkbox" id="aEstrenar"/>
-                        <label >A estrenar</label>
+                        <label htmlFor="aEstrenar">A estrenar</label>
                     </div>
                     <div>
                         <input type="checkbox" id="conCochera"/>
-                        <label >Con cochera</label>
+                        <label htmlFor="conCochera">Con cochera</label>
                     </div>
                 </div>
             </div>
