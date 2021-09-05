@@ -25,9 +25,12 @@ header h1 {
 
 .navbar {
   width: 30%;
-  height: 10rem;
+
 }
 
+.navbar {
+  height: 10rem;
+}
 
 /*  FOOTER  */
 
