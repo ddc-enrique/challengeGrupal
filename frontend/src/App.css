@@ -1,5 +1,5 @@
 html {
-  font-size: 1vw; /* 1rem = 1vw */
+  font-size: 4vw;
 }
 
 html * {
@@ -8,42 +8,49 @@ html * {
   box-sizing: border-box;
 }
 
-.navbar {
-  width: 30%;
-  height: 10vh;
-}
-.navbar-collapse {
-  margin-top: 15vh;
-}
+
 .containerHome {
-  width: 100vw;
+
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-.header {
+header {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
-  padding-top: 2.5vh;
+  justify-content: space-around;
+  padding-top: 0.5rem;
+  align-items: center;
 }
 
-.containerHero {
+header h1 {
+  text-shadow: 1px 1px 7px black;
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+.navbar {
+  width: 30%;
+  height: 10vh;
+}
+
+.navbar-collapse {
+  margin-top: 15vh;
+}
+
+.containerHome .containerHero {
   width: 100%;
   height: 100vh;
   background-size: cover;
   background-position: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .nav {
   width: 18vw;
   height: 16vh;
-}
-h1 {
-  text-shadow: 1px 1px 7px black;
-  margin-left: 15px;
-  color: white;
 }
 .navbar .navbar-nav {
   flex-direction: column !important;
@@ -69,12 +76,8 @@ h1 {
   background-color: inherit;
 }
 
-.header {
-  align-items: center;
-}
-
-.homeFilter {
-  /* background-color: blue; */
+/* FILTER DE HOME */
+.containerHome .homeFilter {
   width: 95%;
   height: 16rem;
   display: flex;
@@ -82,18 +85,18 @@ h1 {
   justify-content: space-between;
 }
 
-.homeFilter > * {
+.containerHome .homeFilter > * {
   width: 100%;
   display: flex;
   justify-content: center;
   padding: 0.5rem;
 }
 
-.firstRow {
+.containerHome .homeFilter .firstRow {
   width: 100%;
 }
 
-.firstRow ul {
+.containerHome .homeFilter .firstRow ul {
   list-style-type: none;
   width: 80%;
   display: flex;
@@ -101,7 +104,7 @@ h1 {
   justify-content: space-between;
 }
 
-.firstRow li {
+.containerHome .homeFilter .firstRow li {
   background-color: black;
   color: white;
   padding: 0.3rem;
@@ -109,49 +112,49 @@ h1 {
   position: relative;
 }
 
-li.active {
+.containerHome .homeFilter .firstRow li.active {
   background-color: white;
   color: black;
 }
 
-li.active::before {
+.containerHome .homeFilter .firstRow li.active::before {
   content: "";
   width: 0;
   height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 10px solid #fff;
+  border-left: 0.7rem solid transparent;
+  border-right: 0.7rem solid transparent;
+  border-top: 0.7rem solid #fff;
   position: absolute;
-  top: 26px;
-  left: calc((100% / 2) - 10px);
+  top: 2rem;
+  left: calc((100% / 2) - 0.7rem);
 }
 
-.secondRow {
+.containerHome .homeFilter .secondRow {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
-  border-radius: 8px;
+  border-radius: 0.5rem;
 }
 
-.secondRow div {
+.containerHome .homeFilter .secondRow div {
   width: 100%;
   display: flex;
 }
 
-.secondRow select {
+.containerHome .homeFilter .secondRow select {
   background-color: transparent;
   border: none;
   flex: 1;
   height: 2.5rem;
 }
 
-.secondRow select:focus {
+.containerHome .homeFilter .secondRow select:focus {
   border: 1px solid transparent;
 }
 
-.boxes {
+.containerHome .homeFilter .boxes {
   background-color: transparent;
   width: 100%;
   display: flex;
@@ -161,15 +164,15 @@ li.active::before {
   padding-left: 2rem;
 }
 
-.boxes input {
+.containerHome .homeFilter .boxes input {
   margin-right: 0.3rem;
 }
 
-.homeFilterButton {
+.containerHome .homeFilter .homeFilterButton {
   width: 100%;
 }
 
-.homeFilterButton button {
+.containerHome .homeFilter .homeFilterButton button {
   width: 90%;
   height: 2.5rem;
   background-color: black;
@@ -177,48 +180,57 @@ li.active::before {
   font-size: 1.4rem;
   padding: 0.2rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.3rem;
 }
 
-.navBar{
+
+/*  FOOTER  */
+footer {
+  height: 10rem;
   color: white;
   background-color: #493737;
   display: flex;
   flex-direction: column;
-  padding: 7vw;
+  justify-content: space-between;
 }
 
-div.liks a{
+footer .contact {
+  display: flex;
+  justify-content: space-evenly;
+  flex: 1;
+  padding: 0.3rem 0;
+}
+
+footer .contact>div {
   display: flex;
   flex-direction: column;
-  text-decoration: none;
-  color: white;
+  justify-content: space-between;
 }
 
-div.copyright{
-  color: white;
-  width: 100%;
-  padding:4vw;
-  background-color: black;
-  text-align: center;
+footer .contactInfo>div{
+  display: flex;
+  width: 80%;
+}
+
+footer .contact .contactInfo div p{
+  margin-left: 0.3rem;
 }
 
 img.rrssImg{
   width: 1.5rem;
-  height: 1.5rem;
-  background-size: cover;
-  background-position: center;
-  margin-right: 0.5rem;
+  height: 1.7rem;
+
 }
 
-.contact{
-  display: flex;
-}
-section{
-  gap: 0.5rem;
+footer .copyright{
+  color: white;
+  padding: 0.5rem;
+  background-color: black;
+  text-align: center;
 }
 
 @media only screen and (min-width: 375px) {
+
 }
 
 @media only screen and (min-width: 425px) {
