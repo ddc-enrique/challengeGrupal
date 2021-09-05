@@ -25,40 +25,9 @@ header h1 {
 
 .navbar {
   width: 30%;
-  height: 10vh;
+  height: 10rem;
 }
 
-.navbar-collapse {
-  margin-top: 15vh;
-}
-
-.nav {
-  width: 18vw;
-  height: 16vh;
-}
-.navbar .navbar-nav {
-  flex-direction: column !important;
-}
-
-.logoUser img {
-  width: 50px;
-  height: 50px;
-  margin-left: -5px;
-}
-
-.navbar-nav {
-  background-color: rgb(255, 255, 255);
-  padding: 0vh 5vw;
-  margin-left: -57px;
-  border-radius: 10px;
-  margin-top: -57px;
-}
-
-.logoUser {
-  outline: none;
-  border: none;
-  background-color: inherit;
-}
 
 /*  FOOTER  */
 
