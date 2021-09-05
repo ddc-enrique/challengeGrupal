@@ -28,7 +28,13 @@ router.route('/user/wishlist')
     passport.authenticate('jwt', {session: false}),
     // userControllers.getWishList
 )
-
+router.route('/user/mail') // revisar
+.get(
+    passport.authenticate('jwt', {session: false}),
+    userControllers.sendMail
+)
+router.route('/user/validatemail/:id') // revisar
+.get(userControllers.validateUser)
 // CITY ROUTES
 router.route('/cities')
 .get(cityControllers.getAllCities)

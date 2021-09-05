@@ -11,6 +11,7 @@ const app = express()  // creo una instancia de Express (createApplication())
 app.use(cors())
 app.use(express.json())
 
+
 // verificar path de produccion
 app.use('/api', router) // cuando haga cualquier pedido a la /api, ejecuto el router
 if(process.env.NODE_ENV === 'production'){
