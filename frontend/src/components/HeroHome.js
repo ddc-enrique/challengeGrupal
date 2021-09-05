@@ -2,7 +2,7 @@ import React from "react";
 import Header from "./Header";
 import HomeFilter from "./HomeFilter";
 
-const Hero = () => {
+const HeroHome = () => {
 
 
 return (
@@ -16,4 +16,4 @@ return (
   );
 };
 
-export default Hero;
+export default HeroHome;

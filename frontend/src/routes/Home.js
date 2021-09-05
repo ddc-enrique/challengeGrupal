@@ -1,11 +1,12 @@
+import "../styles/Home.css"
 import React from "react";
 import Footer from "../components/Footer";
-import Hero from "../components/Hero";
+import HeroHome from "../components/HeroHome";
 
 const Home = () => {
   return (
     <div className="containerHome">
-      <Hero />
+      <HeroHome />
       <Footer />
     </div>
   );
