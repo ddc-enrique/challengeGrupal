@@ -1,11 +1,13 @@
+import "../styles/Home.css"
 import React from "react";
-import Header from "../components/Header";
-import Hero from "../components/Hero";
+import Footer from "../components/Footer";
+import HeroHome from "../components/HeroHome";
 
 const Home = () => {
   return (
     <div className="containerHome">
-      <Hero />
+      <HeroHome />
+      <Footer />
     </div>
   );
 };

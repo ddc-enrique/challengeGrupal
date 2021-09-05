@@ -1,4 +1,4 @@
-import "./styles/App.css"
+import './App.css';
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Home from './routes/Home';
 
@@ -7,8 +7,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Home}/>
-
-        {/* <Redirect /> */}
+        <Redirect />
       </Switch>
     </BrowserRouter>
   );

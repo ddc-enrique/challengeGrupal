@@ -1,106 +1,98 @@
-html * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.header {
-    z-index: 1;
-}
-.header h1 {
-    color: white;
-}
-
 .containerHome {
-    width: 100vw;
-}
-
-.containerHero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .containerHome .containerHero {
     width: 100%;
     height: 100vh;
     background-size: cover;
     background-position: center;
-}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-.homeFilter {
-    /* background-color: blue; */
+  /* FILTER DE HOME */
+.containerHome .homeFilter {
     width: 95%;
     height: 16rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
-
-.homeFilter > * {
+  }
+  
+  .containerHome .homeFilter > * {
     width: 100%;
     display: flex;
     justify-content: center;
     padding: 0.5rem;
-}
-
-.firstRow {
+  }
+  
+  .containerHome .homeFilter .firstRow {
     width: 100%;
-}
-
-.firstRow ul {
+  }
+  
+  .containerHome .homeFilter .firstRow ul {
     list-style-type: none;
     width: 80%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-}
-
-.firstRow li {
+  }
+  
+  .containerHome .homeFilter .firstRow li {
     background-color: black;
     color: white;
     padding: 0.3rem;
     border-radius: 5px;
     position: relative;
-}
-
-li.active {
+  }
+  
+  .containerHome .homeFilter .firstRow li.active {
     background-color: white;
     color: black;
-}
-
-li.active::before {
+  }
+  
+  .containerHome .homeFilter .firstRow li.active::before {
     content: "";
     width: 0;
     height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid #FFF;
+    border-left: 0.7rem solid transparent;
+    border-right: 0.7rem solid transparent;
+    border-top: 0.7rem solid #fff;
     position: absolute;
-    top: 26px;
-    left: calc((100% / 2) - 10px);
-}
-
-.secondRow {
+    top: 1.7rem;
+    left: calc((100% / 2) - 0.7rem);
+  }
+  
+  .containerHome .homeFilter .secondRow {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: white;
-    border-radius: 8px;
-}
-
-.secondRow div {
+    border-radius: 0.5rem;
+  }
+  
+  .containerHome .homeFilter .secondRow div {
     width: 100%;
     display: flex;
-}
-
-.secondRow select {
+  }
+  
+  .containerHome .homeFilter .secondRow select {
     background-color: transparent;
     border: none;
     flex: 1;
-    height: 2.5rem; 
-}
-
-.secondRow select:focus {
+    height: 2.5rem;
+  }
+  
+  .containerHome .homeFilter .secondRow select:focus {
     border: 1px solid transparent;
-}
-
-.boxes {
+  }
+  
+  .containerHome .homeFilter .boxes {
     background-color: transparent;
     width: 100%;
     display: flex;
@@ -108,17 +100,17 @@ li.active::before {
     align-items: center;
     height: 2.5rem;
     padding-left: 2rem;
-}
-
-.boxes input {
+  }
+  
+  .containerHome .homeFilter .boxes input {
     margin-right: 0.3rem;
-}
-
-.homeFilterButton {
+  }
+  
+  .containerHome .homeFilter .homeFilterButton {
     width: 100%;
-}
-
-.homeFilterButton button {
+  }
+  
+  .containerHome .homeFilter .homeFilterButton button {
     width: 90%;
     height: 2.5rem;
     background-color: black;
@@ -126,27 +118,5 @@ li.active::before {
     font-size: 1.4rem;
     padding: 0.2rem;
     border: none;
-    border-radius: 5px;
-}
-
-@media only screen and (min-width: 425px){
-}
-
-@media only screen and (min-width: 768px){
-    /* .containerHero {
-        background-image: url("/assets/backGround768.jpg");
-    } */
-    
-}
-
-@media only screen and (min-width: 1024px){
-    
-}
-
-@media only screen and (min-width: 1440px){
-    
-}
-
-@media only screen and (min-width: 2560px){
-    
-}
+    border-radius: 0.3rem;
+  }

@@ -3,8 +3,10 @@ import BigFilter from "./BigFilter";
 import Header from "./Header";
 import HomeFilter from "./HomeFilter";
 
-const Hero = () => {
-  return (
+const HeroHome = () => {
+
+
+return (
     <div
       className="containerHero"
       style={{ backgroundImage: `url("/assets/backGround375.jpg")` }}
@@ -16,4 +18,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default HeroHome;
