@@ -19,6 +19,7 @@
 
     /* FILTER DE HOME */
   .containerHome .homeFilter {
+    margin-top: 7rem;
     width: 95%;
     height: 16rem;
     display: flex;
@@ -27,6 +28,7 @@
   }
 
   .containerHome .homeFilter > * {
+    font-size: 1.2rem;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -39,7 +41,7 @@
 
   .containerHome .homeFilter .firstRow ul {
     list-style-type: none;
-    width: 80%;
+    width: 85%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -85,6 +87,7 @@
   }
 
   .containerHome .homeFilter .secondRow select {
+    font-size: 1.1rem;
     background-color: transparent;
     border: none;
     flex: 1;
@@ -102,11 +105,18 @@
     justify-content: center;
     align-items: center;
     height: 2.5rem;
-    padding-left: 2rem;
+    padding-left: 1.8rem;
+  }
+
+  .containerHome .homeFilter .boxes > div{
+    background-color: transparent;
+    width: 100%;
+    display: flex;
+    align-items: center;
   }
 
   .containerHome .homeFilter .boxes input {
-    margin-right: 0.3rem;
+    margin-right: 0.4rem;
   }
 
   .containerHome .homeFilter .homeFilterButton {
