@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 const HomeFilter = () => {
-
     const [filter, setFilter] = useState({ forSale: false, shortRental: false, isHouse: false, houseStyle: "", numberOfBedrooms: 0, numberOfBathrooms: 0, isBrandNew: false, haveGarage: false, })
 
     const changeClassHandle = (e) => {
