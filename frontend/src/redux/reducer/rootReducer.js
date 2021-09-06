@@ -5,7 +5,6 @@ import propertiesReducer from "./propertiesReducer";
 const rootReducer = combineReducers({
   allCities: citiesReducer,
   properties: propertiesReducer,
-
 });
 
 export default rootReducer;

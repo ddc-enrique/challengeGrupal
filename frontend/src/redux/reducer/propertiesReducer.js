@@ -17,4 +17,4 @@ const propertiesReducer = (state = initState, action) => {
     }
 }
 
-export default propertiesReducer
+export default propertiesReducer;

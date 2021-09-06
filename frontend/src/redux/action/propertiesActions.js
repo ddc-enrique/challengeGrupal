@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "axios";
 
 const propertiesActions = {
     getPropertiesFiltered: (filter) => {
@@ -10,4 +10,14 @@ const propertiesActions = {
     },
 }
 
-export default propertiesActions
+  getNumberOfProperties: (id) => {
+    return async () => {
+      let res = await axios.get(
+        `http://localhost:4000/api/getnumberofprops/${id}`
+      );
+      return res.data;
+    };
+  },
+};
+
+export default propertiesActions;
