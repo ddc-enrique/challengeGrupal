@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Header from "./Header";
 import HomeFilter from "./HomeFilter";
 
 const HeroHome = () => {
   
   return (
-    <div
-      className="containerHero"
-    >
+    <div className="containerHero">
       <Header />
       <HomeFilter />
     </div>
