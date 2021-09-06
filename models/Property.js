@@ -26,6 +26,7 @@ const propertySchema = new mongoose.Schema({
     roofedArea: {type: Number, required: true},
     totalArea: {type: Number, required: true},
     price: {type: Number, required: true},
+    isUSD: {type: Boolean, default: false},
     rentDuration: {type: Number, default: 0},
     appointments: [appointmentSchema],
     postedAt: {type: Date, default: Date.now},
