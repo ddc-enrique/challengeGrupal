@@ -18,6 +18,7 @@ const HomeFilter = (props) => {
         if (searchProperties) {
             async function getPropertiesFiltered() {
                 try {
+                    console.log(filter)
                     let res = await props.getPropertiesFiltered(filter)
                     if (!res.data.success) {
                         throw res.data.response
@@ -74,26 +75,21 @@ const HomeFilter = (props) => {
             var ishouseValue  = true
         } else {
             ishouseValue = false
-        } 
-        if (e.target.name === "numberOfBedrooms") {
-            var numberOfBedroomsValue = e.target.value
-        } else {
-            numberOfBedroomsValue = filter.numberOfBedrooms
-        }
-        if (e.target.name === "numberOfBathrooms") {
-            var numberOfBathroomsValue = e.target.value
-        } else {
-            numberOfBathroomsValue = filter.numberOfBathrooms
         }
         setFilter({
             ...filter,
-            [e.target.name]: e.target.value,
             isHouse: ishouseValue,
-            numberOfBedrooms: parseInt(numberOfBedroomsValue),
-            numberOfBathrooms: parseInt(numberOfBathroomsValue)
+        })
+    }  // VER LA FORMA DE UNIR LOS DOS
+    const inputHandlerBedBath = (e) =>{
+        if(e.target.value === "all"){
+            return false
+        }
+        setFilter({
+            ...filter,
+            [e.target.name]: parseInt(e.target.value) === 6 ? {$gte: 6} : parseInt(e.target.value)
         })
     }
-
     const searchClickHandler = () => {
         setSearchProperties(true)
     }
@@ -117,8 +113,8 @@ const HomeFilter = (props) => {
                     </select>
                 </div>
                 <div>
-                    <select name="numberOfBedrooms" onChange={inputHandler} >
-                        <option>Dormitorios</option>
+                    <select name="numberOfBedrooms" onChange={inputHandlerBedBath} >
+                        <option value="all">Dormitorios</option>
                         <option value="1">1 dormitorio</option>
                         <option value="2">2 dormitorios</option>
                         <option value="3">3 dormitorios</option>
@@ -127,8 +123,8 @@ const HomeFilter = (props) => {
                         <option value="6">6 o mas</option>
                         
                     </select>
-                    <select name="numberOfBathrooms" onChange={inputHandler} >
-                        <option>Baños</option>
+                    <select name="numberOfBathrooms" onChange={inputHandlerBedBath} >
+                        <option value="all">Baños</option>
                         <option value="1">1 baño</option>
                         <option value="2">2 baños</option>
                         <option value="3">3 baños</option>
