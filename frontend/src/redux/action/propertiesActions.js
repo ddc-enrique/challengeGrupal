@@ -17,5 +17,4 @@ const propertiesActions = {
         }
     }
 }
-
 export default propertiesActions;
