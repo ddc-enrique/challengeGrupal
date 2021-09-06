@@ -5,18 +5,20 @@ const Footer = () => {
     return (
     <footer>
         <div className="contact">
-            <div className="contactInfo">
-                <div >
-                    <img className="rrssImg" src="/assets/rrss_icons/pin.png" alt="pin"/>
-                    <p>Alvarado 1560, Mar del Plata, Buenos Aires</p>
+            <div className="addresses">
+                <div className="contactInfo infoOne">
+                    <img className="contactImg" src="/assets/rrss_icons/pin.png" alt="pin"/>
+                    <p>Alvarado 1560, Mar del Plata, <br id="footerBr"/>Buenos Aires</p>
                 </div>
-                <div >
-                    <img className="rrssImg" src="/assets/rrss_icons/telephone.png" alt="telephone"/>
+                <div className="mob">
+                <div  className="contactInfo infoTwo">
+                    <img className="contactImg" src="/assets/rrss_icons/telephone.png" alt="telephone"/>
                     <p>+ 54 223 5391098</p>
                 </div>
-                <div >
-                    <img className="rrssImg" src="/assets/rrss_icons/mail.png" alt="email"/>
+                <div  className="contactInfo infoThree">
+                    <img className="mailImg" src="/assets/rrss_icons/mail.png" alt="email"/>
                     <p>info@mardelcasas.com</p>
+                </div>
                 </div>
             </div>
             <div className="socialNetworks">
