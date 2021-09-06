@@ -10,16 +10,16 @@ const propertyControllers = {
         if (req.body.filter){
             if (Object.keys(req.body.filter).length === 0){
                 Property.find()
-                .then(properties => res.json({success: true, response: properties}))
+                .then(properties => res.json({success: true, response: properties }))
                 .catch(err => handleError(res,err))
             }else{
                 Property.find({...req.body.filter, price: {$gte: req.body.filter.greater || 0, $lte: req.body.filter.lower || Number.MAX_VALUE}})
-                .then(properties => res.json({success: true, response: properties}))
+                .then(properties => res.json({success: true, response: properties }))
                 .catch(err => handleError(res, err))
             }     
         }else{
             res.json({sucess: false, response: "Body can't be blank, have to put something"})
-        }    
+        }   
     },
     getAProperty:(req, res) =>{
         console.log("Received Get Property Petition:" + Date())

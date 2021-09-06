@@ -70,7 +70,7 @@ router.route('/agent')
 router.route('/property/:id')
 .get(propertyControllers.getAProperty)
 router.route('/properties')
-.get(propertyControllers.getProperties)
+.put(propertyControllers.getProperties)
 router.route('/property')
 .post(
     passport.authenticate('jwt', {session: false}),
