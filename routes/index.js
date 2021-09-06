@@ -28,7 +28,36 @@ router.route('/user/wishlist')
     passport.authenticate('jwt', {session: false}),
     // userControllers.getWishList
 )
-
+router.route('/user/validatemail') // revisar
+.get(
+    passport.authenticate('jwt', {session: false}),
+    userControllers.sendValidationMail
+)
+router.route('/user/validatemail/:id') // revisar
+.get(userControllers.validateUser)
+router.route('/user/resetpassword')
+.post(
+    validatorControllers.validatorPasswordResetEmailSend,
+    userControllers.sendResetPasswordMail
+)
+router.route('/user/resetpassword/:id')
+.put(
+    validatorControllers.validatorPasswordChange,
+    userControllers.resetUserPassword
+)
+router.route('/user/compromised/:id')
+.get(userControllers.disableUser)
+router.route('/user/managefilter')
+.put(
+    passport.authenticate('jwt', {session: false}),
+    userControllers.manageDreamHouseOfUser
+)
+// USER ROUTES ADMIN / SUPPORT POWERS
+router.route('/user/manageuser')
+.put(
+    passport.authenticate('jwt', {session:false}),
+    userControllers.manageUser
+)
 // CITY ROUTES
 router.route('/cities')
 .get(cityControllers.getAllCities)
@@ -70,7 +99,7 @@ router.route('/agent')
 router.route('/property/:id')
 .get(propertyControllers.getAProperty)
 router.route('/properties')
-.get(propertyControllers.getProperties)
+.put(propertyControllers.getProperties)
 router.route('/property')
 .post(
     passport.authenticate('jwt', {session: false}),
@@ -84,5 +113,12 @@ router.route('/property')
     passport.authenticate('jwt', {session: false}),
     propertyControllers.removeAProperty
 )
+router.route('/updatemanyproperties')
+.put(
+    passport.authenticate('jwt', {session: false}),
+    propertyControllers.updateManyProps
+)
+router.route('/getnumberofprops/:id')
+.get(propertyControllers.getNumberOfProps)
 
 module.exports = router

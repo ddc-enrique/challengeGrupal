@@ -10,7 +10,10 @@ const userSchema = new mongoose.Schema({
     google: {type: Boolean, default: false},
     facebook: {type: Boolean, default: false},
     likedProperties:[{type: mongoose.Types.ObjectId, ref:'property'}],
-    dreamProperty:{} // completar con el filtro
+    dreamProperty:{}, // completar con el filtro
+    validated: {type: Boolean, default: false},
+    banned: {type: Boolean, default: false},
+    suscribedToNewsLetter: {type: Boolean, default: false}
 })
 const User = mongoose.model('user', userSchema)
 module.exports = User

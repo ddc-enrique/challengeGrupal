@@ -34,12 +34,18 @@ html * {
 }
 
 @media only screen and (min-width: 768px) {
+  html {
+    font-size: 2vw;
+  }
 }
 
 @media only screen and (min-width: 991px) {
 }
 
 @media only screen and (min-width: 1024px) {
+  html {
+    font-size: 1vw;
+  }
 }
 
 @media only screen and (min-width: 1440px) {

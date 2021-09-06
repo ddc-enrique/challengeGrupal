@@ -1,7 +1,31 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { connect } from "react-redux"
+import propertiesActions from '../redux/action/propertiesActions'
 
-const HomeFilter = () => {
-    const [filter, setFilter] = useState({ forSale: false, shortRental: false, isHouse: false, houseStyle: "", numberOfBedrooms: 0, numberOfBathrooms: 0, isBrandNew: false, haveGarage: false, })
+const HomeFilter = (props) => {
+
+    const [searchProperties, setSearchProperties] = useState(false)
+    const [filter, setFilter] = useState({ forSale: true, shortRental: false, isHouse: true, houseStyle: "house", numberOfBedrooms: 0, numberOfBathrooms: 0, isBrandNew: false, haveGarage: false, })
+
+    //revisar si filter se inicializa como un objeto vacio o no. Creo que eberia inicializar con las propiedades inicializadas ya que al hacer click en buscar redirige al componente propertiesList y muestra la lista filtrada como minimo por forSale: true y isHouse: true/ houseStyle: "house" y en ese componenete se amplia los campos para filtrar
+
+    useEffect(() => {
+        console.log("hook pero no manda a action")
+        if (searchProperties) {
+            console.log("hook manda a action")
+            async function getPropertiesFiltered() {
+                try {
+                    let res = await props.getPropertiesFiltered(filter)
+                    if (!res.data.success) throw res.data.response
+                    if (!res.data.response) throw res.data.response
+                } catch (err) {
+                    console.log(err)
+                }
+            }
+            getPropertiesFiltered()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchProperties])
 
     const changeClassHandle = (e) => {
         let elementClicked = e.target.dataset.type
@@ -12,7 +36,6 @@ const HomeFilter = () => {
             } 
         }
         e.target.className="active"
-
         if (e.target.dataset.type === "forSale") {
             var forSaleValue = true
             var shortRentValue = false
@@ -38,18 +61,24 @@ const HomeFilter = () => {
     }
 
     const inputHandler = (e) => {
-        if (e.target.name === "houseStyle" && e.target.value === "house" ) {
-            var ishouseValue  = true
+        if (e.target.name === "houseStyle") {
+            if (e.target.value === "house" ) {
+                var ishouseValue  = true
+            } else {
+                ishouseValue = false
+            } 
         } else {
             ishouseValue = false
-        }
+        } 
         if (e.target.name === "numberOfBedrooms") {
             var numberOfBedroomsValue = e.target.value
-            var numberOfBathroomsValue = 0
+        } else {
+            numberOfBedroomsValue = filter.numberOfBedrooms
         }
         if (e.target.name === "numberOfBathrooms") {
             var numberOfBathroomsValue = e.target.value
-            var numberOfBedroomsValue = 0
+        } else {
+            numberOfBathroomsValue = filter.numberOfBathrooms
         }
         setFilter({
             ...filter,
@@ -60,11 +89,13 @@ const HomeFilter = () => {
         })
     }
 
-    const serchClickHandler = () => {
-        console.log("buscar")
+    const searchClickHandler = () => {
+        // console.log("buscar")
+        setSearchProperties(true)
     }
 
     console.log(filter)
+    console.log(props.propertiesFiltered)
 
     return (
         <div className="homeFilter">
@@ -78,7 +109,6 @@ const HomeFilter = () => {
             <div className="secondRow" >
                 <div>
                     <select name="houseStyle" onChange={inputHandler}>
-                        <option>Tipo de inmueble</option>
                         <option value="house">Casa</option>     
                         <option value="department">Departamento</option>     
                         <option>otra opcion</option>     
@@ -118,10 +148,20 @@ const HomeFilter = () => {
                 </div>
             </div>
                 <div className="homeFilterButton">
-                    <button onClick={serchClickHandler}>Buscar</button>
+                    <button onClick={searchClickHandler}>Buscar</button>
                 </div>
         </div>
     )
 }
 
-export default HomeFilter
+const mapStateToProps = (state) => {
+    return {
+        propertiesFiltered: state.properties.properties
+    }
+}
+
+const mapDispatchToProps = {
+    getPropertiesFiltered: propertiesActions.getPropertiesFiltered
+
+}
+export default connect(mapStateToProps, mapDispatchToProps)(HomeFilter)
