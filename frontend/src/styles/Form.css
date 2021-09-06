@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+@media only screen and (min-width: 375px) {
+    .formSignUp {
+        background-color:black;
+        min-height: 100vh;
+    }
+    .formSignUp form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        min-height: 20rem;
+        flex-direction: column;
+    }
+    form div input {
+        background: rgb(255,255,255);
+        background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(250,166,29,1) 0%, rgba(234,238,19,1) 100%);
+        width: 17rem;
+        padding: 1rem;
+        outline: none;
+        border: 1px solid rgba(128, 128, 128, 0.164);
+        margin: 1rem;
+        color: rgb(0, 0, 0);
+        border-radius: 5px;
+    }
+}
+@media only screen and (min-width: 425px) {
+}
+@media only screen and (min-width: 576px) {
+}
+@media only screen and (min-width: 768px) {
+}
+@media only screen and (min-width: 991px) {
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (min-width: 1440px) {
+}
+
+@media only screen and (min-width: 2560px) {
+}
