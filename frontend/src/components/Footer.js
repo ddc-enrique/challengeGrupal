@@ -6,16 +6,16 @@ const Footer = () => {
     <footer>
         <div className="contact">
             <div className="addresses">
-                <div className="contactInfo">
+                <div className="contactInfo infoOne">
                     <img className="contactImg" src="/assets/rrss_icons/pin.png" alt="pin"/>
-                    <p>Alvarado 1560, Mar del Plata, Buenos Aires</p>
+                    <p>Alvarado 1560, Mar del Plata, <br id="footerBr"/>Buenos Aires</p>
                 </div>
                 <div className="mob">
-                <div  className="contactInfo">
+                <div  className="contactInfo infoTwo">
                     <img className="contactImg" src="/assets/rrss_icons/telephone.png" alt="telephone"/>
                     <p>+ 54 223 5391098</p>
                 </div>
-                <div  className="contactInfo">
+                <div  className="contactInfo infoThree">
                     <img className="mailImg" src="/assets/rrss_icons/mail.png" alt="email"/>
                     <p>info@mardelcasas.com</p>
                 </div>

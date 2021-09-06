@@ -60,22 +60,49 @@ footer div div.socialNetworks{
 }
 
 @media only screen and (min-width: 768px){
-}
-
-@media only screen and (min-width: 1024px){
     footer div div.addresses{
         flex-direction: row;
         padding-left: 0;
     }
-    .mob{
-        flex-direction: row;
+
+    footer div.contact{
+        padding: 1rem 2rem;
+    }
+    div.infoOne{
+        width: 55%;
     }
     footer div div.socialNetworks{
         flex-direction: row;
         justify-content: space-evenly;
     }
+}
+
+@media only screen and (min-width: 1024px){
+
+    
+    footer div div.addresses{
+        width: 85%;
+    }
+
+    .mob{
+        flex-direction: row;
+    }
+
+    footer div div.socialNetworks{
+        width: 15%;
+        justify-content: space-between;
+    }
+
     footer div.contact{
         padding: 1rem 6rem;
+    }
+
+    div.contactInfo{
+        width: 33%;
+    }
+
+    br#footerBr{
+        display: none;
     }
 }
 
