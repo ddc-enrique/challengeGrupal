@@ -49,3 +49,25 @@ div.cardPropertyInfo{
     height: 20%;
 }
 
+@media only screen and (min-width: 768px){
+    div.cardProperty{
+        display: flex;
+        height: 17rem;
+    }
+    div.pictureCardProperty{
+        width: 40%;
+        height: 100%;
+    }
+    div.cardPropertyInfo{
+        width: 60%;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (min-width: 1440px) {
+}
+
+@media only screen and (min-width: 2560px) {
+}
