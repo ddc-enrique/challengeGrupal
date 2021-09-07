@@ -6,13 +6,13 @@ import BigFilter from "../components/BigFilter"
 import { connect } from "react-redux"
 
 const PropertiesList = (props) => {
-    
+    const {filterObj} = props
     // console.log(props)
     console.log(props.filterObj)
     return (
         <div className="containerPropertiesList">
             <Header />
-            <BigFilter />
+            <BigFilter filterObj={filterObj}/>
             {/* select para ordenar */}
             <Footer />
         </div>

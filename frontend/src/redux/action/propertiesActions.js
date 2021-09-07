@@ -9,7 +9,6 @@ const propertiesActions = {
         }
     },
 
-
   getNumberOfProperties: (id) => {
     return async () => {
       let res = await axios.get(

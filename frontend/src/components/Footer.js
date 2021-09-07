@@ -8,12 +8,12 @@ const Footer = () => {
             <div className="addresses">
                 <div className="contactInfo infoOne">
                     <img className="contactImg" src="/assets/rrss_icons/pin.png" alt="pin"/>
-                    <p>Alvarado 1560, Mar del Plata, <br id="footerBr"/>Buenos Aires</p>
+                    <p>Jujuy 995, Mar del Plata, <br id="footerBr"/>Buenos Aires</p>
                 </div>
                 <div className="mob">
                 <div  className="contactInfo infoTwo">
                     <img className="contactImg" src="/assets/rrss_icons/telephone.png" alt="telephone"/>
-                    <p>+ 54 223 5391098</p>
+                    <p>+54 2235391098</p>
                 </div>
                 <div  className="contactInfo infoThree">
                     <img className="mailImg" src="/assets/rrss_icons/mail.png" alt="email"/>

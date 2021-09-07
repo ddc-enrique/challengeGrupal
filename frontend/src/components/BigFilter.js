@@ -1,30 +1,72 @@
 import "../styles/BigFilter.css"
 import React, { useEffect, useState } from 'react'
-import { Flag, PlusSquare } from "react-bootstrap-icons"
+import { PlusSquare } from "react-bootstrap-icons"
+import {connect} from 'react-redux'
+import propertiesActions from "../redux/action/propertiesActions"
+import CardProperty from "./CardProperty"
 
 const BigFilter = (props) => {
+    const {filterObj} = props
+    console.log("Estoy en Big Filter")
+    console.log(filterObj)
     // const {firstFilter} = props; por ahora un objeto vacio pero sera el filtro que llega desde Home
-    const firstFilter = { meTengoQueBorrar: true }
     // variable de estado que controla los valores de formulario, esto en realidad esta seteado pq el filtro llega vacio.
     // Pero lo voy a cambiar para que se inicialice en base a lo que me llegue desde el filtro
+    // evaluar operation --<
+    //forSale (shortrental false, forsale true)
+    //shortRental ( forSale false, shortrental true)
+    //forRental ( shortRental false y forSale false)
+    // spredear lo de abajo y pisar operation
     const [formFilter, setFormFilter] = useState({
         operation: "allCases",  city:"allCases", isHouse: "allCases", 
-        numberOfRooms:"allCases", numberOfBedrooms:"allCases", numberOfBathrooms:"allCases",
+        numberOfRooms:"allCases", numberOfBedrooms: "allCases", numberOfBathrooms: "allCases",
         isUSD:"allCases", greater:"", lower:"", roofedArea:"allCases",
         isBrandNew:false, haveGarden:false, haveGarage:false, havePool:false
     })
+    console.log("Form Filter")
+    console.log(formFilter)
     //variable de estado que se envia al fetchear para filtrar
-    const [bigFilter, setBigFilter] = useState(firstFilter)
+    const [bigFilter, setBigFilter] = useState(filterObj)
+    useEffect( () => {
+        let newOperation = "allCases"
+        let numOfBath = "allCases"  
+        let numOfBed = "allCases"
+        setBigFilter(filterObj)
+        console.log(numOfBed)
+        if(Object.keys(filterObj).length > 0){
+            if(filterObj.forSale){
+                newOperation = "forSale"
+            }else if(!filterObj.forSale && !filterObj.shortRental){
+                newOperation = "forRental"
+            }else if(!filterObj.forSale && filterObj.shortRental){
+                newOperation = "shortRental"
+            }
+            if(filterObj.numberOfBathrooms){
+                console.log(filterObj.numberOfBathrooms)
+                numOfBath = typeof filterObj.numberOfBathrooms  === "object" ? "6AndMore" : filterObj.numberOfBathrooms
+                console.log(numOfBath)
+            }
+            if(filterObj.numberOfBedrooms){
+                console.log(filterObj.numberOfBedrooms)
+                numOfBed = typeof filterObj.numberOfBathrooms  === "object" ? "6AndMore" : filterObj.numberOfBedrooms
+                console.log(numOfBed)
+            }
+        }
+        setFormFilter({...formFilter,...filterObj, operation: newOperation, numberOfBedrooms: numOfBed, numberOfBathrooms: numOfBath})
+    // eslint-disable-next-line
+    },[filterObj])
+    console.log("Big Filter")
+    console.log(bigFilter)
     // variable de estado para que se muestre o no los formularios del filtro
     const [selectFilters, setSelectFilters] = useState(false)
-    let countDeleteFirstFilter = 0
+    // let countDeleteFirstFilter = 0
     
     // eliminar array al fetchear de la api cities
-    const cities = [{cityName:"Mar del Plata", _id:"61339e91002bc214e66e9770"}, {cityName:"Miramar", _id:"6134d063b943d648e2be7014"}]
+    const cities = props.cities
 
-    useEffect(() => {
-        if(countDeleteFirstFilter === 0) setBigFilter({})
-    }, [countDeleteFirstFilter])
+    // useEffect(() => {
+    //     if(countDeleteFirstFilter === 0) setBigFilter({})
+    // }, [countDeleteFirstFilter])
 
     const deletePropertieFromObject = (name) => {
         let objectAux = {};
@@ -93,27 +135,75 @@ const BigFilter = (props) => {
         setFormFilter({ ...formFilter, [e.target.name]: e.target.checked})
     }
 
-    const inputHandler = (e) => {
-        console.log(e.target.checked)
-    }
-
     const searchProperties = () => {
         console.log("objeto que filtra")
         console.log(bigFilter)// llamar al action con axios
+        props.getPropertiesFiltered(bigFilter)
+        .then(res => {
+            if(!res.data.success){
+                throw new Error('Something went wrong')
+            }
+            console.log(res.data.response)
+        })
+        .catch(err => console.log(err))
         console.log("objeto con las opciones actuales")
         console.log(formFilter)
         setSelectFilters(false)
     }
-
-    const listFilterHandler = () => {
+    console.log("Aca tengo las properties q vienen de props")
+    console.log(props.properties)
+    const [sortedProperties, setSortedProperties] = useState(props.properties)
+    useEffect(()=>{
+        setSortedProperties(props.properties)
+    },[props.properties])
+    const listFilterHandler = (e) => {
+        switch (e.target.value){
+            case "minPrice":
+                setSortedProperties(
+                    sortedProperties.sort((a, b) => {
+                        return a.price - b.price;
+                    })
+                )
+                break;
+            case "maxPrice":
+                setSortedProperties(
+                    sortedProperties.sort((a, b) => {
+                        return b.price - a.price;
+                    })
+                )
+                break;
+            case "minArea":
+                setSortedProperties(
+                    sortedProperties.sort((a, b) => {
+                        return a.roofedArea - b.roofedArea;
+                    })
+                )
+                break;
+            case "maxArea":
+                setSortedProperties(
+                    sortedProperties.sort((a, b) => {
+                        return b.roofedArea - a.roofedArea;
+                    })
+                )
+                break;
+            default:
+                setSortedProperties(props.properties)
+                return   
+        }
+        
+        console.log(e.target.value)
         console.log("ordenar")
+        console.log(sortedProperties)
     }
 
     return (
         <div className="bigFilter">
             <div>
                 {!selectFilters &&
-                <button onClick={() => (countDeleteFirstFilter+=1, setSelectFilters(true))}>
+                <button onClick={() => {
+                    // countDeleteFirstFilter+=1 
+                    setSelectFilters(true)
+                }}>
                     Más Filtros <PlusSquare />
                 </button>}
                 <div className="filtersSelected">
@@ -129,7 +219,7 @@ const BigFilter = (props) => {
                             <option value="allCases">Todas las Operaciones</option>
                             <option value="forSale">Venta</option>
                             <option value="forRental">Alquiler</option>
-                            <option value="shortRental">Alquiler Termporario</option>
+                            <option value="shortRental">Alquiler Temporario</option>
                         </select>
                     </div>
                     <div> {/* AXIOS DE CITIES */}
@@ -229,17 +319,30 @@ const BigFilter = (props) => {
                     <button onClick={searchProperties}>Buscar</button>
                 </div>
             </div>}
+
             <div className="sortList">
                 <select onChange={listFilterHandler}>
-                    <option>Mas relevante</option>
-                    <option>Menor precio</option>
-                    <option>Mayor precio</option>
-                    <option>Menor superficie</option>
-                    <option>Mayor superficie</option>
+                    <option value="noSort">Mas relevante</option>
+                    <option value="minPrice">Menor precio</option>
+                    <option value="maxPrice">Mayor precio</option>
+                    <option value="minArea">Menor superficie</option>
+                    <option value="maxArea">Mayor superficie</option>
                 </select>
+            </div>
+            <div className="propertiesCardList">
+                <CardProperty properties={props.properties}/>
             </div>
         </div>
     )
 }
+const mapStateToProps = (state) =>{
+    return {
+        cities: state.allCities.cities,
+        properties: state.properties.properties
+    }
+}
+const mapDispatchToProps = {
+    getPropertiesFiltered: propertiesActions.getPropertiesFiltered
+}
 
-export default BigFilter
+export default connect(mapStateToProps, mapDispatchToProps)(BigFilter)
