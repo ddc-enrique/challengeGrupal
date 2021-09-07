@@ -147,10 +147,13 @@ const HomeFilter = (props) => {
                         <label htmlFor="conCochera">Con cochera</label>
                     </div>
                 </div>
-            </div>
-                <div className="homeFilterButton">
+                <div className="homeFilterButtonBigResponsive">
                     <button onClick={searchClickHandler}>Buscar</button>
                 </div>
+            </div>
+            <div className="homeFilterButton">
+                <button onClick={searchClickHandler}>Buscar</button>
+            </div>
         </div>
     )
 }
