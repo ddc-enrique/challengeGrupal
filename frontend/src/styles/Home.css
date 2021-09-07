@@ -16,7 +16,6 @@
     align-items: center;
   }
 
-
     /* FILTER DE HOME */
   .containerHome .homeFilter {
     margin-top: 7rem;
@@ -25,6 +24,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    
   }
 
   .containerHome .homeFilter > * {
@@ -59,6 +59,7 @@
   .containerHome .homeFilter .firstRow li.active {
     background-color: white;
     color: black;
+    box-shadow: 10px 10px 31px -1px rgba(0,0,0,0.47);
   }
 
   /* flechita indicadora */
@@ -76,11 +77,13 @@
 
   .containerHome .homeFilter .secondRow {
     width: 100%;
+    margin-top: 0.6rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.7);               /* + + */
     border-radius: 0.5rem;
+    box-shadow: 10px 10px 31px -1px rgba(0,0,0,0.47);
   }
 
   .containerHome .homeFilter .secondRow div {
@@ -97,7 +100,7 @@
   }
 
   .containerHome .homeFilter .secondRow select:focus {
-    border: 1px solid transparent;
+    outline: 1px solid transparent;
   }
 
   .containerHome .homeFilter .boxes {
@@ -141,9 +144,7 @@
     cursor: pointer;
   }
 
-
 }
-
 
 @media only screen and (min-width: 425px) {
 }
@@ -158,12 +159,16 @@
     font-size: 1rem;
   }
 
-  .containerHome .homeFilter .secondRow select {
-    font-size: 1rem;
+  .containerHome .homeFilter .firstRow ul {
+    width: 75%;
   }
 
   .containerHome .homeFilter .firstRow li.active::before {
     top: 1.6rem;
+  }
+
+  .containerHome .homeFilter .secondRow select {
+    font-size: 1rem;
   }
 
 }
@@ -351,6 +356,7 @@
     border: none;
     border-radius: 0.3rem;
     cursor: pointer;
+    box-shadow: 10px 10px 31px -1px rgba(0,0,0,0.25);
   }
 
 }
