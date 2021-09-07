@@ -25,8 +25,12 @@ const Main = (props) => {
   ));
   return (
     <main>
-      <h1 className="mainTitle">Buscá en alguna de estas localidades</h1>
-      {city}
+      <div className="mainTitle">
+        <h1>Buscá en alguna de estas localidades</h1>
+      </div>
+      <div className="mainCityCarBox">
+        {city}
+      </div>
     </main>
   );
 };
