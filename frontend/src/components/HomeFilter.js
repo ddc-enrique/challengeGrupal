@@ -99,25 +99,28 @@ const HomeFilter = (props) => {
                     </select>
                 </div>
                 <div>
-                    <select name="numberOfBedrooms" onChange={inputHandlerBedBath} >
-                        <option value="all">Dormitorios</option>
-                        <option value="1">1 dormitorio</option>
-                        <option value="2">2 dormitorios</option>
-                        <option value="3">3 dormitorios</option>
-                        <option value="4">4 dormitorios</option>
-                        <option value="5">5 dormitorios</option>
-                        <option value="6">6 o mas</option>
-                        
-                    </select>
-                    <select name="numberOfBathrooms" onChange={inputHandlerBedBath} >
-                        <option value="all">Baños</option>
-                        <option value="1">1 baño</option>
-                        <option value="2">2 baños</option>
-                        <option value="3">3 baños</option>
-                        <option value="4">4 baños</option>
-                        <option value="5">5 baños</option>
-                        <option value="6">6 o mas</option>
-                    </select>
+                    <div>
+                        <select name="numberOfBedrooms" onChange={inputHandlerBedBath} >
+                            <option value="all">Dormitorios</option>
+                            <option value="1">1 dormitorio</option>
+                            <option value="2">2 dormitorios</option>
+                            <option value="3">3 dormitorios</option>
+                            <option value="4">4 dormitorios</option>
+                            <option value="5">5 dormitorios</option>
+                            <option value="6">6 o mas</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select name="numberOfBathrooms" onChange={inputHandlerBedBath} >
+                            <option value="all">Baños</option>
+                            <option value="1">1 baño</option>
+                            <option value="2">2 baños</option>
+                            <option value="3">3 baños</option>
+                            <option value="4">4 baños</option>
+                            <option value="5">5 baños</option>
+                            <option value="6">6 o mas</option>
+                        </select>
+                    </div>
                 </div>
                 <div className="boxes">
                     <div>

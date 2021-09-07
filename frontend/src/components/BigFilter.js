@@ -334,7 +334,8 @@ const BigFilter = (props) => {
                 </select>
             </div>
             <div className="propertiesCardList">
-                {/* <CardProperty properties={props.properties}/> */}
+                <CardProperty properties={props.properties}/>
+                <CardProperty properties={props.properties}/>
             </div>
         </div>
     )
