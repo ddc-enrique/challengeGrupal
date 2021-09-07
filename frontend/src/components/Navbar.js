@@ -7,8 +7,8 @@ const NavBar = () => {
   const [navOpen, setNavOpen] = useState(false);
 
   const nav = [
-    { name: "Ingresar", ruta: "/SignIn" },
-    { name: "Registrarse", ruta: "/SignUp" },
+    { name: "Ingresar Sesion", ruta: "/iniciar-sesion" },
+    { name: "Registrarse", ruta: "/registrarse" },
   ];
   var navMap = nav.map((a, index) => (
     <Link key={index} to={a.ruta}>

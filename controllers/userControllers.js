@@ -178,7 +178,7 @@ const userControllers = {
         User.findOneAndUpdate({_id: req.user._id}, {dreamProperty: whatToDo ? req.body.filter : {}, suscribedToNewsLetter: whatToDo && true})
         .then(user => user ? res.json({success: true, response: `dream property ${whatToDo ? 'added to' : 'removed from'} user`}) : res.json({success: false, response: 'user not found'}))
         .catch(err => handleError(res, err))
-    }
+    },
 }
 
 module.exports = userControllers
