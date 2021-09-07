@@ -335,6 +335,7 @@ const BigFilter = (props) => {
             </div>
             <div className="propertiesCardList">
                 <CardProperty properties={props.properties}/>
+                <CardProperty properties={props.properties}/>
             </div>
         </div>
     )

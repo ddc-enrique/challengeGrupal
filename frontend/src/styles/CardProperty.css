@@ -2,15 +2,19 @@ div.propertiesCardList{
     width: 100%;
     padding: 5rem 0;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
 }
 
-div.cardProperty{
+.cardProperty{
     width: 90%;
     height: 20rem;
     background-color: #a8433d;
     color: white;
     border-radius: 0.5rem;
+    text-decoration: none;
+    display: block;
 }
 
 div.pictureCardProperty{
@@ -49,3 +53,72 @@ div.cardPropertyInfo{
     height: 20%;
 }
 
+div div p.propertyInfoTwo{
+    font-size:0.8rem;
+}
+
+div div p.propertyInfoThree{
+    font-size: 1.1rem;
+}
+
+@media only screen and (min-width: 768px) {
+    .cardProperty{
+        height: 12rem;
+        display: flex;
+    }
+
+    div.pictureCardProperty{
+        width: 45%;
+        height: 100%;
+        border-top-right-radius: 0rem;
+        border-bottom-left-radius: 0.5rem;
+    }
+
+    div.cardPropertyInfo{
+        width: 55%;
+        height: 100%;
+        padding: 0.4rem 1rem; 
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    div.pictureCardProperty h3, div.pictureCardProperty h4{
+        display: none;
+    }
+
+    div div div.infoHeader{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    div div p.propertyInfoTwo, div div p.propertyInfoOne, div div p.propertyInfoThree{
+        width: 100%;
+    }
+
+    div div p.propertyInfoThree{
+        text-align: end;
+    }
+
+    div div p.propertyInfoOne{
+        font-size: 1.2rem;
+    }
+
+    div div p.propertyInfoTwo{
+        font-size: 1rem;
+    }
+    
+    div div p.propertyInfoThree{
+        font-size: 1.3rem;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (min-width: 1440px) {
+}
+
+@media only screen and (min-width: 2560px) {
+}
