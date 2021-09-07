@@ -8,13 +8,15 @@ const propertiesActions = {
             return res
         }
     },
-    getNumberOfProperties: (id) => {
-        return async () => {
-            let res = await axios.get(
-                `http://localhost:4000/api/getnumberofprops/${id}`
-            )
-            return res.data
-        }
-    }
-}
+
+  getNumberOfProperties: (id) => {
+    return async () => {
+      let res = await axios.get(
+        `http://localhost:4000/api/getnumberofprops/${id}`
+      );
+      return res.data;
+    };
+  },
+};
+
 export default propertiesActions;
