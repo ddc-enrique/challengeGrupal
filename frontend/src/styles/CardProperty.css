@@ -1,0 +1,51 @@
+div.propertiesCardList{
+    width: 100%;
+    padding: 5rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+div.cardProperty{
+    width: 90%;
+    height: 20rem;
+    background-color: #a8433d;
+    color: white;
+    border-radius: 0.5rem;
+}
+
+div.pictureCardProperty{
+    width: 100%;
+    height: 80%;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.6rem;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+div.pictureCardProperty h3{
+    align-self: flex-end;
+    background-color: #a8433d;
+    padding: 0.2rem 0.3rem;
+    border-radius: 0.3rem;
+}
+
+div.pictureCardProperty h4{
+    background-color: black;
+    align-self: flex-start;
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.2rem;
+}
+
+div.cardPropertyInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.2rem 0.5rem; 
+    width: 100%;   
+    height: 20%;
+}
+

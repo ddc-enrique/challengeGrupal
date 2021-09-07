@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { PlusSquare } from "react-bootstrap-icons"
 import {connect} from 'react-redux'
 import propertiesActions from "../redux/action/propertiesActions"
+import CardProperty from "./CardProperty"
 
 const BigFilter = (props) => {
     const {filterObj} = props
@@ -318,6 +319,7 @@ const BigFilter = (props) => {
                     <button onClick={searchProperties}>Buscar</button>
                 </div>
             </div>}
+
             <div className="sortList">
                 <select onChange={listFilterHandler}>
                     <option value="noSort">Mas relevante</option>
@@ -326,6 +328,9 @@ const BigFilter = (props) => {
                     <option value="minArea">Menor superficie</option>
                     <option value="maxArea">Mayor superficie</option>
                 </select>
+            </div>
+            <div className="propertiesCardList">
+                <CardProperty properties={props.properties}/>
             </div>
         </div>
     )
