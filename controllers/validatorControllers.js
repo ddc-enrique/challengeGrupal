@@ -15,8 +15,8 @@ const validatorControllers ={
         if(!validation.error){
             next()
         }else{ // ver como manejar errores en front
-            let validationStringified = validation.error.details.map(element => element.message).join(' ')
-            res.json({success: false, response: validationStringified})
+            // let validationStringified = validation.error.details.map(element => element.message).join(' ')
+            res.json({success: false, response: validation.error.details})
         }
     },
     validatorPasswordChange : (req, res, next) =>{
