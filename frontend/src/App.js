@@ -1,9 +1,9 @@
 import "./styles/App.css";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import Home from "./routes/Home";
-import PropertiesList from "./routes/PropertiesList";
-import SignUp from "./routes/SignUp";
-import SignIn from "./routes/SignIn";
+import Home from "./pages/Home";
+import PropertiesList from "./pages/PropertiesList";
+import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
 
 function App() {
   return (

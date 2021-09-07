@@ -4,6 +4,7 @@ import { PlusSquare } from "react-bootstrap-icons"
 import {connect} from 'react-redux'
 import propertiesActions from "../redux/action/propertiesActions"
 import CardProperty from "./CardProperty"
+import FiltersSelected from "./FiltersSelected"
 
 const BigFilter = (props) => {
     const {filterObj} = props
@@ -206,9 +207,12 @@ const BigFilter = (props) => {
                 }}>
                     Más Filtros <PlusSquare />
                 </button>}
-                <div className="filtersSelected">
-                    <p> Place Holder </p> <p> Place Holder </p> <p> Place Holder </p> 
-                </div>
+                <FiltersSelected 
+                    deletePropertieFromObject={deletePropertieFromObject}
+                    bigFilter={bigFilter}
+                    formFilter={formFilter}
+                    setFormFilter={setFormFilter}
+                />
             </div>
             {selectFilters &&            
             <div className="filtersToSelect">
