@@ -1,6 +1,7 @@
 import "../styles/BigFilter.css"
 import React, { useEffect, useState } from 'react'
-import { Flag, PlusSquare } from "react-bootstrap-icons"
+import { PlusSquare } from "react-bootstrap-icons"
+import FiltersSelected from "./FiltersSelected"
 
 const BigFilter = (props) => {
     // const {firstFilter} = props; por ahora un objeto vacio pero sera el filtro que llega desde Home
@@ -98,10 +99,10 @@ const BigFilter = (props) => {
     }
 
     const searchProperties = () => {
-        console.log("objeto que filtra")
-        console.log(bigFilter)// llamar al action con axios
-        console.log("objeto con las opciones actuales")
-        console.log(formFilter)
+        // console.log("objeto que filtra")
+        // console.log(bigFilter)// llamar al action con axios
+        // console.log("objeto con las opciones actuales")
+        // console.log(formFilter)
         setSelectFilters(false)
     }
 
@@ -116,9 +117,12 @@ const BigFilter = (props) => {
                 <button onClick={() => (countDeleteFirstFilter+=1, setSelectFilters(true))}>
                     Más Filtros <PlusSquare />
                 </button>}
-                <div className="filtersSelected">
-                    <p> Place Holder </p> <p> Place Holder </p> <p> Place Holder </p> 
-                </div>
+                <FiltersSelected 
+                    deletePropertieFromObject={deletePropertieFromObject}
+                    bigFilter={bigFilter}
+                    formFilter={formFilter}
+                    setFormFilter={setFormFilter}
+                />
             </div>
             {selectFilters &&            
             <div className="filtersToSelect">
@@ -194,7 +198,7 @@ const BigFilter = (props) => {
                 </div>
                 <div> {/* 5 */}
                     <h5>M² Metro Cuadrados Cubiertos</h5>
-                    <select name="roofedArea" value={formFilter.roofedArea} onChange={(e) => selectHandler(e, e.target.value, JSON.parse(e.target.value), null)}>
+                    <select name="roofedArea" value={formFilter.roofedArea} onChange={(e) => selectHandler(e, e.target.value,((e.target.value.length===8 && e.target.value) || JSON.parse(e.target.value)), null)}>
                         <option value="allCases">Todas</option>
                         <option value='{"$lte": 40}'>Hasta 40m²</option>
                         <option value='{"$gte":41,"$lte": 80}'>41m² a 80m²</option>

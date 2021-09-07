@@ -1,7 +1,7 @@
 import "./styles/App.css"
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import Home from './routes/Home';
-import PropertiesList from "./routes/PropertiesList";
+import Home from './pages/Home';
+import PropertiesList from "./pages/PropertiesList";
 import Form from "./components/Form";
 
 function App() {
