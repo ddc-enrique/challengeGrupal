@@ -61,19 +61,48 @@ div div p.propertyInfoThree{
     font-size: 1.1rem;
 }
 
+div.infoHeader h3, div.infoHeader h4{
+    display: none;
+}
+
+.Desktop{
+    display: none;
+}
+
 @media only screen and (min-width: 768px) {
+    div.propertiesCardList{
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .cardProperty {
+        width: 45%;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    #desktop{
+        display: block;
+    }
+    
+    #mobile{
+        display: none;
+    }
+    
     .cardProperty{
         height: 12rem;
         display: flex;
+        background-color: #ead7db;
     }
-
+    
     div.pictureCardProperty{
         width: 45%;
         height: 100%;
         border-top-right-radius: 0rem;
         border-bottom-left-radius: 0.5rem;
     }
-
+    
     div.cardPropertyInfo{
         width: 55%;
         height: 100%;
@@ -81,30 +110,40 @@ div div p.propertyInfoThree{
         flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
+        color: black;
+        border-top: solid 2px #986f6d;
+        border-bottom: solid 2px #986f6d;
+        border-right: solid 2px #986f6d;
+        border-top-right-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
     }
-
+    
     div.pictureCardProperty h3, div.pictureCardProperty h4{
         display: none;
     }
-
+    
+    div.infoHeader h3, div.infoHeader h4{
+        display: inline;
+    }
+    
     div div div.infoHeader{
         display: flex;
         width: 100%;
         justify-content: space-between;
     }
-
+    
     div div p.propertyInfoTwo, div div p.propertyInfoOne, div div p.propertyInfoThree{
         width: 100%;
     }
-
+    
     div div p.propertyInfoThree{
         text-align: end;
     }
-
+    
     div div p.propertyInfoOne{
         font-size: 1.2rem;
     }
-
+    
     div div p.propertyInfoTwo{
         font-size: 1rem;
     }
@@ -112,9 +151,6 @@ div div p.propertyInfoThree{
     div div p.propertyInfoThree{
         font-size: 1.3rem;
     }
-}
-
-@media only screen and (min-width: 1024px) {
 }
 
 @media only screen and (min-width: 1440px) {
