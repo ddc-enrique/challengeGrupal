@@ -6,10 +6,10 @@ import { connect } from "react-redux"
 const FiltersSelected = (props) => {
     const {deletePropertieFromObject, bigFilter, formFilter, setFormFilter, cities} = props
     const [filtersSelected, setFiltersSelected] = useState([])
-
+    console.log("Estoy en FiltersSelected")
     useEffect(() => {
+        console.log("FiltersSelected")
         console.log(formFilter)
-        console.log(cities)
         console.log(bigFilter)
         console.log(filtersSelected)
         let arrayAux =[] 
@@ -39,15 +39,15 @@ const FiltersSelected = (props) => {
                         break;
                     case"numberOfRooms":
                         nameDelete = "Ambientes: "
-                        valueDelete = formFilter.numberOfRooms === "6AndMore" ? "6 o más" : formFilter.numberOfRooms
+                        valueDelete = formFilter.numberOfRooms === 6  ? "6 o más" : formFilter.numberOfRooms
                         break;
                     case"numberOfBedrooms":
                         nameDelete = "Dormitorios: "
-                        valueDelete = formFilter.numberOfBedrooms === "6AndMore" ? "6 o más" : formFilter.numberOfBedrooms
+                        valueDelete = formFilter.numberOfBedrooms === 6 ? "6 o más" : formFilter.numberOfBedrooms
                         break;
                     case"numberOfBathrooms":
                         nameDelete = "Baños: "
-                        valueDelete = formFilter.numberOfBathrooms === "6AndMore" ? "6 o más" : formFilter.numberOfBathrooms
+                        valueDelete = formFilter.numberOfBathrooms === 6 ? "6 o más" : formFilter.numberOfBathrooms
                         break;
                     case "isUSD":
                         nameDelete = "Moneda: "
@@ -144,7 +144,7 @@ const FiltersSelected = (props) => {
 
     return (
         <div className="filtersSelected">
-            {filtersSelected.map((eachFilter, i) => {//cambiarle el key no dejarle index 
+            {filtersSelected.map((eachFilter, i) => {
                 if (eachFilter) {
                     return <p 
                                 key={eachFilter[0] + "F"}
@@ -152,7 +152,8 @@ const FiltersSelected = (props) => {
                             >
                                 {`${eachFilter[0]} ${eachFilter[1]} `}<XOctagon/> 
                             </p> 
-                }
+                } 
+                return false
             })}
         </div>
     )

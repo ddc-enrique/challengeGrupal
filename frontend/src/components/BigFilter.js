@@ -248,7 +248,7 @@ const BigFilter = (props) => {
                         <select name="numberOfRooms" value={formFilter.numberOfRooms} onChange={(e) => selectHandler(e, "6AndMore",{"$gte":6}, parseInt(e.target.value))}>
                             <option value="allCases">Todos</option>
                             {[1,2,3,4,5].map((x )=> <option value={x} key={x}>{x}</option>)}
-                            <option value="6AndMore"> 6 o más</option>
+                            <option value={6}> 6 o más</option>
                         </select>
                     </div>
                     <div>
@@ -256,7 +256,7 @@ const BigFilter = (props) => {
                         <select name="numberOfBedrooms" value={formFilter.numberOfBedrooms} onChange={(e) => selectHandler(e, "6AndMore",{"$gte":6}, parseInt(e.target.value))}>
                             <option value="allCases">Todos</option>
                             {[1,2,3,4,5].map((x )=> <option value={x} key={x+10}>{x}</option>)}
-                            <option value="6AndMore"> 6 o más</option>
+                            <option value={6}> 6 o más</option>
                         </select>
                     </div>
                     <div>
@@ -264,7 +264,7 @@ const BigFilter = (props) => {
                         <select name="numberOfBathrooms" value={formFilter.numberOfBathrooms} onChange={(e) => selectHandler(e, "6AndMore",{"$gte":6}, parseInt(e.target.value))}>
                             <option value="allCases">Todos</option>
                             {[1,2,3,4,5].map((x )=> <option value={x} key={x+20}>{x}</option>)}
-                            <option value="6AndMore"> 6 o más</option>
+                            <option value={6}> 6 o más</option>
                         </select>
                     </div>
                 </div>
@@ -334,7 +334,7 @@ const BigFilter = (props) => {
                 </select>
             </div>
             <div className="propertiesCardList">
-                <CardProperty properties={props.properties}/>
+                {/* <CardProperty properties={props.properties}/> */}
             </div>
         </div>
     )

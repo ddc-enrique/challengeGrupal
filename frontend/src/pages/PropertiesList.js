@@ -8,7 +8,7 @@ import { connect } from "react-redux"
 const PropertiesList = (props) => {
     const {filterObj} = props
     // console.log(props)
-    console.log(props.filterObj)
+    console.log(filterObj)
     return (
         <div className="containerPropertiesList">
             <Header />

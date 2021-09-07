@@ -1,39 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React, {useState } from 'react'
 import { connect } from "react-redux"
 import { useHistory } from "react-router-dom"
 import propertiesActions from '../redux/action/propertiesActions'
 
 const HomeFilter = (props) => {
 
-    const [searchProperties, setSearchProperties] = useState(false)
     const [filter, setFilter] = useState({ forSale: true,/*  numberOfBedrooms: 1, numberOfBathrooms: 1, */ /* isHouse: true, */ /* shortRental: false,  houseStyle: "house",  isBrandNew: false, haveGarage: false, */ })
 
     //revisar si filter se inicializa como un objeto vacio o no. Creo que eberia inicializar con las propiedades inicializadas ya que al hacer click en buscar redirige al componente propertiesList y muestra la lista filtrada como minimo por forSale: true y isHouse: true/ houseStyle: "house" y en ese componenete se amplia los campos para filtrar
 
-    //revisar houseStyle valores
-
     const history = useHistory()
-    
-    useEffect(() => {
-        if (searchProperties) {
-            async function getPropertiesFiltered() {
-                try {
-                    console.log(filter)
-                    let res = await props.getPropertiesFiltered(filter)
-                    if (!res.data.success) {
-                        throw res.data.response
-                    } else {
-                        history.push("/lista-de-propiedades") //conectar a la escucha de reduz-properties
-                    }
-                    if (!res.data.response) throw res.data.response
-                } catch (err) {
-                    console.log(err)
-                }
+
+    const serachInPropertiesList = async () => {
+        try {            
+            let res = await props.getPropertiesFiltered(filter)
+            if (!res.data.success) {
+                throw res.data.response
+            } else {
+                history.push("/lista-de-propiedades") 
             }
-            getPropertiesFiltered()
+            if (!res.data.response) throw res.data.response
+        } catch (err) {
+            console.log(err)
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchProperties])
+    }
 
     const changeClassHandle = (e) => {
         e.preventDefault()
@@ -87,11 +77,8 @@ const HomeFilter = (props) => {
         }
         setFilter({
             ...filter,
-            [e.target.name]: parseInt(e.target.value) === 6 ? {$gte: 6} : parseInt(e.target.value)
+            [e.target.name]: parseInt(e.target.value) === 6 ? 6 : parseInt(e.target.value)
         })
-    }
-    const searchClickHandler = () => {
-        setSearchProperties(true)
     }
 
     return (
@@ -105,11 +92,10 @@ const HomeFilter = (props) => {
             </div>
             <div className="secondRow" >
                 <div>
-                    <select name="houseStyle" onChange={inputHandler}>
+                    <select name="isHouse" onChange={inputHandler}>
+                        <option value="allCases">Todas</option>
                         <option value="house">Casa</option>     
                         <option value="department">Departamento</option>     
-                        <option>otra opcion</option>     
-                        <option>otra opcion</option>     
                     </select>
                 </div>
                 <div>
@@ -144,11 +130,11 @@ const HomeFilter = (props) => {
                     </div>
                 </div>
                 <div className="homeFilterButtonBigResponsive">
-                    <button onClick={searchClickHandler}>Buscar</button>
+                    <button onClick={serachInPropertiesList}>Buscar</button>
                 </div>
             </div>
             <div className="homeFilterButton">
-                <button onClick={searchClickHandler}>Buscar</button>
+                <button onClick={serachInPropertiesList}>Buscar</button>
             </div>
         </div>
     )
