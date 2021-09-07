@@ -4,7 +4,6 @@ import CardCity from "./CardCity";
 import { connect } from "react-redux";
 import { useEffect } from "react";
 import citiesActions from "../redux/action/citiesActions";
-import { Link } from "react-router-dom";
 
 const Main = (props) => {
   useEffect(() => {
@@ -26,7 +25,6 @@ const Main = (props) => {
   ));
   return (
     <main>
-      <Link to="/form">Registrarse</Link>
       <h1 className="mainTitle">Buscá en alguna de estas localidades</h1>
       {city}
     </main>
