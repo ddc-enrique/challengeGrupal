@@ -23,7 +23,6 @@ const SignUp = (props) => {
       [e.target.name]: e.target.value,
     });
   };
-  const [token, setToken] = useState("");
   const submitUser = async () => {
     if (Object.values(user).includes("")) {
       console.log("todos los campos son obligatorios");
@@ -37,11 +36,12 @@ const SignUp = (props) => {
           else setErrors(res.errors);
           console.log(res);
         } else if (res.success) {
-          setToken(res.token);
           try {
             console.log("Usuario registrado con éxito");
-            let res = await props.validationUserToken(token);
-            if (res.success)
+            let responseSendEmail = await props.validationUserToken(
+              res.response.token
+            );
+            if (responseSendEmail.success)
               console.log("Te enviamos un mail para que valides tu cuenta");
             else {
               console.log("Hubo un error, intente nuevamente más tarde");
@@ -62,7 +62,7 @@ const SignUp = (props) => {
       if (res.success) {
         console.log("Te enviamos un mail para que valides tu cuenta");
       } else {
-        console.log(res);
+       throw res.response
       }
     } catch (e) {
       console.log(e);
@@ -85,8 +85,8 @@ const SignUp = (props) => {
       } else {
         try {
           console.log("Usuario registrado con éxito");
-          let res = await props.validationUserToken(token);
-          if (res.success)
+          let response = await props.validationUserToken(res.response.token);
+          if (response.success)
             console.log("Te enviamos un mail para que valides tu cuenta");
           else {
             console.log("Hubo un error, intente nuevamente más tarde");
@@ -99,7 +99,7 @@ const SignUp = (props) => {
       console.log(err);
       //   console.log("Tenemos un problema, por favor intenta más tarde");
     }
-  }
+  };
   const renderError = (inputName) => {
     let errorToRender = errors.find((error) => error.path[0] === inputName);
     return (
@@ -112,7 +112,7 @@ const SignUp = (props) => {
     <div className="formSign">
       <NavBar />
       <form>
-        <h1>Registrate</h1>
+        <h1>Crea una cuenta</h1>
         <div>
           <input
             type="text"
@@ -162,6 +162,17 @@ const SignUp = (props) => {
       <div className="submit">
         <button onClick={submitUser}>Enviar</button>
       </div>
+      <div className="submit">
+        <p>
+          ¿Tenés una cuenta?
+          <Link to="/iniciar-sesion">
+            <span> Inicia Sesión</span>
+          </Link>
+        </p>
+      </div>
+      <div className="submit">
+        <Link to="/">Volver a Home</Link>
+      </div>
       <div className="logGoogle">
         <button>Inicia sesion con Facebook</button>
         <GoogleLogin
@@ -173,7 +184,7 @@ const SignUp = (props) => {
         />
       </div>
       <div className="submit">
-      <p>¿No te llegó el mail de validación?</p>
+        <p>¿No te llegó el mail de validación?</p>
         <input
           type="text"
           name="eMail"
@@ -183,17 +194,6 @@ const SignUp = (props) => {
         <div className="">
           <button onClick={sendValidationEmail}>Enviar</button>
         </div>
-      </div>
-      <div className="submit">
-        <p>
-          ¿Tenés una cuenta?
-          <Link to="/iniciar-sesion">
-            <span> Inicia Sesión</span>
-          </Link>
-        </p>
-      </div>
-      <div className="submit">
-        <Link to="/">Volver a Home</Link>
       </div>
     </div>
   );

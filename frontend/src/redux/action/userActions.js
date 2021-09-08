@@ -49,6 +49,23 @@ const userActions = {
       return res.data;
     };
   },
+  sendIdValidation: (id) => {
+    return async () => {
+      let res = await axios.get(
+        `http://localhost:4000/api/user/validatemail/${id}`
+      );
+      return res.data;
+    };
+  },
+  sendIdPassword: (id, password) => {
+    return async () => {
+      let res = await axios.put(
+        `http://localhost:4000/api/user/resetpassword/${id}`,
+        password
+      );
+      return res.data;
+    };
+  },
 };
 
 export default userActions;

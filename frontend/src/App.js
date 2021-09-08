@@ -8,12 +8,15 @@ import ValidateEmail from "./pages/ValidateEmail";
 import UserChat from "./components/UserChat";
 import Admin from "./pages/Admin";
 import { connect } from "react-redux";
+import ResetPassword from "./pages/ResetPassword";
 function App (props) {
   const {admin, token} = props
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route path="/usuario/validar-email/:id" component={ValidateEmail} />
+        <Route path="/usuario/restablecer-contraseña/:id" component={ResetPassword} />
         <Route path="/lista-de-propiedades" component={PropertiesList} />
         {!token && <Route path="/registrarse" component={SignUp} />}
         {!token && <Route path="/iniciar-sesion" component={SignIn} />}

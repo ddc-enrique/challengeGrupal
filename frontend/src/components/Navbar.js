@@ -9,7 +9,6 @@ const NavBar = () => {
   const nav = [
     { name: "Ingresar Sesion", ruta: "/iniciar-sesion" },
     { name: "Registrarse", ruta: "/registrarse" },
-    { name: "validar", ruta: "/user/validar-email/:id" },
     { name: "Admin", ruta:"/admin"}
   ];
   var navMap = nav.map((a, index) => (

@@ -24,9 +24,7 @@ const SignIn = (props) => {
     } else {
       try {
         let res = await props.logUser(user);
-        !res.success
-          ? console.log(res)
-          : console.log("¡Bienvenido de nuevo!");
+        !res.success ? console.log(res) : console.log("¡Bienvenido de nuevo!");
       } catch (e) {
         console.log(e);
       }
@@ -43,20 +41,19 @@ const SignIn = (props) => {
     } catch (e) {
       console.log(e);
     }
-  
-   }
+  };
   const responseGoogle = async (response) => {
     let user = {
       password: response.profileObj.googleId,
       eMail: response.profileObj.email,
       google: true,
     };
-    console.log(user)
+    console.log(user);
     try {
       let res = await props.logUser(user);
       console.log(res);
       if (!res.success) {
-          console.log(res)
+        console.log(res);
         // console.log("No tienes una cuenta registrada con Google");
       } else {
         console.log("¡Bienvenido de nuevo!");
@@ -93,29 +90,6 @@ const SignIn = (props) => {
         <button onClick={submitUser}>Enviar</button>
       </div>
       <div className="submit">
-      <p>¿Olvidaste la clave?</p>
-        <input
-          type="text"
-          name="eMail"
-          placeholder="Email"
-          onChange={(e) => setUser({eMail: e.target.value})}
-        />
-        {console.log(user)}
-        <div className="">
-          <button onClick={sendChangePassword}>Enviar</button>
-        </div>
-      </div>
-      <div className="logGoogle">
-        <button>Inicia sesion con Facebook</button>
-        <GoogleLogin
-          clientId="449628523643-i6mlv9530rqnelgmf3gribco7nvsi4vr.apps.googleusercontent.com"
-          className="botonSub"
-          buttonText="Ingresá con Google"
-          onSuccess={responseGoogle}
-          cookiePolicy={"single_host_origin"}
-        />
-      </div>
-      <div className="submit">
         <p>
           ¿No tienes una cuenta?
           <Link to="/registrarse">
@@ -123,12 +97,34 @@ const SignIn = (props) => {
           </Link>
         </p>
       </div>
+      <div className="logGoogle">
+        <button>Inicia sesion con Facebook</button>
+        <GoogleLogin
+          clientId="449628523643-i6mlv9530rqnelgmf3gribco7nvsi4vr.apps.googleusercontent.com"
+          className="botonSub"
+          buttonText="Ingresa con Google"
+          onSuccess={responseGoogle}
+          cookiePolicy={"single_host_origin"}
+        />
+      </div>
+      <div className="submit">
+        <p>¿Olvidaste la clave?</p>
+        <input
+          type="text"
+          name="eMail"
+          placeholder="Email"
+          onChange={(e) => setUser({ eMail: e.target.value })}
+        />
+        <div className="">
+          <button onClick={sendChangePassword}>Enviar</button>
+        </div>
+      </div>
     </div>
   );
 };
 
 const mapDispatchToProps = {
   logUser: userActions.logIn,
-  sendChangePasswordEmail: userActions.changePassword
+  sendChangePasswordEmail: userActions.changePassword,
 };
 export default connect(null, mapDispatchToProps)(SignIn);
