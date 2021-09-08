@@ -32,13 +32,40 @@ const SignUp = (props) => {
       try {
         let res = await props.registerUser(user);
         if (!res.success) {
-          setErrors(res.response);
-        } else {
-          console.log("Usuario registrado con éxito");
+          if (res.response) throw res.response;
+          else setErrors(res.errors);
+          console.log(res);
+        } else if (res.success) {
+          try {
+            console.log("Usuario registrado con éxito");
+            let responseSendEmail = await props.validationUserToken(
+              res.response.token
+            );
+            if (responseSendEmail.success)
+              console.log("Te enviamos un mail para que valides tu cuenta");
+            else {
+              console.log("Hubo un error, intente nuevamente más tarde");
+            }
+          } catch (e) {
+            console.log(e);
+          }
         }
       } catch (e) {
         console.log(e);
       }
+    }
+  };
+
+  const sendValidationEmail = async () => {
+    try {
+      let res = await props.validationUserEmail(user.eMail);
+      if (res.success) {
+        console.log("Te enviamos un mail para que valides tu cuenta");
+      } else {
+       throw res.response
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
   const responseGoogle = async (response) => {
@@ -50,21 +77,29 @@ const SignUp = (props) => {
       eMail: response.profileObj.email,
       google: true,
     };
-    console.log(user)
     try {
       let res = await props.registerUser(user);
       if (!res.success) {
-        console.log("El mail ya está registrado") 
-        // throw res.response, si fuerzo el error me llega desde el back en ingles. 
+        console.log("El mail ya está registrado");
+        // throw res.response. Si fuerzo el error me llega desde el back en ingles ver).
       } else {
-        console.log(`¡${res.response.firstName}, tu cuenta se creó con éxito!`);
+        try {
+          console.log("Usuario registrado con éxito");
+          let response = await props.validationUserToken(res.response.token);
+          if (response.success)
+            console.log("Te enviamos un mail para que valides tu cuenta");
+          else {
+            console.log("Hubo un error, intente nuevamente más tarde");
+          }
+        } catch (e) {
+          console.log(e);
+        }
       }
     } catch (err) {
-        console.log(err)
-    //   console.log("Tenemos un problema, por favor intenta más tarde");
+      console.log(err);
+      //   console.log("Tenemos un problema, por favor intenta más tarde");
     }
   };
-
   const renderError = (inputName) => {
     let errorToRender = errors.find((error) => error.path[0] === inputName);
     return (
@@ -77,7 +112,7 @@ const SignUp = (props) => {
     <div className="formSign">
       <NavBar />
       <form>
-        <h1>Registrate</h1>
+        <h1>Crea una cuenta</h1>
         <div>
           <input
             type="text"
@@ -127,17 +162,6 @@ const SignUp = (props) => {
       <div className="submit">
         <button onClick={submitUser}>Enviar</button>
       </div>
-      <div className="logGoogle">
-        <button>Inicia sesion con Facebook</button>
-        <GoogleLogin
-          clientId="449628523643-i6mlv9530rqnelgmf3gribco7nvsi4vr.apps.googleusercontent.com"
-          className="botonSub"
-          buttonText="Registrarse con Google"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          cookiePolicy={"single_host_origin"}
-        />
-      </div>
       <div className="submit">
         <p>
           ¿Tenés una cuenta?
@@ -146,12 +170,39 @@ const SignUp = (props) => {
           </Link>
         </p>
       </div>
+      <div className="submit">
+        <Link to="/">Volver a Home</Link>
+      </div>
+      <div className="logGoogle">
+        <button>Inicia sesion con Facebook</button>
+        <GoogleLogin
+          clientId="449628523643-i6mlv9530rqnelgmf3gribco7nvsi4vr.apps.googleusercontent.com"
+          className="botonSub"
+          buttonText="Registrarse con Google"
+          onSuccess={responseGoogle}
+          cookiePolicy={"single_host_origin"}
+        />
+      </div>
+      <div className="submit">
+        <p>¿No te llegó el mail de validación?</p>
+        <input
+          type="text"
+          name="eMail"
+          placeholder="Email"
+          onChange={(e) => setUser({ eMail: e.target.value })}
+        />
+        <div className="">
+          <button onClick={sendValidationEmail}>Enviar</button>
+        </div>
+      </div>
     </div>
   );
 };
 
 const mapDispatchToProps = {
   registerUser: userActions.createUser,
+  validationUserToken: userActions.validationUserToken,
+  validationUserEmail: userActions.validationUserEmail,
 };
 
 export default connect(null, mapDispatchToProps)(SignUp);
