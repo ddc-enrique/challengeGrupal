@@ -4,6 +4,7 @@ html * {
   padding: 0;
   box-sizing: border-box;
 }
+
 @media only screen and (min-width: 375px) {
   html {
     font-size: 4vw;
@@ -24,6 +25,30 @@ html * {
     margin-bottom: 1.5rem;
   }
 
+  .swiperBox {
+    width: 100%;
+    height: 100%;
+  } 
+
+  .swiper {
+      width: 100%;
+      height: 100%;
+      color: #000;
+  }
+
+  .swiperSlide {
+      width: 100%;
+      height: 100%;
+      background-position: center;
+      background-size: cover;
+      border-top-left-radius: 0.5rem;
+      border-top-right-radius: 0.5rem;
+  }
+
+  .swiper-button-next, .swiper-button-prev {
+    color: #000;
+    transform: scale(0.5);
+  }
 }
 
 @media only screen and (min-width: 425px) {

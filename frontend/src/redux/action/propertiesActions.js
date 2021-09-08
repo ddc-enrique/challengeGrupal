@@ -8,8 +8,23 @@ const propertiesActions = {
           return res
       }
   },
+  
+  getProperty: (id) => {
+    return async () => {
+      try {
+        let response = await axios.get(`http://localhost:4000/api/property/${id}`)
+        if (response.data.success) {
+          return {success: true, response: response.data.response}
+        } else {
+          throw new Error
+        }
+      } catch {
+        return{success: false, error: "Error de conexión. Intente mas tarde"}
+      }
+    }
+  },
 
-  getNumberOfProperties: (id) => {
+    getNumberOfProperties: (id) => {
     return async () => {
       let res = await axios.get(
         `http://localhost:4000/api/getnumberofprops/${id}`
