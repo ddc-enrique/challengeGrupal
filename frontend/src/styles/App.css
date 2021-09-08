@@ -22,10 +22,32 @@ html * {
     z-index: 1;
   }
 
+  header .goBackPH {
+    width: 2rem;
+    height: 2rem;
+    margin-left: 1rem;
+  }
+
+  header svg {
+    margin-left: 1rem;
+  }
+
+  header a {
+    text-decoration: none;
+  }
+
   header h1 {
     text-shadow: 1px 1px 7px black;
     color: white;
-    margin-bottom: 1.5rem;
+    margin-bottom: .5rem;
+  }
+
+  header #admin {
+    display: block;
+    background-color: teal;
+    color: whitesmoke;
+    padding: 1rem;
+    border-radius: .8rem;
   }
 
   .swiperBox {

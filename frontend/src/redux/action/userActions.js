@@ -66,6 +66,11 @@ const userActions = {
       return res.data;
     };
   },
+  logOut: () => {
+    return (dispatch) => {
+      dispatch({ type:"LOG_OUT" })
+    }
+  }
 };
 
 export default userActions;
