@@ -1,5 +1,5 @@
 import "../styles/CardProperty.css"
-// import CarouselImg from "./CarouselImg"
+import CarouselImg from "./CarouselImg"
 import {Link} from "react-router-dom"
 import { BiBath } from "react-icons/bi"
 import { BiCar } from "react-icons/bi"
@@ -19,7 +19,7 @@ const CardProperty = (props) => {
         <>
             <div property={property} className="cardProperty" id="mobile">
                 <div className="pictureCardProperty">
-                    
+                    <CarouselImg property={property.photosURL}/>
                     <h3>{currency} {property.price}</h3>
                     <h4>{contract}</h4>
                 </div>
@@ -37,7 +37,8 @@ const CardProperty = (props) => {
                 </div>
             </div>
             <Link property={property} className="cardProperty Desktop">
-                <div className="pictureCardProperty"  style={{backgroundImage:`url(${property.photosURL[0]})`}}>
+                <div className="pictureCardProperty">
+                    <CarouselImg property={property.photosURL}/>
                     <h3>{currency} {property.price}</h3>
                     <h4>{contract}</h4>
                 </div>
