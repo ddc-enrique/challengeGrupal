@@ -1,6 +1,5 @@
 @media only screen and (min-width: 375px) {
-
-  .navBar{
+  .navBar {
     width: 6rem;
     display: flex;
     flex-direction: column;
@@ -17,12 +16,13 @@
 
   .navBar .userMenu {
     width: 100%;
-    background-color: #fff;
-    border: 0.2rem solid rgb(46, 110, 139);
+    background-color: rgba(255, 255, 255, 0.884);
     border-radius: 0.3rem;
     position: absolute;
     top: 3.3rem;
     z-index: 2;
+    backdrop-filter: blur(14.5px);
+    box-shadow: 6px 2px 5px #2e302e7a;
   }
 
   .navBar .userMenu > a {
@@ -30,7 +30,7 @@
     display: block;
     color: black;
     padding: 1rem 0;
-    border-bottom: 0.2rem solid rgb(46, 110, 139);
+    border-bottom: 0.1px solid rgb(46 110 139 / 26%);
     text-align: center;
     text-decoration: none;
   }
@@ -54,12 +54,9 @@
     top: 11vh;
     right: 28vw;
   }
-
 }
 
-
 @media only screen and (min-width: 425px) {
-
 }
 
 @media only screen and (min-width: 576px) {
