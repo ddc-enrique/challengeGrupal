@@ -1,4 +1,5 @@
 import "../styles/CardProperty.css"
+import CarouselImg from "./CarouselImg"
 import {Link} from "react-router-dom"
 import { BiBath } from "react-icons/bi"
 import { BiCar } from "react-icons/bi"
@@ -17,8 +18,9 @@ const CardProperty = (props) => {
         console.log(property._id)
     }
     return(
+
         <>
-        <Link property={property} className="cardProperty" id="mobile">
+        <Link property={property} to={`/propiedad/${property._id}`} className="cardProperty" id="mobile">
             <div className="pictureCardProperty"  style={{backgroundImage:`url(${property.photosURL[0]})`}}>
                 <h3>{currency} {property.price}</h3>
                 <h4>{contract}</h4>
@@ -38,10 +40,13 @@ const CardProperty = (props) => {
         </Link>
         <div property={property} className="cardProperty Desktop">
             <div className="pictureCardProperty"  style={{backgroundImage:`url(${property.photosURL[0]})`}}>
-                <h3 onClick={goToProperty}>Ir</h3>
+                <h3>{currency} {property.price}</h3>
+                <h4>{contract}</h4>
             </div>
             <div className="cardPropertyInfo">
                 <div className="infoHeader">
+                    <CarouselImg property={property.photosURL}/>
+                    <h3 onClick={goToProperty}>Ir</h3>
                     <h3>{currency} {property.price}</h3>
                     <h4>{contract}</h4>
                 </div>
