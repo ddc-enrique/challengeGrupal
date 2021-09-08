@@ -8,6 +8,7 @@ const propertiesActions = {
           return res
       }
   },
+  
   getProperty: (id) => {
     return async () => {
       try {
@@ -22,7 +23,8 @@ const propertiesActions = {
       }
     }
   },
-  getNumberOfProperties: (id) => {
+
+    getNumberOfProperties: (id) => {
     return async () => {
       let res = await axios.get(
         `http://localhost:4000/api/getnumberofprops/${id}`
@@ -30,6 +32,13 @@ const propertiesActions = {
       return res.data;
     };
   },
+
+  setFilter: (filter) => {
+    return (dispatch) => {
+      dispatch({ type: "SET_FILTER", payload: filter})
+    }
+  }
+
 };
 
 export default propertiesActions;
