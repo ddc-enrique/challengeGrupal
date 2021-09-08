@@ -8,14 +8,14 @@ import { IoIosPin } from "react-icons/io"
 
 const CardProperty = (props) => {
     const property = props.property
-    console.log(property)
+    // console.log(property)
     const currency = property.isUSD ? "USD" : "$"
     const contract = property.forSale ? "Propiedad a la venta" : "Propiedad en alquiler"
     const type = property.isHouse ? "Casa" : "Departamento"
     const bathrooms = property.numberOfBathrooms === 1 ? "baño" : "baños"
     const garage = property.haveGarage > 0 ? " cochera" : null
     const goToProperty = () => {
-        console.log(property._id)
+        // console.log(property._id)
     }
     return(
 

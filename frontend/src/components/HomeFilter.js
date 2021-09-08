@@ -13,6 +13,8 @@ const HomeFilter = (props) => {
         console.log(filter)
         try {            
             let res = await props.getPropertiesFiltered(filter)
+            console.log("array de propiedades en home despues de hacer primera busqueda")
+            console.log(res.data.response)
             if (!res.data.success) {
                 throw res.data.response
             } else {
