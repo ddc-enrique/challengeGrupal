@@ -16,7 +16,7 @@ const CardProperty = (props) => {
 
     return(
         <>
-        <div property={property} className="cardProperty" id="mobile">
+        <Link property={property} className="cardProperty" id="mobile">
             <div className="pictureCardProperty"  style={{backgroundImage:`url(${property.photosURL[0]})`}}>
                 <h3>{currency} {property.price}</h3>
                 <h4>{contract}</h4>
@@ -33,8 +33,8 @@ const CardProperty = (props) => {
                 {garage} </p>
                 <p className="propertyInfoThree"><IoIosPin/> {property.address}, {property.district}</p>
             </div>
-        </div>
-        <Link property={property} className="cardProperty Desktop">
+        </Link>
+        <div property={property} className="cardProperty Desktop">
             <div className="pictureCardProperty"  style={{backgroundImage:`url(${property.photosURL[0]})`}}>
                 <h3>{currency} {property.price}</h3>
                 <h4>{contract}</h4>
@@ -51,7 +51,7 @@ const CardProperty = (props) => {
                 {garage} </p>
                 <p className="propertyInfoThree">{property.address}, {property.district} <IoIosPin/></p>
             </div>
-        </Link>
+        </div>
         </>
     )
 }
