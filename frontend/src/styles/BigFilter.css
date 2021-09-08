@@ -38,10 +38,15 @@
 
     .bigFilter div .filtersSelected p{
         display: inline-block;
+        vertical-align: middle;
         padding: 0.3rem;
         margin: 0.1rem 0.2rem;
         border-radius: 0.3rem;
         border: 1px solid black;
+        cursor: pointer;
+    }
+    .bigFilter div .filtersSelected p *{ 
+        vertical-align: middle;
     }
 
     /* algunos ajustes compartidos por varios */
