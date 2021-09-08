@@ -9,6 +9,7 @@ const NavBar = () => {
   const nav = [
     { name: "Ingresar Sesion", ruta: "/iniciar-sesion" },
     { name: "Registrarse", ruta: "/registrarse" },
+    { name: "Admin", ruta:"/admin"}
   ];
   var navMap = nav.map((a, index) => (
     <Link key={index} to={a.ruta}>
