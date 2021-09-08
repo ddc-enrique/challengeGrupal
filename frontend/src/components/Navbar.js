@@ -2,17 +2,18 @@ import "../styles/NavBar.css";
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import userActions from "../redux/action/userActions";
 
-const NavBar = () => {
+
+const NavBar = ({token, logOut}) => {
   const [navOpen, setNavOpen] = useState(false);
 
-  const nav = [
-    { name: "Ingresar Sesion", ruta: "/iniciar-sesion" },
-    { name: "Registrarse", ruta: "/registrarse" },
-    { name: "Admin", ruta:"/admin"}
-  ];
+  const nav = !token ? [  { name: "Ingresar", route: "/iniciar-sesion", action: null },
+                        { name: "Registrarse", route: "/registrarse", action: null },]
+                      : [ { name:"Cerrar Sesión", route: "#", action: logOut }]
   var navMap = nav.map((a, index) => (
-    <Link key={index} to={a.ruta}>
+    <Link key={index} to={a.route} onClick={a.action}>
       {a.name}
     </Link>
   ));
@@ -43,4 +44,14 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+const mapDispatchToProps = {
+  logOut: userActions.logOut,
+}
+
+const mapStateToProps = (state) =>{
+  return {
+    token: state.user.token,
+  } 
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

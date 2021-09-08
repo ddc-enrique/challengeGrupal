@@ -31,7 +31,7 @@ const propertyControllers = {
                 .catch(err => handleError(res, err))
             }     
         }else{
-            res.json({sucess: false, response: "Body can't be blank, have to put something"})
+            res.json({sucess: false, response: "El body no puede llegar vacio"})
         }   
     },
     getAProperty: (req, res) => {
@@ -66,15 +66,15 @@ const propertyControllers = {
                         let emailsRejected = []
                         for ( const user of users){
                             let message = `
-                            <h1>Hello ${user.firstName} ${user.lastName}</h1>
-                            <p>We would like to inform you that your dreamed house is on our page now:</p>
+                            <h1>Hola ${user.firstName} ${user.lastName}</h1>
+                            <p>Queremos informarte que tu casa de ensueño está disponible en nuestra página ahora:</p>
                             <break></break>
-                            <a href="http://localhost:3000/house/${property._id}">CLICK HERE!</a>
+                            <a href="https://mardelcasas.herokuapp.com/house/${property._id}">CLICK AQUI!</a>
                             `//reemplazar esta URL por una de frontend, que vaya en params un ID, que en front monte componente y useEffect did mount, haga pedido a esa ruta de api con el req params id
                             let mailOptions = {
                                 from: "Mar Del Casas <mardelcasas@gmail.com>",
                                 to: `${user.firstName} <${user.eMail}>`,
-                                subject: `Your dreamed house ${user.firstName}!`,
+                                subject: `Tu casa de ensueño ${user.firstName}!`,
                                 text: message,
                                 html: message
                             }
@@ -86,12 +86,12 @@ const propertyControllers = {
                                     emailsRejected.push(response.rejected[0])
                                 }
                             }catch(err){
-                                throw new Error("wasn't able to send emails")
+                                throw new Error("no se pudo mandar mails")
                             }
                         }                     
-                        res.json({success: true, response: `Added house and Sent mail to: ${emailsAccepted.join(', ')} Rejected: ${emailsRejected.length > 0 ? emailsRejected.join(', ') : 0}`})
+                        res.json({success: true, response: `Casa agregada y mail enviado a: ${emailsAccepted.join(', ')} Rechazados: ${emailsRejected.length > 0 ? emailsRejected.join(', ') : 0}`})
                     }else{
-                        res.json({success: true, response: "Added house but didn't find any user to send mail"})
+                        res.json({success: true, response: "Agregada la casa pero no se encontro usuario al cual se pudiera mandar mail"})
                     }
                 })
                 .catch(err => handleError(res, err))
@@ -106,11 +106,11 @@ const propertyControllers = {
         if(req.user.admin){
             Property.findOneAndDelete({_id: req.body._id})
             .then(property => {
-                property ? res.json({success: true, response: property}) : res.json({success: false, response: "no property found"})
+                property ? res.json({success: true, response: property}) : res.json({success: false, response: "no se encontro la propiedad"})
             })
             .catch(err => handleError(res,err))
         }else{
-            res.json({success: false, response: "You don't have permissions"})
+            res.json({success: false, response: "No tienes permisos"})
         }
     },
     modifyAProperty: (req, res) => {
@@ -118,17 +118,17 @@ const propertyControllers = {
         if(req.user.admin){
             Property.findOneAndUpdate({_id: req.body._id}, {...req.body}, {new:true})
             .then(property => {
-                property ? res.json({success: true, response: property}) : res.json({success: false, response: "no property found"})
+                property ? res.json({success: true, response: property}) : res.json({success: false, response: "no se encontro la propiedad"})
             })
             .catch(err => handleError(res,err))
         }else{
-            res.json({success: false, response: "You don't have permissions"})
+            res.json({success: false, response: "No tienes permisos"})
         }
     },
     updateManyProps: (req, res) => {
         console.log("Received Update Many Properties Petition:" + Date())
         Property.updateMany({}, {...req.body})
-        .then(() => res.json({success: true, response: "updated all properties"}))
+        .then(() => res.json({success: true, response: "actualizadas todas las propiedades"}))
         .catch(err => res.json({success: false, response: err}))
     },
     getNumberOfProps: (req, res) => {

@@ -80,7 +80,7 @@ io.on("connection", (socket) => {
     //     }
     // })
     socket.on("newMessageTo", (msgInfo) =>{
-        console.log(msgInfo)
+        // console.log(msgInfo)
         socket.broadcast.to(msgInfo.sendTo).emit("newMessage", {message: msgInfo.message, sender: socket.id})
     })
     socket.on("clientNeedHelp", () =>{
