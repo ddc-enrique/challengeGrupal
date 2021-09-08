@@ -24,18 +24,18 @@ const userControllers = {
         const {firstName, lastName, password, eMail, photoURL, google, facebook} = req.body
         let hashedPass = bcryptjs.hashSync(password)
         const newUser = new User({
-            firstName,
-            lastName,
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
             password : hashedPass,
-            eMail,
-            photoURL,
+            eMail: eMail.trim(),
+            photoURL: photoURL.trim(),
             google,
             facebook,
         })
         newUser.save()
         .then(user => {
             const token = jwt.sign({...newUser}, process.env.SECRETORKEY)
-            res.json({success: true, response: user, token: token}) // desde front, tomar token y pegarle al validar mail
+            res.json({success: true, response: {photoURL: user.photoURL, firstName: user.firstName, lastName: user.lastName, eMail: user.eMail, token: token, admin: false}}) // desde front, tomar token y pegarle al validar mail
         })
         .catch(err => {
             res.json({success: false, response: err.message.includes('duplicate key') ? 'eMail already in use' : err.message})
@@ -60,7 +60,7 @@ const userControllers = {
                     }
                     if(!bcryptjs.compareSync(password, userFound.password))throw new Error(errMessage)
                     const token = jwt.sign({...userFound}, process.env.SECRETORKEY) 
-                    res.json({success: true, response: userFound, token})
+                    res.json({success: true, response: {photoURL: userFound.photoURL, firstName: userFound.firstName, lastName: userFound.lastName, eMail: userFound.eMail, token: token, admin: userFound.admin}})
                 })
                 .catch(err => handleError(res, err))
             }else{
@@ -92,6 +92,36 @@ const userControllers = {
         console.log("Received Validate User Email Petition:" + Date())
         User.findOneAndUpdate({_id: req.params.id}, {validated: true})
         .then(user => user ? res.json({success: true}) : res.json({success: false, response: "Didn't find that user"}))
+        .catch(err => handleError(res, err))
+    },
+    sendValidationMailByMail: (req, res)=>{
+        console.log("Received Validate User send Mail Again by input Email Petition:" + Date())
+        const {eMail} = req.body
+        User.findOne({eMail: eMail})
+        .then(user =>{
+            if(!user){
+                throw new Error ("User not found")
+            }
+            if(user.validated){
+                throw new Error ("User is already validated")
+            }
+            let message = `
+                <h1>Hello ${user.firstName} ${user.lastName}</h1>
+                <p>Please to confirm your account continue to this link:</p>
+                <break></break>
+                <a href="http://localhost:3000/api/user/validatemail/${user._id}">CLICK HERE!</a>
+            `//reemplazar esta URL por una de frontend, que vaya en params un ID, que en front monte componente y useEffect did mount, haga pedido a esa ruta de api con el req params id
+            let mailOptions = {
+                from: "Mar Del Casas <mardelcasas@gmail.com>",
+                to: `${user.firstName} <${user.eMail}>`,
+                subject: `Welcome ${user.firstName}!`,
+                text: message,
+                html: message
+            }
+            transporter.sendMail(mailOptions, (err, data) => {
+                err ? res.json({success: false, response: err}) : res.json({success: true, response: data})
+            })
+        })
         .catch(err => handleError(res, err))
     },
     sendResetPasswordMail: (req, res) =>{
