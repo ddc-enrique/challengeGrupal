@@ -1,13 +1,13 @@
 import axios from "axios";
 
 const propertiesActions = {
-    getPropertiesFiltered: (filter) => {
-        return async (dispatch) => {
-            let res = await axios.put("http://localhost:4000/api/properties", {filter: filter})
-            dispatch({ type: "GET_PROPERTIES_FILTERED", payload:{ filterObj: filter, response: res.data.response }})
-            return res
-        }
-    },
+  getPropertiesFiltered: (filter) => {
+      return async (dispatch) => {
+          let res = await axios.put("http://localhost:4000/api/properties", {filter: filter})
+          dispatch({ type: "GET_PROPERTIES_FILTERED", payload:{ filterObj: filter, response: res.data.response }})
+          return res
+      }
+  },
 
   getNumberOfProperties: (id) => {
     return async () => {
@@ -17,6 +17,13 @@ const propertiesActions = {
       return res.data;
     };
   },
+
+  setFilter: (filter) => {
+    return (dispatch) => {
+      dispatch({ type: "SET_FILTER", payload: filter})
+    }
+  }
+
 };
 
 export default propertiesActions;

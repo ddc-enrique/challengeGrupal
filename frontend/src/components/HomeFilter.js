@@ -5,13 +5,12 @@ import propertiesActions from '../redux/action/propertiesActions'
 
 const HomeFilter = (props) => {
 
-    const [filter, setFilter] = useState({ forSale: true,/*  numberOfBedrooms: 1, numberOfBathrooms: 1, */ /* isHouse: true, */ /* shortRental: false,  houseStyle: "house",  isBrandNew: false, haveGarage: false, */ })
-
-    //revisar si filter se inicializa como un objeto vacio o no. Creo que eberia inicializar con las propiedades inicializadas ya que al hacer click en buscar redirige al componente propertiesList y muestra la lista filtrada como minimo por forSale: true y isHouse: true/ houseStyle: "house" y en ese componenete se amplia los campos para filtrar
+    const [filter, setFilter] = useState({ forSale: true, shortRental: false,isBrandNew: false, haveGarage: false })
 
     const history = useHistory()
 
-    const serachInPropertiesList = async () => {
+    const searchInPropertiesList = async () => {
+        console.log(filter)
         try {            
             let res = await props.getPropertiesFiltered(filter)
             if (!res.data.success) {
@@ -29,6 +28,8 @@ const HomeFilter = (props) => {
         e.preventDefault()
         let elementClicked = e.target.dataset.type
         let childrenUl = e.target.parentNode.children 
+        var forSaleValue = true
+        var shortRentValue = false
         for (var i = 0; i < childrenUl.length; i++) {
             if (childrenUl[i].dataset !== elementClicked) {
                 childrenUl[i].className=" "
@@ -36,8 +37,8 @@ const HomeFilter = (props) => {
         }
         e.target.className="active"
         if (e.target.dataset.type === "forSale") {
-            var forSaleValue = true
-            var shortRentValue = false
+            forSaleValue = true
+            shortRentValue = false
         } else if (e.target.dataset.type === "shortRent") {
             forSaleValue = false
             shortRentValue = true
@@ -60,25 +61,35 @@ const HomeFilter = (props) => {
     }
 
     const inputHandler = (e) => {
-        e.preventDefault()
-        if (e.target.value === "house" ) {
-            var ishouseValue  = true
+        console.log(e.target.value)
+        if (e.target.value === "allCases" ) {
+            let objectAux = {};
+            Object.keys(filter).forEach((key) =>{
+                if(key !== e.target.name) objectAux[key] = filter[key]
+            })
+            setFilter(objectAux)
         } else {
-            ishouseValue = false
+            let inputValue = e.target.value === "house" ? true : false
+            setFilter({
+                ...filter,
+                [e.target.name]: inputValue,
+            })
         }
-        setFilter({
-            ...filter,
-            isHouse: ishouseValue,
-        })
+        
     }  // VER LA FORMA DE UNIR LOS DOS
     const inputHandlerBedBath = (e) =>{
-        if(e.target.value === "all"){
-            return false
+        if(e.target.value === "allCases"){
+            let objectAux = {};
+            Object.keys(filter).forEach((key) =>{
+                if(key !== e.target.name) objectAux[key] = filter[key]
+            })
+            setFilter(objectAux)
+        } else { 
+            setFilter({
+                ...filter,
+                [e.target.name]: parseInt(e.target.value) === 6 ? {"$gte": 6} : parseInt(e.target.value)
+            })
         }
-        setFilter({
-            ...filter,
-            [e.target.name]: parseInt(e.target.value) === 6 ? 6 : parseInt(e.target.value)
-        })
     }
 
     return (
@@ -95,30 +106,30 @@ const HomeFilter = (props) => {
                     <select name="isHouse" onChange={inputHandler}>
                         <option value="allCases">Todas</option>
                         <option value="house">Casa</option>     
-                        <option value="department">Departamento</option>     
+                        <option value="apartment">Departamento</option>     
                     </select>
                 </div>
                 <div>
                     <div>
                         <select name="numberOfBedrooms" onChange={inputHandlerBedBath} >
-                            <option value="all">Dormitorios</option>
-                            <option value="1">1 dormitorio</option>
-                            <option value="2">2 dormitorios</option>
-                            <option value="3">3 dormitorios</option>
-                            <option value="4">4 dormitorios</option>
-                            <option value="5">5 dormitorios</option>
-                            <option value="6">6 o mas</option>
+                            <option value="allCases">Dormitorios</option>
+                            <option value={1}>1 dormitorio</option>
+                            <option value={2}>2 dormitorios</option>
+                            <option value={3}>3 dormitorios</option>
+                            <option value={4}>4 dormitorios</option>
+                            <option value={5}>5 dormitorios</option>
+                            <option value={6}>6 o más</option>
                         </select>
                     </div>
                     <div>
                         <select name="numberOfBathrooms" onChange={inputHandlerBedBath} >
-                            <option value="all">Baños</option>
-                            <option value="1">1 baño</option>
-                            <option value="2">2 baños</option>
-                            <option value="3">3 baños</option>
-                            <option value="4">4 baños</option>
-                            <option value="5">5 baños</option>
-                            <option value="6">6 o mas</option>
+                            <option value="allCases">Baños</option>
+                            <option value={1}>1 baño</option>
+                            <option value={2}>2 baños</option>
+                            <option value={3}>3 baños</option>
+                            <option value={4}>4 baños</option>
+                            <option value={5}>5 baños</option>
+                            <option value={6}>6 o más</option>
                         </select>
                     </div>
                 </div>
@@ -133,11 +144,11 @@ const HomeFilter = (props) => {
                     </div>
                 </div>
                 <div className="homeFilterButtonBigResponsive">
-                    <button onClick={serachInPropertiesList}>Buscar</button>
+                    <button onClick={searchInPropertiesList}>Buscar</button>
                 </div>
             </div>
             <div className="homeFilterButton">
-                <button onClick={serachInPropertiesList}>Buscar</button>
+                <button onClick={searchInPropertiesList}>Buscar</button>
             </div>
         </div>
     )
