@@ -12,25 +12,25 @@ const CarouselImg = (props) => {
 
     console.log(props)
     return (
-            <div className="swiperBox">
-                <Swiper
-                    className="swiper"
-                    grabCursor={true}
-                    navigation
-                    spaceBetween={1} 
-                    slidesPerView={1}
-                    loop={true}
-                    autoplay={{"dealy": 3500, "disableOnInteraction": false, pauseOnMouseEnter: true}}>
-                    {props.property.map((img, index) => (
-                        <SwiperSlide key={index}>
-                            <di>
-                                <div className="swiperSlide" style={{backgroundImage:`url(${img})`}}
-                                alt={img}></div>
-                            </di>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-            </div>    
+        <div className="swiperBox">
+            <Swiper
+                className="swiper"
+                grabCursor={true}
+                navigation
+                spaceBetween={1} 
+                slidesPerView={1}
+                loop={true}
+                autoplay={{"dealy": 3500, "disableOnInteraction": false, pauseOnMouseEnter: true}}>
+                {props.property.map((img, index) => (
+                    <SwiperSlide key={index}>
+                        <di>
+                            <div className="swiperSlide" style={{backgroundImage:`url(${img})`}}
+                            alt={img}></div>
+                        </di>
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+        </div>    
     )
 }
 
