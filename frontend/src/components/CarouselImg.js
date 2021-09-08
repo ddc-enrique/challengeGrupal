@@ -23,10 +23,9 @@ const CarouselImg = (props) => {
                 autoplay={{"dealy": 3500, "disableOnInteraction": false, pauseOnMouseEnter: true}}>
                 {props.property.map((img, index) => (
                     <SwiperSlide key={index}>
-                        <di>
-                            <div className="swiperSlide" style={{backgroundImage:`url(${img})`}}
-                            alt={img}></div>
-                        </di>
+                        <div className="swiperSlide" style={{backgroundImage:`url(${img})`}}
+                        alt={img}>
+                        </div>
                     </SwiperSlide>
                 ))}
             </Swiper>

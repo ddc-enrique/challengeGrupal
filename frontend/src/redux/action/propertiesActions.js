@@ -19,7 +19,7 @@ const propertiesActions = {
         if (response.data.success) {
           return {success: true, response: response.data.response}
         } else {
-          throw new Error
+          throw new Error()
         }
       } catch {
         return{success: false, error: "Error de conexión. Intente mas tarde"}
