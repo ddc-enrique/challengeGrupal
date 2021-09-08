@@ -80,6 +80,10 @@ div.infoHeader h3, div.infoHeader h4{
     .cardProperty {
         width: 45%;
     }
+    div.pictureCardProperty{
+        justify-content: end;
+    }
+    
 }
 
 @media only screen and (min-width: 1024px) {
@@ -119,8 +123,8 @@ div.infoHeader h3, div.infoHeader h4{
         border-bottom-right-radius: 0.5rem;
     }
     
-    div.pictureCardProperty h3, div.pictureCardProperty h4{
-        display: none;
+    div.pictureCardProperty h3{
+        cursor: pointer;
     }
     
     div.infoHeader h3, div.infoHeader h4{
