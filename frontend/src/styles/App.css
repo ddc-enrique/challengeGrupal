@@ -1,8 +1,11 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Lobster&family=Urbanist&display=swap');
 html * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Urbanist', sans-serif;
+  /* font-family: 'Cabin', sans-serif; */
+
 }
 
 @media only screen and (min-width: 375px) {
