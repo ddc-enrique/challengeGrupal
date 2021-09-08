@@ -8,6 +8,7 @@ import userActions from "../redux/action/userActions";
 import GoogleLogin from "react-google-login";
 
 const SignIn = (props) => {
+  const [openPassword, setOpenPassword] = useState(false);
   const [user, setUser] = useState({
     password: "",
     eMail: "",
@@ -98,7 +99,6 @@ const SignIn = (props) => {
         </p>
       </div>
       <div className="logGoogle">
-        <button>Inicia sesion con Facebook</button>
         <GoogleLogin
           clientId="449628523643-i6mlv9530rqnelgmf3gribco7nvsi4vr.apps.googleusercontent.com"
           className="botonSub"
@@ -108,16 +108,22 @@ const SignIn = (props) => {
         />
       </div>
       <div className="submit">
-        <p>¿Olvidaste la clave?</p>
-        <input
-          type="text"
-          name="eMail"
-          placeholder="Email"
-          onChange={(e) => setUser({ eMail: e.target.value })}
-        />
-        <div className="">
-          <button onClick={sendChangePassword}>Enviar</button>
-        </div>
+        <Link to="#" onClick={() => setOpenPassword(!openPassword)}>
+          ¿Olvidaste la clave?
+        </Link>
+        {openPassword && (
+          <>
+            <input
+              type="text"
+              name="eMail"
+              placeholder="Email"
+              onChange={(e) => setUser({ eMail: e.target.value })}
+            />
+            <div className="">
+              <button onClick={sendChangePassword}>Enviar</button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
