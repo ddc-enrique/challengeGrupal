@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0px 10%;
 }
 
 .propertyMain .propertyErrorConnection,
@@ -17,18 +18,16 @@
     align-items: center;
 }
 
-.propertyMain .carrouselAndTitleSection {
-    width: 90%;
-    margin-top: 10px;
-    height: 300px;
-    color: #2B302A;
-}
-
-.propertyMain .carrouselAndTitleSection h1{
+.propertyMain .houseStyleH1{
     color: #2B302A;
     font-size: 1.5rem;
     text-align: center;
-    margin-bottom: 10px;
+    margin: 10px 0px;
+}
+
+.propertyMain .carrouselSection {
+    width: 100%;
+    margin: 10px 0px;
 }
 
 .propertyMain .dataSection {
@@ -36,27 +35,26 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 90%;
+    width: 100%;
     margin: 10px 0px;
-}
-
-.propertyMain .dataSection {
     height: 200px;
     background: #D2A19C;
 }
 
 .propertyMain .videoSection {
-    width: 90%;
-    margin: 10px 0px;
+    width: 100%;
+    margin: 10px 0px 20px 0px;
 }
 
-.propertyMain .videoSection .videoArticle {
+.propertyMain .videoSection .videoArticle,
+.propertyMain .carrouselSection article {
     padding-bottom: 56.25%;
     position: relative;
     width: 100%;
 }
 
-.propertyMain .videoSection .videoArticle iframe{
+.propertyMain .videoSection .videoArticle iframe, 
+.propertyMain .carrouselSection article .swiperBox {
     left: 0;
     top: 0;
     height: 100%;
@@ -64,36 +62,51 @@
     position: absolute;
 }
 
-.propertyMain .calendarSection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 90%;
-    margin-top: 10px;
-    background: #986F6D;
-    height: 200px;
-    color: #2B302A;
-}
-
-/* @media only screen and (min-width: 375px) {
-
-}
-
 @media only screen and (min-width: 425px) {
-
+    .propertyMain .houseStyleH1 {
+        font-size: 1.2rem;
+    }    
 }
 
 @media only screen and (min-width: 576px) {
+    .propertyMain {
+        padding: 0px 15%;
+    }
+
+    .propertyMain .houseStyleH1 {
+        font-size: 0.8rem;
+    }
 }
 
 @media only screen and (min-width: 768px) {
+    .propertyMain {
+        padding: 0px 5%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .propertyMain .houseStyleH1 {
+        font-size: 1.5rem;
+    }
+
+    .propertyMain .carrouselSection {
+        width: 60%;
+    }
+
+    .propertyMain .dataSection {
+        width: 35%;
+        margin-left: 5%;
+    }
 }
 
 @media only screen and (min-width: 991px) {
 }
 
 @media only screen and (min-width: 1024px) {
+    .propertyMain .houseStyleH1 {
+        font-size: 2.5rem;
+    }    
 }
 
 @media only screen and (min-width: 1440px) {
@@ -102,10 +115,10 @@
 @media only screen and (min-width: 2560px) {
 }
 
+/* 
 #2B302A
 #EAD7DB
 #493737
 #986F6D
 #D2A19C
-
 */
