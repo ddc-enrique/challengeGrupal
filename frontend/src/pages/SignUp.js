@@ -23,6 +23,7 @@ const SignUp = (props) => {
       [e.target.name]: e.target.value,
     });
   };
+  const [token, setToken] = useState("");
   const submitUser = async () => {
     if (Object.values(user).includes("")) {
       console.log("todos los campos son obligatorios");
@@ -32,13 +33,39 @@ const SignUp = (props) => {
       try {
         let res = await props.registerUser(user);
         if (!res.success) {
-          setErrors(res.response);
-        } else {
-          console.log("Usuario registrado con éxito");
+          if (res.response) throw res.response;
+          else setErrors(res.errors);
+          console.log(res);
+        } else if (res.success) {
+          setToken(res.token);
+          try {
+            console.log("Usuario registrado con éxito");
+            let res = await props.validationUserToken(token);
+            if (res.success)
+              console.log("Te enviamos un mail para que valides tu cuenta");
+            else {
+              console.log("Hubo un error, intente nuevamente más tarde");
+            }
+          } catch (e) {
+            console.log(e);
+          }
         }
       } catch (e) {
         console.log(e);
       }
+    }
+  };
+
+  const sendValidationEmail = async () => {
+    try {
+      let res = await props.validationUserEmail(user.eMail);
+      if (res.success) {
+        console.log("Te enviamos un mail para que valides tu cuenta");
+      } else {
+        console.log(res);
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
   const responseGoogle = async (response) => {
@@ -50,21 +77,29 @@ const SignUp = (props) => {
       eMail: response.profileObj.email,
       google: true,
     };
-    console.log(user)
     try {
       let res = await props.registerUser(user);
       if (!res.success) {
-        console.log("El mail ya está registrado") 
-        // throw res.response, si fuerzo el error me llega desde el back en ingles. 
+        console.log("El mail ya está registrado");
+        // throw res.response. Si fuerzo el error me llega desde el back en ingles ver).
       } else {
-        console.log(`¡${res.response.firstName}, tu cuenta se creó con éxito!`);
+        try {
+          console.log("Usuario registrado con éxito");
+          let res = await props.validationUserToken(token);
+          if (res.success)
+            console.log("Te enviamos un mail para que valides tu cuenta");
+          else {
+            console.log("Hubo un error, intente nuevamente más tarde");
+          }
+        } catch (e) {
+          console.log(e);
+        }
       }
     } catch (err) {
-        console.log(err)
-    //   console.log("Tenemos un problema, por favor intenta más tarde");
+      console.log(err);
+      //   console.log("Tenemos un problema, por favor intenta más tarde");
     }
-  };
-
+  }
   const renderError = (inputName) => {
     let errorToRender = errors.find((error) => error.path[0] === inputName);
     return (
@@ -134,9 +169,20 @@ const SignUp = (props) => {
           className="botonSub"
           buttonText="Registrarse con Google"
           onSuccess={responseGoogle}
-          onFailure={responseGoogle}
           cookiePolicy={"single_host_origin"}
         />
+      </div>
+      <div className="submit">
+      <p>¿No te llegó el mail de validación?</p>
+        <input
+          type="text"
+          name="eMail"
+          placeholder="Email"
+          onChange={(e) => setUser({ eMail: e.target.value })}
+        />
+        <div className="">
+          <button onClick={sendValidationEmail}>Enviar</button>
+        </div>
       </div>
       <div className="submit">
         <p>
@@ -146,12 +192,17 @@ const SignUp = (props) => {
           </Link>
         </p>
       </div>
+      <div className="submit">
+        <Link to="/">Volver a Home</Link>
+      </div>
     </div>
   );
 };
 
 const mapDispatchToProps = {
   registerUser: userActions.createUser,
+  validationUserToken: userActions.validationUserToken,
+  validationUserEmail: userActions.validationUserEmail,
 };
 
 export default connect(null, mapDispatchToProps)(SignUp);

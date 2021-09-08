@@ -37,7 +37,7 @@ router.route('/user/validatemail/:id') // revisar
 .get(userControllers.validateUser)
 router.route('/user/resetpassword')
 .post(
-    validatorControllers.validatorPasswordResetEmailSend,
+    // validatorControllers.validatorPasswordResetEmailSend,
     userControllers.sendResetPasswordMail
 )
 router.route('/user/resetpassword/:id')

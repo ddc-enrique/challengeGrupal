@@ -75,7 +75,7 @@ const userControllers = {
             <h1>Hello ${req.user.firstName} ${req.user.lastName}</h1>
             <p>Please to confirm your account continue to this link:</p>
             <break></break>
-            <a href="http://localhost:4000/api/user/validatemail/${req.user._id}">CLICK HERE!</a>
+            <a href="http://localhost:4000/user/validar-email/${req.user._id}">CLICK HERE!</a>
         `//reemplazar esta URL por una de frontend, que vaya en params un ID, que en front monte componente y useEffect did mount, haga pedido a esa ruta de api con el req params id
         let mailOptions = {
             from: "Mar Del Casas <mardelcasas@gmail.com>",
@@ -95,6 +95,7 @@ const userControllers = {
         .catch(err => handleError(res, err))
     },
     sendResetPasswordMail: (req, res) =>{
+        console.log(req)
         console.log("Received Send Reset Password Mail Petition:" + Date())
         const {eMail} = req.body
         User.findOne({eMail: eMail})

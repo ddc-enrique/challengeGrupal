@@ -21,10 +21,7 @@ const SignIn = (props) => {
   const submitUser = async () => {
     if (Object.values(user).includes("")) {
       console.log("Todos los campos son obligatorios");
-    } else if (!user.eMail.includes("@")) {
-      console.log("Por favor ingrese un email válido");
-    } 
-    else {
+    } else {
       try {
         let res = await props.logUser(user);
         !res.success
@@ -35,6 +32,19 @@ const SignIn = (props) => {
       }
     }
   };
+  const sendChangePassword = async () => {
+    try {
+      let res = await props.sendChangePasswordEmail(user.eMail);
+      if (res.success) {
+        console.log("Te enviamos un mail para que puedas cambiar tu clave");
+      } else {
+        console.log(res);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  
+   }
   const responseGoogle = async (response) => {
     let user = {
       password: response.profileObj.googleId,
@@ -82,6 +92,19 @@ const SignIn = (props) => {
       <div className="submit">
         <button onClick={submitUser}>Enviar</button>
       </div>
+      <div className="submit">
+      <p>¿Olvidaste la clave?</p>
+        <input
+          type="text"
+          name="eMail"
+          placeholder="Email"
+          onChange={(e) => setUser({eMail: e.target.value})}
+        />
+        {console.log(user)}
+        <div className="">
+          <button onClick={sendChangePassword}>Enviar</button>
+        </div>
+      </div>
       <div className="logGoogle">
         <button>Inicia sesion con Facebook</button>
         <GoogleLogin
@@ -89,7 +112,6 @@ const SignIn = (props) => {
           className="botonSub"
           buttonText="Ingresá con Google"
           onSuccess={responseGoogle}
-          onFailure={responseGoogle}
           cookiePolicy={"single_host_origin"}
         />
       </div>
@@ -107,5 +129,6 @@ const SignIn = (props) => {
 
 const mapDispatchToProps = {
   logUser: userActions.logIn,
+  sendChangePasswordEmail: userActions.changePassword
 };
 export default connect(null, mapDispatchToProps)(SignIn);

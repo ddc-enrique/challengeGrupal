@@ -22,14 +22,7 @@ form h1 {
   }
   form div input,
   .formSign .submit button,
-  .formSign .logGoogle button {
-    /* background: rgb(255, 255, 255);
-    background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(250, 166, 29, 1) 0%,
-      rgba(234, 238, 19, 1) 100%
-    ); */
+  .formSign .logGoogle button, input {
     width: 21rem;
     padding: 1rem;
     outline: none;
@@ -37,8 +30,8 @@ form h1 {
     margin: 0.2rem;
     color: rgb(0, 0, 0);
     border-radius: 5px;
-    box-shadow: 10px 5px 5px #9393931c;
-  }
+    box-shadow: 6px -2px 5px #9393937a;
+    }
   .formSign .logGoogle {
     flex-direction: row;
     margin-top: 0.8rem;
@@ -52,16 +45,13 @@ form h1 {
     padding: 0.8rem !important;
     font-size: 0.7rem;
   }
-  .formSign .logGoogle span {
-    font-size: 0.7rem;
-  }
   .errorInputs {
-    /* width: 17rem; */
+    margin-bottom: 1rem;
     color: red;
     text-align: center;
   }
   .submit p {
-    padding-top: 0.7rem;
+    padding-top: 1.7rem;
   }
 }
 @media only screen and (min-width: 425px) {
