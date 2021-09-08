@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import propertiesActions from "../redux/action/propertiesActions"
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-// import CarouselImg from "../components/CarouselImg";
+import CarouselImg from "../components/CarouselImg";
 import "../styles/Property.css";
 
 const Property = (props) => {
@@ -44,20 +44,12 @@ const Property = (props) => {
         )
     }
 
-    const renderCarrouselAndTitle = () => {
+    const renderCarrousel = () => {
         return (
-            <section className="carrouselAndTitleSection">
-                <h1>{property.houseStyle}</h1>
-                {/* <CarouselImg property={property.photosURL}/> */}
-                <p style={{textAlign: "center", paddingTop: "50px"}}>carrusel WIP</p> {/* DELETE */}
-            </section>
-        )
-    }
-
-    const renderCalendar = () => {
-        return (
-            <section className="calendarSection">
-                <p>calendar WIP</p>
+            <section className="carrouselSection">
+                <article>
+                    <CarouselImg property={property.photosURL}/>
+                </article>
             </section>
         )
     }
@@ -65,12 +57,12 @@ const Property = (props) => {
     const renderProperty = () => {
         return (
             <>
-                {renderCarrouselAndTitle()}
+                <h1 className="houseStyleH1">{property.houseStyle}</h1>
+                {renderCarrousel()}
                 <section className="dataSection">
                     <p>datos</p>
                 </section>
                 {renderVideo()}
-                {renderCalendar()}
             </>
         )
     }
