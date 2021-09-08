@@ -81,8 +81,8 @@ const userControllers = {
             from: "Mar Del Casas <mardelcasas@gmail.com>",
             to: `${req.user.firstName} <${req.user.eMail}>`,
             subject: `Welcome ${req.user.firstName}!`,
-            text: message,
-            html: message
+            text: messages,
+            html: messages
         }
         transporter.sendMail(mailOptions, (err, data) => {
             err ? res.json({success: false, response: err}) : res.json({success: true, response: data})
@@ -109,7 +109,7 @@ const userControllers = {
                 <h1>Hello ${user.firstName} ${user.lastName}</h1>
                 <p>Please to confirm your account continue to this link:</p>
                 <break></break>
-                <a href="http://localhost:3000/api/user/validatemail/${user._id}">CLICK HERE!</a>
+                <a href="http://localhost:3000/usuario/validar-email/${user._id}">CLICK HERE!</a>
             `//reemplazar esta URL por una de frontend, que vaya en params un ID, que en front monte componente y useEffect did mount, haga pedido a esa ruta de api con el req params id
             let mailOptions = {
                 from: "Mar Del Casas <mardelcasas@gmail.com>",
@@ -125,6 +125,7 @@ const userControllers = {
         .catch(err => handleError(res, err))
     },
     sendResetPasswordMail: (req, res) =>{
+        console.log(req)
         console.log("Received Send Reset Password Mail Petition:" + Date())
         const {eMail} = req.body
         User.findOne({eMail: eMail})
@@ -137,7 +138,7 @@ const userControllers = {
                     <h1>Hello ${user.firstName} ${user.lastName}</h1>
                     <p>Please to change your password continue to this link:</p>
                     <break></break>
-                    <a href="http://localhost:4000/api/user/resetpassword/${user._id}">CLICK HERE!</a>
+                    <a href="http://localhost:3000/usuario/restablecer-contraseña/${user._id}">CLICK HERE!</a>
                 `//mandarlo a frontend a una pagina con 2 input para la contraseña y que cuando el tipo toque enviar le pegues a ese endpoint, con ese params id y el paquete en el body
                 let mailOptions = {
                     from: "Mar Del Casas <mardelcasas@gmail.com>",
