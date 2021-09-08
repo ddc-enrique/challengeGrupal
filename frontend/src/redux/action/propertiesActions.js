@@ -2,8 +2,11 @@ import axios from "axios";
 
 const propertiesActions = {
   getPropertiesFiltered: (filter) => {
+    console.log("filter que se aplica al endpoint en redux", filter)
       return async (dispatch) => {
           let res = await axios.put("http://localhost:4000/api/properties", {filter: filter})
+          console.log("array de propiedades en action getProperties")
+          console.log(res.data.response)
           dispatch({ type: "GET_PROPERTIES_FILTERED", payload:{ filterObj: filter, response: res.data.response }})
           return res
       }
