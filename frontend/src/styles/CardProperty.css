@@ -80,10 +80,6 @@ div.infoHeader h3, div.infoHeader h4{
     .cardProperty {
         width: 45%;
     }
-    div.pictureCardProperty{
-        justify-content: end;
-    }
-    
 }
 
 @media only screen and (min-width: 1024px) {
@@ -104,6 +100,7 @@ div.infoHeader h3, div.infoHeader h4{
     div.pictureCardProperty{
         width: 45%;
         height: 100%;
+        padding: 0rem; 
         border-top-right-radius: 0rem;
         border-bottom-left-radius: 0.5rem;
     }
@@ -121,6 +118,17 @@ div.infoHeader h3, div.infoHeader h4{
         border-right: solid 2px #986f6d;
         border-top-right-radius: 0.5rem;
         border-bottom-right-radius: 0.5rem;
+    }
+
+    .buttom{
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        background-color: #a8433d;
+        padding: 0.2rem 0.4rem;
+        border-radius: 0.3rem;
+        text-shadow: 1px 1px 0px black;
+        box-shadow: 1px 1px 1px black;
     }
     
     div.pictureCardProperty h3{

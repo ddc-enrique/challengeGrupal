@@ -12,13 +12,7 @@ const CardProperty = (props) => {
     const currency = property.isUSD ? "USD" : "$"
     const contract = property.forSale ? "Propiedad a la venta" : "Propiedad en alquiler"
     const type = property.isHouse ? "Casa" : "Departamento"
-    const bathrooms = property.numberOfBathrooms === 1 ? "baño" : "baños"
-    const garage = property.haveGarage > 0 ? " cochera" : null
-    const goToProperty = () => {
-        // console.log(property._id)
-    }
     return(
-
         <>
         <Link property={property} to={`/propiedad/${property._id}`} className="cardProperty" id="mobile">
             <div className="pictureCardProperty"  style={{backgroundImage:`url(${property.photosURL[0]})`}}>
@@ -31,30 +25,26 @@ const CardProperty = (props) => {
                     <h4>{contract}</h4>
                 </div>
                 <p className="propertyInfoOne">{type} {property.numberOfRooms} amb {property.roofedArea}m cubiertos</p>
-                <p className="propertyInfoTwo"><IoBedOutline/> {property.numberOfBedrooms} hab / <BiBath/> {property.numberOfBathrooms} {bathrooms}
-                {garage && " / "}
-                {garage && <BiCar/>}
-                {garage} </p>
+                <p className="propertyInfoTwo"><IoBedOutline/> {property.numberOfBedrooms} / <BiBath/> {property.numberOfBathrooms}
+                {property.haveGarage && " / "}
+                {property.haveGarage && <BiCar/>}</p>
                 <p className="propertyInfoThree"><IoIosPin/> {property.address}, {property.district}</p>
             </div>
         </Link>
         <div property={property} className="cardProperty Desktop">
             <div className="pictureCardProperty"  style={{backgroundImage:`url(${property.photosURL[0]})`}}>
-                <h3>{currency} {property.price}</h3>
-                <h4>{contract}</h4>
+                <CarouselImg property={property.photosURL}/>
             </div>
             <div className="cardPropertyInfo">
                 <div className="infoHeader">
-                    <CarouselImg property={property.photosURL}/>
-                    <h3 onClick={goToProperty}>Ir</h3>
+                    <Link className="buttom">+ Info</Link>
                     <h3>{currency} {property.price}</h3>
                     <h4>{contract}</h4>
                 </div>
                 <p className="propertyInfoOne">{type} {property.numberOfRooms} amb {property.roofedArea}m cubiertos</p>
-                <p className="propertyInfoTwo"><IoBedOutline/> {property.numberOfBedrooms} hab / <BiBath/> {property.numberOfBathrooms} {bathrooms}
-                {garage && " / "}
-                {garage && <BiCar/>}
-                {garage} </p>
+                <p className="propertyInfoTwo"><IoBedOutline/> {property.numberOfBedrooms} / <BiBath/> {property.numberOfBathrooms}
+                {property.haveGarage && " / "}
+                {property.haveGarage && <BiCar/>}</p>
                 <p className="propertyInfoThree">{property.address}, {property.district} <IoIosPin/></p>
             </div>
         </div>
