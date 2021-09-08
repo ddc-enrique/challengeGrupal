@@ -53,23 +53,6 @@ div.cardPropertyInfo{
     height: 20%;
 }
 
-<<<<<<< HEAD
-@media only screen and (min-width: 768px){
-    div.cardProperty{
-        display: flex;
-        height: 17rem;
-    }
-    div.pictureCardProperty{
-        width: 40%;
-        height: 100%;
-    }
-    div.cardPropertyInfo{
-        width: 60%;
-    }
-}
-
-@media only screen and (min-width: 1024px) {
-=======
 div div p.propertyInfoTwo{
     font-size:0.8rem;
 }
@@ -96,6 +79,10 @@ div.infoHeader h3, div.infoHeader h4{
     .cardProperty {
         width: 45%;
     }
+    div.pictureCardProperty{
+        justify-content: end;
+    }
+    
 }
 
 @media only screen and (min-width: 1024px) {
@@ -135,8 +122,8 @@ div.infoHeader h3, div.infoHeader h4{
         border-bottom-right-radius: 0.5rem;
     }
     
-    div.pictureCardProperty h3, div.pictureCardProperty h4{
-        display: none;
+    div.pictureCardProperty h3{
+        cursor: pointer;
     }
     
     div.infoHeader h3, div.infoHeader h4{
@@ -168,15 +155,10 @@ div.infoHeader h3, div.infoHeader h4{
     div div p.propertyInfoThree{
         font-size: 1.3rem;
     }
->>>>>>> a948b4aabdb77748a55a28feda0697bb606d400b
 }
 
 @media only screen and (min-width: 1440px) {
 }
 
 @media only screen and (min-width: 2560px) {
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> a948b4aabdb77748a55a28feda0697bb606d400b
