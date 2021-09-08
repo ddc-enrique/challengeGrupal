@@ -43,20 +43,20 @@ const userControllers = {
     },
     logUser: (req, res)=>{
         console.log("Received SIGN IN USER Petition:" + Date())
-        const errMessage = "Invalid username or pass"
+        const errMessage = "Usuario o contraseña invalida"
         const {eMail, password, google, facebook} = req.body
         User.exists({eMail: eMail}).then(exists => {
             if(exists){
                 User.findOne({eMail: eMail})
                 .then(userFound => {
                     if((userFound.google === true && google === false) || (userFound.facebook === true && facebook === false)){
-                        throw new Error(`Log in with ${userFound.google ? 'Google' : 'Facebook'}!`)
+                        throw new Error(`Ingrese con ${userFound.google ? 'Google' : 'Facebook'}!`)
                     }
                     if(!userFound.validated){
-                        throw new Error(`Please validate your account, check your email`) // que en front end al recibir este error, de opcion de enviar mail de nuevo.
+                        throw new Error(`Por favor valide su cuenta, revise su email`) // que en front end al recibir este error, de opcion de enviar mail de nuevo.
                     }
                     if(userFound.banned){
-                        throw new Error('This user has a ban on him')
+                        throw new Error('Este usuario tiene un ban')
                     }
                     if(!bcryptjs.compareSync(password, userFound.password))throw new Error(errMessage)
                     const token = jwt.sign({...userFound}, process.env.SECRETORKEY) 
@@ -72,10 +72,10 @@ const userControllers = {
     sendValidationMail: (req, res)=>{
         console.log("Received Send Validation Mail Petition:" + Date())
         let message = `
-            <h1>Hello ${req.user.firstName} ${req.user.lastName}</h1>
-            <p>Please to confirm your account continue to this link:</p>
+            <h1>Hola ${req.user.firstName} ${req.user.lastName}</h1>
+            <p>Por favor para confirmar su cuenta haga click en el siguiente link:</p>
             <break></break>
-            <a href="http://localhost:3000/api/user/validatemail/${req.user._id}">CLICK HERE!</a>
+            <a href="http://localhost:3000/api/user/validatemail/${req.user._id}">CLICK AQUI!</a>
         `//reemplazar esta URL por una de frontend, que vaya en params un ID, que en front monte componente y useEffect did mount, haga pedido a esa ruta de api con el req params id
         let mailOptions = {
             from: "Mar Del Casas <mardelcasas@gmail.com>",
