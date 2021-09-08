@@ -16,6 +16,7 @@ const CardProperty = (props) => {
     const garage = property.haveGarage > 0 ? " cochera" : null
 
     return(
+
         <>
             <div property={property} className="cardProperty" id="mobile">
                 <div className="pictureCardProperty">
