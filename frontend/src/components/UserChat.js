@@ -1,6 +1,7 @@
 import { connect } from "react-redux"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { io } from "socket.io-client"
+import "../styles/userChat.css";
 const UserChat = (props) =>{
     const {token} = props
     const [socket, setSocket] = useState(null)
@@ -29,19 +30,16 @@ const UserChat = (props) =>{
         socket.on('adminConnected', (admins) =>{
             setAdminsOnline(admins)
         })
-        socket.on("newAdminMessage", (packedMessage) =>{
-            console.log(packedMessage)
-        })
         socket.on("iWillHelpYou", (adminInfo) =>{
-            console.log(adminInfo)
+            // console.log(adminInfo)
             setWhoIsHelpingMe(adminInfo.sender)
             setGotHelp(true)
         })
         socket.on("newMessage", (message) =>{
-            console.log(message)
-            console.log("Cuando me llega el mensaje del admin", messages)
+            // console.log(message)
+            // console.log("Cuando me llega el mensaje del admin", messages)
             setMessages(messages => [...messages, message])
-            console.log("Despues de pushearlo", messages)
+            // console.log("Despues de pushearlo", messages)
         })
     },[socket])
     const [newMessage, setNewMessage] = useState("")
@@ -63,27 +61,58 @@ const UserChat = (props) =>{
         socket.emit('clientNeedHelp')
         setHelpRequested(true)
     }
+    const keySubmit = (e)=>{
+        // console.log(e.key)
+        e.key === 'Enter' && sendMessage()
+    }
+    const [chatSwap, setChatSwap] = useState(false)
+    const chatHandler = () =>{
+        setChatSwap(!chatSwap)
+    }
+    const commentsEndRef = useRef(null)
+    const scrollToBottom = () => {
+        commentsEndRef.current.scrollTo({  
+            top: commentsEndRef.current.scrollHeight,
+            behavior: 'smooth' 
+        })
+    }
+    useEffect(() =>{
+        if(!(helpRequested && gotHelp)){
+            return false
+        }
+        if(!chatSwap){
+            return false
+        }
+        scrollToBottom()
+    },[messages, chatSwap])
     if(!token){
         return(
-            <div>
+            <div className="haveToBeLogged">
                 <h2>DEBES ESTAR LOGEADO PARA UTILIZAR EL CHAT</h2>
             </div>
         )
     }
     return(
-        <div>
-            <h4>Chat de Soporte</h4>
-            <p>Numero de admins online: {adminsOnline}</p>
-            {!helpRequested && <button onClick={requestHelp} type="button">Request Help</button>}
-            {(helpRequested && !gotHelp) && <p>Help Requested! please wait...</p>}
-            {(helpRequested && gotHelp) && <>
-                <div className="chatBox">
-                    {messages.map((message, index) => <p key={index}>{message.sender === "Me" ? 'Me: ' : 'Admin: '}{message.message}</p>)}
-                </div>
-                <input onChange={inputHandler} type="text" value={newMessage}></input>
-                <button onClick={sendMessage}>SEND</button>
-                </>
-            }
+        <div id="chatBoxHandler">
+            {!chatSwap && <button id="openSupportBtn" onClick={chatHandler}>💬</button>}
+            {chatSwap && <div id="chatBoxContainer">
+                <button id="closeSupportBtn" onClick={chatHandler}>❌</button>
+                <h4>Chat de Soporte</h4>
+                <p id="onlineOperators">Numero de operadores online: {adminsOnline}</p>
+                {(!helpRequested && adminsOnline > 0) && <button id="requestHelpBtn" onClick={requestHelp} type="button">CHATEAR</button>}
+                {adminsOnline === 0 && <p id="noOperatorsOnline">En estos momentos no hay operadores, Por favor contactanos a: mardelcasas@gmail.com</p>}
+                {(helpRequested && !gotHelp) && <p id="helpRequested">Ayuda solicitada! por favor espere...</p>}
+                {(helpRequested && gotHelp) && <>
+                    <div id="chatBox" ref={commentsEndRef}>
+                        {messages.map((message, index) => <p key={index} className={message.sender === "Me" ? 'myMsg' : 'hisMsg'}>{message.sender === "Me" ? 'Yo: ' : 'Soporte: '}{message.message}</p>)}
+                    </div>
+                    <div id="msgInputs">
+                        <input id="msgInput" onChange={inputHandler} onKeyDown={keySubmit} type="text" value={newMessage}></input>
+                        <button id="sendBtn" onClick={sendMessage}>✉️</button>
+                    </div>
+                    </>
+                }
+            </div>}
         </div>
     )
 }
