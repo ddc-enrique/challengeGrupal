@@ -17,19 +17,35 @@ div.propertiesCardList{
     display: block;
 }
 
+.cardPropertySlider {
+    width: 40%;
+    height: 100%;
+}
+/* .sliderBox {
+    background-color: gray;
+    width: 40%;
+    height: 100%;
+}
+
+#swiper {
+    width: 100%;
+    height: 100%;
+}
+
 div.pictureCardProperty{
     width: 100%;
-    height: 80%;
+    height: 100%;
     background-position: center;
     background-size: cover;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 0.6rem;
+     padding: 0.6rem; 
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
-}
-
+} 
+*/
+    
 div.pictureCardProperty h3{
     align-self: flex-end;
     background-color: #a8433d;
@@ -68,7 +84,7 @@ div div p.propertyInfoThree{
     }
 
     div.pictureCardProperty{
-        width: 45%;
+        width: 100%;
         height: 100%;
         border-top-right-radius: 0rem;
         border-bottom-left-radius: 0.5rem;

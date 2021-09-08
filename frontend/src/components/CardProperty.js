@@ -1,5 +1,6 @@
 import "../styles/CardProperty.css"
-import {Link} from "react-router-dom"
+import CarouselImg from "./CarouselImg"
+
 
 const CardProperty = (props) => {
     const property = props.properties[0]
@@ -11,11 +12,10 @@ const CardProperty = (props) => {
     const garage = property.haveGarage > 0 ? " / cochera" : null
 
     return(
-        <Link property={property} className="cardProperty">
-            <div className="pictureCardProperty"  style={{backgroundImage:`url(${property.photosURL[1]})`}}>
-                <h3>{currency} {property.price}</h3>
-                <h4>{contract}</h4>
-            </div>
+        <div className="cardProperty">    
+            <div className="cardPropertySlider">
+               <CarouselImg property={property.photosURL} /> 
+            </div>    
             <div className="cardPropertyInfo">
                 <div className="infoHeader">
                     <h3>{currency} {property.price}</h3>
@@ -27,8 +27,26 @@ const CardProperty = (props) => {
                 {garage} </p>
                 <p className="propertyInfoThree">{property.address}</p>
             </div>
-        </Link>
+        </div>
     )
 }
 
 export default CardProperty
+
+
+// <Swiper
+//                     id="swiper"
+//                     grabCursor={true}
+//                     spaceBetween={1} 
+//                     slidesPerView={1}
+//                     loop={true}
+//                     autoplay={{"dealy": 3500, "disableOnInteraction": false, pauseOnMouseEnter: true}}
+//                 >
+//                     {property.photosURL.map((img, index) => (
+//                         <SwiperSlide key={index}>
+//                             <di>
+//                                 <div className="pictureCardProperty" style={{backgroundImage:`url(${img})`}}></div>
+//                             </di>
+//                         </SwiperSlide>
+//                     ))}
+//                 </Swiper>
