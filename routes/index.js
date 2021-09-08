@@ -33,11 +33,15 @@ router.route('/user/validatemail') // revisar
     passport.authenticate('jwt', {session: false}),
     userControllers.sendValidationMail
 )
+.post(
+    validatorControllers.validatorPasswordResetEmailSend,
+    userControllers.sendValidationMailByMail
+)
 router.route('/user/validatemail/:id') // revisar
 .get(userControllers.validateUser)
 router.route('/user/resetpassword')
 .post(
-    validatorControllers.validatorPasswordResetEmailSend,
+    // validatorControllers.validatorPasswordResetEmailSend,
     userControllers.sendResetPasswordMail
 )
 router.route('/user/resetpassword/:id')

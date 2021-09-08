@@ -5,99 +5,120 @@ import {connect} from 'react-redux'
 import propertiesActions from "../redux/action/propertiesActions"
 import CardProperty from "./CardProperty"
 import FiltersSelected from "./FiltersSelected"
+import citiesActions from "../redux/action/citiesActions"
 
 const BigFilter = (props) => {
-    const {filterObj} = props
+    const {filterObj, setFilter, getCities, cities} = props
     console.log("Estoy en Big Filter")
-    console.log(filterObj)
-    // const {firstFilter} = props; por ahora un objeto vacio pero sera el filtro que llega desde Home
-    // variable de estado que controla los valores de formulario, esto en realidad esta seteado pq el filtro llega vacio.
-    // Pero lo voy a cambiar para que se inicialice en base a lo que me llegue desde el filtro
-    // evaluar operation --<
-    //forSale (shortrental false, forsale true)
-    //shortRental ( forSale false, shortrental true)
-    //forRental ( shortRental false y forSale false)
-    // spredear lo de abajo y pisar operation
+    console.log("Filter que llega del store", filterObj)
     const [formFilter, setFormFilter] = useState({
         operation: "allCases",  city:"allCases", isHouse: "allCases", 
         numberOfRooms:"allCases", numberOfBedrooms: "allCases", numberOfBathrooms: "allCases",
         isUSD:"allCases", greater:"", lower:"", roofedArea:"allCases",
         isBrandNew:false, haveGarden:false, haveGarage:false, havePool:false
     })
-    console.log("Form Filter")
-    console.log(formFilter)
-    //variable de estado que se envia al fetchear para filtrar
-    const [bigFilter, setBigFilter] = useState(filterObj)
+
+    useEffect(() => {
+        if (!cities.length) {
+            getCities().then(res => {
+                if(!res.data.success){
+                    throw new Error('Something went wrong')
+                }
+                console.log(res.data.response)
+                })
+                .catch(err => console.log(err))
+        }        
+        console.log("el filtro la PRIMERA VEZ QUE LLEGA", filterObj)
+    }, [])
+
     useEffect( () => {
-        let newOperation = "allCases"
-        let numOfBath = "allCases"  
-        let numOfBed = "allCases"
-        setBigFilter(filterObj)
-        console.log(numOfBed)
-        if(Object.keys(filterObj).length > 0){
-            if(filterObj.forSale){
-                newOperation = "forSale"
-            }else if(!filterObj.forSale && !filterObj.shortRental){
-                newOperation = "forRental"
-            }else if(!filterObj.forSale && filterObj.shortRental){
-                newOperation = "shortRental"
-            }
-            if(filterObj.numberOfBathrooms){
-                console.log(filterObj.numberOfBathrooms)
-                numOfBath = typeof filterObj.numberOfBathrooms  === "object" ? "6AndMore" : filterObj.numberOfBathrooms
-                console.log(numOfBath)
-            }
-            if(filterObj.numberOfBedrooms){
-                console.log(filterObj.numberOfBedrooms)
-                numOfBed = typeof filterObj.numberOfBathrooms  === "object" ? "6AndMore" : filterObj.numberOfBedrooms
-                console.log(numOfBed)
-            }
+        let newOperation
+        let nameFormFilter
+        let valueFormFilter
+        let enterSale 
+        let enterShortRental
+        if(Object.keys(filterObj).length){
+            Object.keys(filterObj).forEach( key => {
+                if(key==="forSale" && filterObj[key]){
+                    nameFormFilter = "operation"
+                    valueFormFilter = "forSale"
+                    enterSale = true
+                } 
+                if(key === "shortRental" && filterObj[key]){
+                    valueFormFilter = "shortRental"
+                    nameFormFilter = "operation"
+                    enterShortRental = true
+                }
+                if( !enterSale && !enterShortRental && !filterObj.shortRental && !filterObj.forSale){
+                    valueFormFilter = "forRental"
+                    nameFormFilter = "operation"
+                    enterShortRental = true
+                    enterSale = true
+                } 
+                if( key.startsWith("numberOf") ){
+                    nameFormFilter = key
+                    valueFormFilter = typeof filterObj[key]  === "object" ? "6AndMore" : filterObj[key]
+                }
+                if (key === "isHouse") {
+                    nameFormFilter = key
+                    valueFormFilter = filterObj[key] ? "house" : "apartment"
+                } 
+                if (key ==="greater" || key === "lower") {
+                    nameFormFilter = key
+                    valueFormFilter = filterObj[key]>=0 ? filterObj[key] : ""
+                }
+                if (key === "city") {
+                    nameFormFilter = key
+                    valueFormFilter = filterObj[key]
+                }
+                if(key === "isBrandNew"){
+                    nameFormFilter = key
+                    valueFormFilter = filterObj[key]
+                }
+                if(key.startsWith("have")){
+                    nameFormFilter = key
+                    valueFormFilter = filterObj[key] ? true : false
+                }            
+                setFormFilter({ ...formFilter, [nameFormFilter]: valueFormFilter})
+            })
         }
-        setFormFilter({...formFilter,...filterObj, operation: newOperation, numberOfBedrooms: numOfBed, numberOfBathrooms: numOfBath})
+
+        console.log("Valores del formulario en BigFilter", formFilter)
     // eslint-disable-next-line
     },[filterObj])
-    console.log("Big Filter")
-    console.log(bigFilter)
     // variable de estado para que se muestre o no los formularios del filtro
     const [selectFilters, setSelectFilters] = useState(false)
-    // let countDeleteFirstFilter = 0
-    
-    // eliminar array al fetchear de la api cities
-    const cities = props.cities
-
-    // useEffect(() => {
-    //     if(countDeleteFirstFilter === 0) setBigFilter({})
-    // }, [countDeleteFirstFilter])
 
     const deletePropertieFromObject = (name) => {
         let objectAux = {};
-        Object.keys(bigFilter).forEach((key) =>{
-            if(key !== name) objectAux[key] = bigFilter[key] //limpio el objeto filtro sin esta propiedad
+        Object.keys(filterObj).forEach((key) =>{
+            if(key !== name) objectAux[key] = filterObj[key] //limpio el objeto filtro sin esta propiedad
         })
-        setBigFilter(objectAux)
+        setFilter(objectAux)
+        return objectAux
     }
 
     const operationHandler = (e) => {
         switch (e.target.value) {
             case "allCases":
                 let objectAux = {};
-                Object.keys(bigFilter).forEach((key) =>{
-                    if(!(key === "forSale" || key ==="shortRental")) objectAux[key] = bigFilter[key]
+                Object.keys(filterObj).forEach((key) =>{
+                    if(!(key === "forSale" || key ==="shortRental")) objectAux[key] = filterObj[key]
                 })
-                setBigFilter(objectAux)
+                setFilter(objectAux)
                 break;
             
             case "forSale":
-                setBigFilter({ ...bigFilter, forSale: true, shortRental:false })
+                setFilter({ ...filterObj, forSale: true, shortRental:false })
                 
                 break;
              
             case "forRental":
-                setBigFilter({ ...bigFilter, forSale: false, shortRental:false })                
+                setFilter({ ...filterObj, forSale: false, shortRental:false })                
                 break;                
             
             case "shortRental":
-                setBigFilter({ ...bigFilter, forSale: false, shortRental: true })                
+                setFilter({ ...filterObj, forSale: false, shortRental: true })                
                 break;
 
             default:
@@ -110,9 +131,9 @@ const BigFilter = (props) => {
         if (e.target.value === "allCases") {
             deletePropertieFromObject(e.target.name)
         } else if( e.target.value === condition) {
-            setBigFilter( { ...bigFilter, [e.target.name]: firstValue } )
+            setFilter( { ...filterObj, [e.target.name]: firstValue } )
         } else {
-            setBigFilter( { ...bigFilter, [e.target.name]: secondValue } )
+            setFilter( { ...filterObj, [e.target.name]: secondValue } )
         }
         setFormFilter({ ...formFilter, [e.target.name]: e.target.value})
     }
@@ -122,7 +143,7 @@ const BigFilter = (props) => {
         if(e.target.value === "") {
             deletePropertieFromObject(e.target.name)
         } else {
-            setBigFilter( { ...bigFilter, [e.target.name]: parseInt(e.target.value) } )
+            setFilter( { ...filterObj, [e.target.name]: parseInt(e.target.value) } )
         }
         setFormFilter({ ...formFilter, [e.target.name]: e.target.value})
     }    
@@ -131,15 +152,15 @@ const BigFilter = (props) => {
         if (!e.target.checked) {
             deletePropertieFromObject(e.target.name)
         } else {
-            setBigFilter( { ...bigFilter, [e.target.name]: e.target.checked })
+            setFilter( { ...filterObj, [e.target.name]: e.target.checked })
         }
         setFormFilter({ ...formFilter, [e.target.name]: e.target.checked})
     }
 
     const searchProperties = () => {
         console.log("objeto que filtra")
-        console.log(bigFilter)// llamar al action con axios
-        props.getPropertiesFiltered(bigFilter)
+        console.log(filterObj)// llamar al action con axios
+        props.getPropertiesFiltered(filterObj)
         .then(res => {
             if(!res.data.success){
                 throw new Error('Something went wrong')
@@ -194,22 +215,18 @@ const BigFilter = (props) => {
         
         console.log(e.target.value)
         console.log("ordenar")
-        console.log(sortedProperties)
+        console.log(sortedProperties) //ESTE ARRAY SE TIENE QUE ENVIAR EN 
     }
 
     return (
         <div className="bigFilter">
             <div>
                 {!selectFilters &&
-                <button onClick={() => {
-                    // countDeleteFirstFilter+=1 
-                    setSelectFilters(true)
-                }}>
+                <button onClick={() => setSelectFilters(true) }>
                     Más Filtros <PlusSquare />
                 </button>}
                 <FiltersSelected 
                     deletePropertieFromObject={deletePropertieFromObject}
-                    bigFilter={bigFilter}
                     formFilter={formFilter}
                     setFormFilter={setFormFilter}
                 />
@@ -226,11 +243,11 @@ const BigFilter = (props) => {
                             <option value="shortRental">Alquiler Temporario</option>
                         </select>
                     </div>
-                    <div> {/* AXIOS DE CITIES */}
+                    <div>
                         <h5>Ciudad o región</h5>
-                        <select name="city" value={bigFilter.city} onChange={(e) => selectHandler(e, e.target.value, e.target.value, null)}>
+                        <select name="city" value={filterObj.city} onChange={(e) => selectHandler(e, e.target.value, e.target.value, null)}>
                             <option value="allCases">Todas</option>
-                            { cities.map(city => <option value={city._id} key={city._id}>{city.cityName}</option> )}
+                            { cities.map(city => <option value={city.cityName} key={city._id}>{city.cityName}</option> )}
                         </select>
                     </div>
                 </div>
@@ -288,7 +305,7 @@ const BigFilter = (props) => {
                 </div>
                 <div> {/* 5 */}
                     <h5>M² Metro Cuadrados Cubiertos</h5>
-                    <select name="roofedArea" value={formFilter.roofedArea} onChange={(e) => selectHandler(e, e.target.value, JSON.parse(e.target.value), null)}>
+                    <select name="roofedArea" value={formFilter.roofedArea} onChange={(e) => selectHandler(e, e.target.value,((e.target.value.length===8 && e.target.value) || JSON.parse(e.target.value)), null)}>
                         <option value="allCases">Todas</option>
                         <option value='{"$lte": 40}'>Hasta 40m²</option>
                         <option value='{"$gte":41,"$lte": 80}'>41m² a 80m²</option>
@@ -346,7 +363,9 @@ const mapStateToProps = (state) =>{
     }
 }
 const mapDispatchToProps = {
-    getPropertiesFiltered: propertiesActions.getPropertiesFiltered
+    getPropertiesFiltered: propertiesActions.getPropertiesFiltered,
+    setFilter: propertiesActions.setFilter,
+    getCities: citiesActions.getCities
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BigFilter)

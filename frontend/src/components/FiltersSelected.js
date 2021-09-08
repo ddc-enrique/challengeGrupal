@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { XOctagon } from 'react-bootstrap-icons'
 import { connect } from "react-redux"
+import propertiesActions from '../redux/action/propertiesActions'
 
 
 const FiltersSelected = (props) => {
-    const {deletePropertieFromObject, bigFilter, formFilter, setFormFilter, cities} = props
+    const {deletePropertieFromObject, formFilter, setFormFilter, cities, getPropertiesFiltered} = props
     const [filtersSelected, setFiltersSelected] = useState([])
-
+    console.log("Estoy en FiltersSelected")
     useEffect(() => {
-        console.log(formFilter)
-        console.log(cities)
-        console.log(bigFilter)
-        console.log(filtersSelected)
+        console.log("FiltersSelected")
+        console.log("Array de Formfilter en UseEffect", formFilter)
+        console.log("filtros listos para eliminar", filtersSelected)
         let arrayAux =[] 
-        let nameCity = formFilter.city !== "allCases" ? (cities.find(city => city._id === formFilter.city)).cityName : ""
 
         Object.keys(formFilter).forEach((key, i) =>{
             if (!(formFilter[key] === "allCases" || formFilter[key] === false || formFilter[key] === "")){ 
@@ -31,7 +30,7 @@ const FiltersSelected = (props) => {
                         break;
                     case "city":
                         nameDelete = "Ciudad/Región: "
-                        valueDelete = nameCity
+                        valueDelete = formFilter.city
                         break;
                     case "isHouse":
                         nameDelete = "Tipo: "
@@ -102,10 +101,11 @@ const FiltersSelected = (props) => {
                     default:
                         break;
                 }                        
+                console.log("Cada bloque a eliminar ", [nameDelete, valueDelete, key, formFilter[key]])
                 arrayAux.push([nameDelete, valueDelete, key, formFilter[key]])
-            } else {
-                setFiltersSelected([])
-            }
+            } //else {
+            //     setFiltersSelected([])
+            // }
         })
         setFiltersSelected(arrayAux)
     }, [formFilter])
@@ -124,7 +124,7 @@ const FiltersSelected = (props) => {
             case "roofedArea":
                 initialValue = "allCases"
                 break;
-            case "greter":
+            case "greater":
             case "lower":
                 initialValue = ""
                 break;
@@ -137,25 +137,40 @@ const FiltersSelected = (props) => {
             default:
                 break;
         }
+        console.log("Array de bloques antes de eliminar uno", filtersSelected)
         setFiltersSelected( filtersSelected.filter((block, j) => i!==j))
-        setFormFilter( { ...formFilter, nameInputSelect: initialValue})
-        deletePropertieFromObject(nameInputSelect)
+        setFormFilter( { ...formFilter, [nameInputSelect]: initialValue})
+        let newFilter = deletePropertieFromObject(nameInputSelect) // cambiar el objeto filter en redux
+        console.log("nuevo filtro despues de eliminar bloque", newFilter)
+        // getPropertiesFiltered(newFilter)
+        // .then(res => {
+        //     if(!res.data.success){
+        //         throw new Error('Something went wrong')
+        //     }
+        //     console.log(res.data.response)
+        // })
+        // .catch(err => console.log(err))
     }
 
     return (
         <div className="filtersSelected">
-            {filtersSelected.map((eachFilter, i) => {//cambiarle el key no dejarle index 
+            {filtersSelected.map((eachFilter, i) => {
                 if (eachFilter) {
                     return <p 
-                                key={eachFilter[0] + "F"}
+                                key={eachFilter[2] + "F"}
                                 onClick={() => resetInputSelect(eachFilter[2], i)}
                             >
                                 {`${eachFilter[0]} ${eachFilter[1]} `}<XOctagon/> 
                             </p> 
-                }
+                } 
+                return false
             })}
         </div>
     )
+}
+
+const mapDispatchToProps = {
+    getPropertiesFiltered: propertiesActions.getPropertiesFiltered
 }
 
 const mapStateToProps = (state) => {
@@ -164,4 +179,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(FiltersSelected)
+export default connect(mapStateToProps, mapDispatchToProps)(FiltersSelected)

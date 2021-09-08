@@ -2,7 +2,7 @@ const joi = require('joi')
 const validatorControllers ={
     validatorSignUp : (req, res, next) =>{
         const schema = joi.object({
-            firstName: joi.string().trim(false).min(2).max(35).pattern(new RegExp('[^0-9]+$')).required().messages({
+            firstName: joi.string().trim().min(2).max(35).pattern(new RegExp('[^0-9]+$')).required().messages({
                 "string.max": "Se permite un máximo de 35 caracteres",
                 "string.min": "Se requiere un mínimo de 2 caracteres",
                 "string.trim": "No se permiten espacios antes y despues del nombre",
