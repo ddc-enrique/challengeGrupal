@@ -75,14 +75,14 @@ const userControllers = {
             <h1>Hola ${req.user.firstName} ${req.user.lastName}</h1>
             <p>Por favor para confirmar su cuenta haga click en el siguiente link:</p>
             <break></break>
-            <a href="http://localhost:3000/api/user/validatemail/${req.user._id}">CLICK AQUI!</a>
+            <a href="https://mardelcasas.herokuapp.com/api/user/validatemail/${req.user._id}">CLICK AQUI!</a>
         `//reemplazar esta URL por una de frontend, que vaya en params un ID, que en front monte componente y useEffect did mount, haga pedido a esa ruta de api con el req params id
         let mailOptions = {
             from: "Mar Del Casas <mardelcasas@gmail.com>",
             to: `${req.user.firstName} <${req.user.eMail}>`,
-            subject: `Welcome ${req.user.firstName}!`,
-            text: messages,
-            html: messages
+            subject: `Bienvenido ${req.user.firstName}!`,
+            text: message,
+            html: message
         }
         transporter.sendMail(mailOptions, (err, data) => {
             err ? res.json({success: false, response: err}) : res.json({success: true, response: data})
@@ -109,7 +109,7 @@ const userControllers = {
                 <h1>Hello ${user.firstName} ${user.lastName}</h1>
                 <p>Please to confirm your account continue to this link:</p>
                 <break></break>
-                <a href="http://localhost:3000/usuario/validar-email/${user._id}">CLICK HERE!</a>
+                <a href="https://mardelcasas.herokuapp.com/usuario/validar-email/${user._id}">CLICK HERE!</a>
             `//reemplazar esta URL por una de frontend, que vaya en params un ID, que en front monte componente y useEffect did mount, haga pedido a esa ruta de api con el req params id
             let mailOptions = {
                 from: "Mar Del Casas <mardelcasas@gmail.com>",
@@ -138,7 +138,7 @@ const userControllers = {
                     <h1>Hello ${user.firstName} ${user.lastName}</h1>
                     <p>Please to change your password continue to this link:</p>
                     <break></break>
-                    <a href="http://localhost:3000/usuario/restablecer-contraseña/${user._id}">CLICK HERE!</a>
+                    <a href="https://mardelcasas.herokuapp.com/usuario/restablecer-contraseña/${user._id}">CLICK HERE!</a>
                 `//mandarlo a frontend a una pagina con 2 input para la contraseña y que cuando el tipo toque enviar le pegues a ese endpoint, con ese params id y el paquete en el body
                 let mailOptions = {
                     from: "Mar Del Casas <mardelcasas@gmail.com>",
@@ -168,7 +168,7 @@ const userControllers = {
                     <p>We would like to inform you, your password has been successfully reset!</p>
                     <p>If you didn't change your password, and you want to disable your account please continue and click the following link</p>
                     <break></break>
-                    <a href="http://localhost:4000/api/user/compromised/${user._id}">I didn't reset my password, help!</a>
+                    <a href="https://mardelcasas.herokuapp.com/api/user/compromised/${user._id}">I didn't reset my password, help!</a>
                 `//mandarlo a frontend a una pagina de datos de contacto con una confirmación si quiere desabilitar su cuenta!
                 let mailOptions = {
                     from: "Mar Del Casas <mardelcasas@gmail.com>",
