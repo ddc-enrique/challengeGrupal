@@ -11,7 +11,7 @@ const CardProperty = (props) => {
     const garage = property.haveGarage > 0 ? " / cochera" : null
 
     return(
-        <Link property={property} className="cardProperty">
+        <Link to={`/propiedad/${property._id}`} key={property._id} className="cardProperty">
             <div className="pictureCardProperty"  style={{backgroundImage:`url(${property.photosURL[1]})`}}>
                 <h3>{currency} {property.price}</h3>
                 <h4>{contract}</h4>
