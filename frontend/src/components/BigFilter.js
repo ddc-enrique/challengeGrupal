@@ -218,7 +218,7 @@ const BigFilter = (props) => {
         console.log("ordenar")
         console.log(sortedProperties) //ESTE ARRAY SE TIENE QUE ENVIAR EN 
     }
-
+    console.log("antes de entrar en el return", props.properties)
     return (
         <div className="bigFilter">
             <div className="bigFilterBox">          
