@@ -2,10 +2,11 @@ import "../styles/Form.css";
 import React from "react";
 import { Link } from "react-router-dom";
 import NavBar from "../components/Navbar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import userActions from "../redux/action/userActions";
 import GoogleLogin from "react-google-login";
+import Swal from "sweetalert2";
 
 const SignUp = (props) => {
   const [openValidation, setOpenValidation] = useState(false);
@@ -18,41 +19,59 @@ const SignUp = (props) => {
     photoURL: "",
   });
 
-  const inputNameHandler = (e) => {
+  const renderToast = (message, type) => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 4000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    })
+    Toast.fire({
+      icon: type,
+      title: message,
+    })
+  }
+
+  const inputHandler = (e) => {
     setUser({
       ...user,
       [e.target.name]: e.target.value,
     });
   };
+
   const submitUser = async () => {
     if (Object.values(user).includes("")) {
-      console.log("todos los campos son obligatorios");
+      setErrors([{message: "todos los campos son obligatorios", path: ["extra"]}])
     } else if (!user.eMail.includes("@")) {
-      console.log("Por favor ingrese un mail válido");
+      setErrors([{message: "Por favor ingrese un mail válido", path: ["extra"]}])
     } else {
       try {
         let res = await props.registerUser(user);
         if (!res.success) {
           if (res.response) throw res.response;
           else setErrors(res.errors);
-          console.log(res);
         } else if (res.success) {
           try {
-            console.log("Usuario registrado con éxito");
+            renderToast("Usuario registrado con éxito", "success")
             let responseSendEmail = await props.validationUserToken(
               res.response.token
             );
             if (responseSendEmail.success)
-              console.log("Te enviamos un mail para que valides tu cuenta");
+              renderToast("Te enviamos un mail para que valides tu cuenta", "success")
             else {
-              console.log("Hubo un error, intente nuevamente más tarde");
+              setErrors([{message: "Hubo un error, intente nuevamente más tarde", path: ["extra"]}])
             }
           } catch (e) {
             console.log(e);
           }
         }
       } catch (e) {
-        console.log(e);
+        renderToast(e, "warning")
       }
     }
   };
@@ -61,14 +80,15 @@ const SignUp = (props) => {
     try {
       let res = await props.validationUserEmail(user.eMail);
       if (res.success) {
-        console.log("Te enviamos un mail para que valides tu cuenta");
+        renderToast("Te enviamos un mail para que valides tu cuenta", "success")
       } else {
         throw res.response;
       }
     } catch (e) {
-      console.log(e);
+      renderToast("Usuario no válido", "warning")
     }
   };
+
   const responseGoogle = async (response) => {
     let user = {
       firstName: response.profileObj.givenName,
@@ -81,26 +101,25 @@ const SignUp = (props) => {
     try {
       let res = await props.registerUser(user);
       if (!res.success) {
-        console.log("El mail ya está registrado");
-        // throw res.response. Si fuerzo el error me llega desde el back en ingles ver).
+        renderToast("El mail ya está registrado", "warning")
       } else {
         try {
-          console.log("Usuario registrado con éxito");
+          renderToast("Usuario registrado con éxito", "success")
           let response = await props.validationUserToken(res.response.token);
           if (response.success)
-            console.log("Te enviamos un mail para que valides tu cuenta");
+            renderToast("Te enviamos un mail para que valides tu cuenta", "warning")
           else {
-            console.log("Hubo un error, intente nuevamente más tarde");
+            renderToast("Hubo un error, intente nuevamente más tarde", "warning")
           }
         } catch (e) {
           console.log(e);
         }
       }
     } catch (err) {
-      console.log(err);
-      //   console.log("Tenemos un problema, por favor intenta más tarde");
+      renderToast("Tenemos un problema, por favor intenta más tarde", "warning")
     }
   };
+
   const renderError = (inputName) => {
     let errorToRender = errors.find((error) => error.path[0] === inputName);
     return (
@@ -109,6 +128,11 @@ const SignUp = (props) => {
       </p>
     );
   };
+
+  const submitWithEnter = (e) => {
+    e.key === "Enter" && submitUser()
+  }
+
   return (
     <div className="formSign">
       <NavBar />
@@ -119,7 +143,8 @@ const SignUp = (props) => {
             type="text"
             name="firstName"
             placeholder="Nombre"
-            onChange={inputNameHandler}
+            onChange={inputHandler}
+            onKeyDown={submitWithEnter}
           />
           {renderError("firstName")}
         </div>
@@ -128,7 +153,8 @@ const SignUp = (props) => {
             type="text"
             name="lastName"
             placeholder="Apellido"
-            onChange={inputNameHandler}
+            onChange={inputHandler}
+            onKeyDown={submitWithEnter}
           />
           {renderError("lastName")}
         </div>
@@ -137,7 +163,8 @@ const SignUp = (props) => {
             type="email"
             name="eMail"
             placeholder="Email"
-            onChange={inputNameHandler}
+            onChange={inputHandler}
+            onKeyDown={submitWithEnter}
           />
           {renderError("eMail")}
         </div>
@@ -146,7 +173,8 @@ const SignUp = (props) => {
             type="password"
             name="password"
             placeholder="Contraseña"
-            onChange={inputNameHandler}
+            onChange={inputHandler}
+            onKeyDown={submitWithEnter}
           />
           {renderError("password")}
         </div>
@@ -155,10 +183,12 @@ const SignUp = (props) => {
             type="text"
             name="photoURL"
             placeholder="Url de foto"
-            onChange={inputNameHandler}
+            onChange={inputHandler}
+            onKeyDown={submitWithEnter}
           />
           {renderError("photoURL")}
         </div>
+        {renderError("extra")}
       </form>
       <div className="submit">
         <button onClick={submitUser}>Enviar</button>
