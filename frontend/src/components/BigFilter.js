@@ -227,7 +227,8 @@ const BigFilter = (props) => {
     console.log(formFilter)
     return (
         <div className="bigFilter">
-            <div className="bigFilterBox">          
+            <div className="image"></div>          
+            <div className="bigFilterBox">
                 <div>
                     {!selectFilters &&
                     <button onClick={() => setSelectFilters(true) }>
@@ -382,8 +383,6 @@ const BigFilter = (props) => {
                     <option value="maxArea">Mayor superficie</option>
                 </select>
             </div>
-            <h1 className="jelp">Prueba otra vez!</h1>
-            <h3 style={{textAlign:"center"}}>No se encontraron propiedades con esas especificaciones, por favor intenta con un filtro diferente</h3>
             {/* <div className="propertiesCardList">
                 {props.properties.map(property =><CardProperty property={property}/>)}
             </div> */}

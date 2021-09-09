@@ -1,7 +1,9 @@
+import "../styles/AdminChat2.css"
 import { connect } from "react-redux"
 import { useEffect, useState, useRef } from "react"
 import { io } from "socket.io-client"
-import "../styles/adminChat.css";
+// import "../styles/adminChat.css";
+
 const Admin = (props) =>{
     const {token, admin} = props
     const [socket, setSocket] = useState(null)
@@ -111,6 +113,14 @@ const Admin = (props) =>{
     return(
         <div className="supportChatContainer">
             <div class="chatBoxHandler">
+            <div class="whoImHelpingContainer">
+                <h4>A quien estoy ayudando:</h4>
+                {users.find(user => user.id === willHelp.whoToHelp) && <div>
+                <p>Nombre: {users.find(user => user.id === willHelp.whoToHelp).firstName}</p>
+                <p>Email: {users.find(user => user.id === willHelp.whoToHelp).eMail}</p>
+                <p>Id: {users.find(user => user.id === willHelp.whoToHelp).id}</p>
+                </div>}
+            </div>
                 <h4>Chat de Soporte</h4>
                 <div className="chatBox" ref={commentsEndRef}>
                     {messages.map((message, index) => <p key={index}>{message.sender === "Me" ? 'Yo: ' : "Usuario: "}{message.message}</p>)}
@@ -120,6 +130,7 @@ const Admin = (props) =>{
                     <button onClick={sendMessage}>ENVIAR</button>
                 </div>
             </div>
+            <div className="sendContainerChat">
             <div class="handleWhoToHelpContainer">
             <label htmlFor="sendTo">Enviar mensaje a ID:</label>
                 <input onChange={inputHandler} type="text" name="sendTo" value={newMessage.sendTo}></input>
@@ -132,12 +143,13 @@ const Admin = (props) =>{
                 {clients.length > 0 && clients.map(client => <p className="clientsSupport" key={client} id={client} onClick={handleClient}>{client}</p>)}
             </div>
             <div class="whoImHelpingContainer">
-                <h4>A quien estoy ayudando:</h4>
+                <h4>Lista de Usuarios conectados:</h4>
                 {users.find(user => user.id === willHelp.whoToHelp) && <div>
                 <p>Nombre: {users.find(user => user.id === willHelp.whoToHelp).firstName}</p>
                 <p>Email: {users.find(user => user.id === willHelp.whoToHelp).eMail}</p>
                 <p>Id: {users.find(user => user.id === willHelp.whoToHelp).id}</p>
                 </div>}
+            </div>
             </div>
         </div>
     )
