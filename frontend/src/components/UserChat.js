@@ -4,7 +4,7 @@ import { io } from "socket.io-client"
 import "../styles/userChat.css";
 import "../styles/UserChat1.css"
 import {ArrowBarDown, ArrowBarUp, XCircle} from "react-bootstrap-icons"
-
+import { BiSend } from "react-icons/bi"
 const UserChat = (props) =>{
     const {token} = props
     const [socket, setSocket] = useState(null)
@@ -113,11 +113,17 @@ const UserChat = (props) =>{
                 {(helpRequested && !gotHelp) && <p id="helpRequested">Ayuda solicitada! por favor espere...</p>}
                 {(helpRequested && gotHelp) && <>
                     <div id="chatBox" ref={commentsEndRef}>
-                        {messages.map((message, index) => <p key={index} className={message.sender === "Me" ? 'myMsg' : 'hisMsg'}>{message.sender === "Me" ? 'Yo: ' : 'Soporte: '}{message.message}</p>)}
+                        {messages.map((message, index) => 
+                            <span key={index}>  
+                                <p className={message.sender === "Me" ? 'myMsg' : 'hisMsg'}>{message.sender === "Me" ? 'Yo' : 'Soporte'}</p>
+                                <p className={message.sender === "Me" ? 'myMsg' : 'hisMsg'}>{message.message}</p>
+                            </span>
+                        )}
                     </div>
                     <div id="msgInputs">
-                        <input id="msgInput" onChange={inputHandler} onKeyDown={keySubmit} type="text" value={newMessage}></input>
-                        <button id="sendBtn" onClick={sendMessage}>✉️</button>
+                        {/* <input id="msgInput" onChange={inputHandler} onKeyDown={keySubmit} type="text" value={newMessage}></input> */}
+                        <textarea id="msgTextArea" onChange={inputHandler} onKeyDown={keySubmit} type="text" value={newMessage}> </textarea>
+                        <button id="sendBtn" onClick={sendMessage}><BiSend width="2" height="2"/></button>
                     </div>
                     </>
                 }

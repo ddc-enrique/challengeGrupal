@@ -40,16 +40,13 @@
 #chatBoxHandler #chatBoxContainer {
     height: 18rem;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
     background-color: rgba(94, 142, 187, 0.61);
     backdrop-filter: blur(14.5px);    
 }
 
-#chatBoxHandler #chatBoxContainer h4{
+/* #chatBoxHandler #chatBoxContainer h4{
 
-}
+} */
 
 #chatBoxHandler #chatBoxContainer #requestHelpBtn {
     padding: 1rem;
@@ -58,22 +55,66 @@
     align-self: center;
 }
 
-#chatBoxHandler #chatBoxContainer .myMsg,
-#chatBoxHandler #chatBoxContainer .hisMsg{
+#chatBoxHandler #chatBoxContainer #chatBox{
+    height: 12rem;
+}
+
+#chatBoxHandler #chatBoxContainer #chatBox .myMsg,
+#chatBoxHandler #chatBoxContainer  #chatBox .hisMsg{
     margin-bottom: 0.5rem;
-}
-
-#chatBoxHandler #chatBoxContainer .myMsg{
-    background-color: white;
-    text-align: right;
-    font-weight: bold;
+    border-radius: .3rem;
+    width: 75%;
+    background-color: transparent;
     color: black;
-    padding-right: 2rem;
-    
-}
-#chatBoxHandler #chatBoxContainer .hisMsg{
-    background-color: black;
-    text-align: left;
-    color: whitesmoke;
+    font-weight: bold;
 }
 
+#chatBoxHandler #chatBoxContainer #chatBox .myMsg{
+    text-align: right;
+    margin-left: 23%;
+    color: black;
+}
+
+#chatBoxHandler #chatBoxContainer #chatBox .myMsg:nth-child(2n){
+    background-color: white;
+    padding: 1rem;    
+    box-shadow: 6px 2px 5px #2e302e7a;
+}
+
+#chatBoxHandler #chatBoxContainer #chatBox .hisMsg{
+    text-align: left;
+    margin-left: .3rem;
+}
+
+#chatBoxHandler #chatBoxContainer #chatBox .hisMsg:nth-child(2n){
+    background-color: black;
+    color: whitesmoke;
+    font-weight: 500;
+    padding: 1rem;    
+    box-shadow: 6px 2px 5px #2e302e7a;
+}
+
+#chatBoxHandler #chatBoxContainer #msgInputs{
+    height: 4rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#chatBoxHandler #chatBoxContainer #msgInputs #msgTextArea {
+    resize: none;
+    width: 80%;
+    height: 60%;
+    outline: none;
+    border-radius: .3rem;
+
+}
+
+#chatBoxHandler #chatBoxContainer #msgInputs #sendBtn{
+    margin-left: 1rem;
+    cursor: pointer;
+    background-color: transparent;
+    color: white;
+    border: none;
+}

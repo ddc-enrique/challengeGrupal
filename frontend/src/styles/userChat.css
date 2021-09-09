@@ -72,11 +72,11 @@
     width: 10rem;
     height: 3rem;
 }
-#sendBtn{
+/* #sendBtn{
     font-size: 1.2rem;
     cursor: pointer;
     border-radius: 1rem;
-}
+} */
 #closeSupportBtn{
     background-color: white;
     color:white;
