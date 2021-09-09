@@ -1,4 +1,4 @@
-import "../styles/BigFilter.css"
+import "../styles/BigFilter2.css"
 import React, { useEffect, useState } from 'react'
 import { PlusSquare, Search } from "react-bootstrap-icons"
 import {connect} from 'react-redux'
@@ -228,7 +228,8 @@ const BigFilter = (props) => {
     console.log(formFilter)
     return (
         <div className="bigFilter">
-            <div className="bigFilterBox">          
+            <div className="image"></div>          
+            <div className="bigFilterBox">
                 <div>
                     {!selectFilters &&
                     <button onClick={() => setSelectFilters(true) }>

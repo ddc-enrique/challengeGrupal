@@ -6,64 +6,89 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import userActions from "../redux/action/userActions";
 import GoogleLogin from "react-google-login";
+import Swal from "sweetalert2";
 
 const SignIn = (props) => {
   const [openPassword, setOpenPassword] = useState(false);
   const [user, setUser] = useState({
     password: "",
     eMail: "",
-  });
+  })
+
+  const renderToast = (message, type) => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 4000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    })
+    Toast.fire({
+      icon: type,
+      title: message,
+    })
+  }
+
   const inputNameHandler = (e) => {
     setUser({
       ...user,
       [e.target.name]: e.target.value,
     });
-  };
+  }
+
   const submitUser = async () => {
     if (Object.values(user).includes("")) {
-      console.log("Todos los campos son obligatorios");
+      renderToast("Todos los campos son obligatorios", "warning")
     } else {
       try {
         let res = await props.logUser(user);
-        !res.success ? console.log(res) : console.log("¡Bienvenido de nuevo!");
+        !res.success ?
+        renderToast(res.response, "warning") :
+        renderToast("¡Bienvenido de nuevo!", "success")
       } catch (e) {
         console.log(e);
       }
     }
-  };
+  }
+
   const sendChangePassword = async () => {
     try {
-      let res = await props.sendChangePasswordEmail(user.eMail);
+      let res = await props.sendChangePasswordEmail(user.eMail)
       if (res.success) {
-        console.log("Te enviamos un mail para que puedas cambiar tu clave");
+        renderToast("Te enviamos un mail para que puedas cambiar tu clave", "success")
       } else {
-        console.log(res);
+        renderToast(res.response, "warning")
       }
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
+
   const responseGoogle = async (response) => {
     let user = {
       password: response.profileObj.googleId,
       eMail: response.profileObj.email,
       google: true,
-    };
-    console.log(user);
+    }
     try {
       let res = await props.logUser(user);
-      console.log(res);
       if (!res.success) {
-        console.log(res);
-        // console.log("No tienes una cuenta registrada con Google");
+        renderToast("No tienes una cuenta registrada con Google", "warning")
       } else {
-        console.log("¡Bienvenido de nuevo!");
+        renderToast("¡Bienvenido de nuevo!", "success")
       }
     } catch (e) {
-      console.log(e);
-      // console.log("Tenemos un problema, por favor intenta más tarde");
+      renderToast("Tenemos un problema, por favor intenta más tarde", "warning")
     }
-  };
+  }
+
+  const submitWithEnter = (e) => {
+    e.key === "Enter" && submitUser()
+  }
 
   return (
     <div className="formSign">
@@ -76,6 +101,7 @@ const SignIn = (props) => {
             name="eMail"
             placeholder="Email"
             onChange={inputNameHandler}
+            onKeyDown={submitWithEnter}
           />
         </div>
         <div>
@@ -84,6 +110,7 @@ const SignIn = (props) => {
             name="password"
             placeholder="Contraseña"
             onChange={inputNameHandler}
+            onKeyDown={submitWithEnter}
           />
         </div>
       </form>
@@ -126,11 +153,11 @@ const SignIn = (props) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
 const mapDispatchToProps = {
   logUser: userActions.logIn,
   sendChangePasswordEmail: userActions.changePassword,
-};
-export default connect(null, mapDispatchToProps)(SignIn);
+}
+export default connect(null, mapDispatchToProps)(SignIn)
