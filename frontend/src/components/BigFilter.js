@@ -1,6 +1,6 @@
 import "../styles/BigFilter.css"
 import React, { useEffect, useState } from 'react'
-import { PlusSquare } from "react-bootstrap-icons"
+import { PlusSquare, Search } from "react-bootstrap-icons"
 import {connect} from 'react-redux'
 import propertiesActions from "../redux/action/propertiesActions"
 import CardProperty from "./CardProperty"
@@ -178,6 +178,7 @@ const BigFilter = (props) => {
         console.log(formFilter)
         setSelectFilters(false)
     }
+
     console.log("Aca tengo las properties q vienen de props")
     console.log(properties)
     const [sortedProperties, setSortedProperties] = useState(properties)
@@ -233,10 +234,15 @@ const BigFilter = (props) => {
                     <button onClick={() => setSelectFilters(true) }>
                         Más Filtros <PlusSquare />
                     </button>}
+                    {selectFilters &&
+                    <button onClick={searchProperties}>
+                        Buscar <Search />
+                    </button>}
                     <FiltersSelected 
                         deletePropertieFromObject={deletePropertieFromObject}
                         formFilter={formFilter}
                         setFormFilter={setFormFilter}
+                        selectFilters={selectFilters}
                     />
                 </div>
                 {selectFilters &&   
@@ -255,7 +261,7 @@ const BigFilter = (props) => {
                             <h5>Ciudad o región</h5>
                             <select name="city" value={filterObj.city} onChange={(e) => selectHandler(e, e.target.value, e.target.value, null)}>
                                 <option value="allCases">Todas</option>
-                                { cities.map(city => <option value={city.cityName} key={city._id}>{city.cityName}</option> )}
+                                { cities.map(city => <option value={city._id} key={city._id}>{city.cityName}</option> )}
                             </select>
                         </div>
                     </div>
