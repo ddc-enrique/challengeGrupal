@@ -5,6 +5,16 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CarouselImg from "../components/CarouselImg";
 import "../styles/Property.css";
+import {BiArea} from "react-icons/bi"
+import {RiRuler2Line} from "react-icons/ri"
+import {BiDoorOpen} from "react-icons/bi"
+import {IoBedOutline} from "react-icons/io5"
+import {BiBath} from "react-icons/bi"
+import {VscPerson} from "react-icons/vsc"
+import {GiCctvCamera} from "react-icons/gi"
+import {BiCar} from "react-icons/bi"
+import {GiParkBench} from "react-icons/gi"
+import {FaSwimmingPool} from "react-icons/fa"
 
 const Property = (props) => {
     const [connectionWithAPI, setConnectionWithAPI] = useState("connected")
@@ -32,6 +42,7 @@ const Property = (props) => {
 
     const renderVideo = () => {
         return (
+            property.videoURL !== "" &&
             <section className="videoSection">
                 <article className="videoArticle">
                     <iframe src={property.videoURL}
@@ -60,7 +71,47 @@ const Property = (props) => {
                 <h1 className="houseStyleH1">{property.houseStyle}</h1>
                 {renderCarrousel()}
                 <section className="dataSection">
-                    <p>datos</p>
+                    <article className="priceAndAddressArticle">
+                        <div className="addressDiv">
+                            <h2>Dirección: {property.address}</h2>
+                            <h3>Barrio: {property.district}</h3>
+                            <h3>Ciudad: {property.city.cityName}</h3>
+                        </div>
+                        <p className="priceP">{`${property.isUSD ? "USD" : "ARS"} ${property.price}`}</p>
+                    </article>
+                    <article className="typeOfArticle">
+                        <p>{`
+                            ${property.isHouse ? "Casa" : "Departamento"} ${
+                                property.isBrandNew ?
+                                "a estrenar" :
+                                (property.isHouse ?
+                                "usada" :
+                                "usado")
+                            } ${
+                                property.forSale ?
+                                "en venta" :
+                                `en alquiler por ${property.rentDuration} ${property.shortRental ? "semanas" : "meses"}`
+                            }
+                        `}</p>
+                    </article>
+                    <article className="areaAndRoomsArticle">
+                        <div>
+                            <p><BiArea/> Area edificada: {property.roofedArea}m<sup>2</sup></p>
+                            <p><RiRuler2Line/> Area total: {property.totalArea}m<sup>2</sup></p>
+                        </div>
+                        <div>
+                            <p><BiDoorOpen/> {property.numberOfRooms} {property.numberOfRooms > 1 ? "ambientes" : "ambiente"}</p>
+                            <p><IoBedOutline/> {property.numberOfBedrooms} {property.numberOfBedrooms > 1 ? "cuartos" : "cuarto"}</p>
+                            <p><BiBath/> {property.numberOfBathrooms} {property.numberOfBathrooms > 1 ? "baños" : "baño"}</p>
+                        </div>
+                    </article>
+                    <article className="extrasArticle">
+                        <p style={{color: property.hasAttendant ? "green" : "red"}}><VscPerson/> Encargado</p>
+                        <p style={{color: property.haveCameras ? "green" : "red"}}><GiCctvCamera/> Camaras</p>
+                        <p style={{color: property.haveGarage ? "green" : "red"}}><BiCar/> Cochera</p>
+                        <p style={{color: property.haveGarden ? "green" : "red"}}><GiParkBench/> Parque</p>
+                        <p style={{color: property.havePool ? "green" : "red"}}><FaSwimmingPool/> Pileta</p>
+                    </article>
                 </section>
                 {renderVideo()}
             </>

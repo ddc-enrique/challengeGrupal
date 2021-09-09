@@ -34,11 +34,62 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     width: 100%;
     margin: 10px 0px;
-    height: 200px;
-    background: #D2A19C;
+    /* background: #D2A19C; */
+}
+
+.propertyMain .dataSection .priceAndAddressArticle {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.propertyMain .dataSection .priceP {
+    transform: rotate(45deg);
+    background: green;
+    color: #EAD7DB;
+    padding: 10px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    margin-top: 20px;
+    flex: 1;
+}
+
+.propertyMain .dataSection .addressDiv {
+    font-size: 0.9rem;
+    align-self: flex-start;
+    flex: 3;
+}
+
+.propertyMain .dataSection .addressDiv h3 {
+    margin: 5px 0px;
+}
+
+.propertyMain .dataSection .typeOfArticle {
+    font-size: 1.3rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+.propertyMain .dataSection .areaAndRoomsArticle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    width: 100%;
+}
+
+.propertyMain .dataSection .extrasArticle {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.propertyMain .dataSection .extrasArticle p {
+    margin: 10px;
 }
 
 .propertyMain .videoSection {
@@ -76,6 +127,18 @@
     .propertyMain .houseStyleH1 {
         font-size: 0.8rem;
     }
+
+    .propertyMain .dataSection .addressDiv {
+        font-size: 0.7rem;
+    }
+
+    .propertyMain .dataSection .priceP {
+        font-size: 0.7rem;
+    }
+
+    .propertyMain .dataSection .areaAndRoomsArticle {
+        font-size: 1rem;
+    }    
 }
 
 @media only screen and (min-width: 768px) {
@@ -98,6 +161,19 @@
         width: 35%;
         margin-left: 5%;
     }
+
+    .propertyMain .dataSection .addressDiv {
+        font-size: 0.6rem;
+    }
+
+    .propertyMain .dataSection .priceP {
+        font-size: 0.7rem;
+        padding: 5px;
+    }
+
+    .propertyMain .dataSection .areaAndRoomsArticle {
+        font-size: 0.8rem;
+    }
 }
 
 @media only screen and (min-width: 991px) {
@@ -106,10 +182,39 @@
 @media only screen and (min-width: 1024px) {
     .propertyMain .houseStyleH1 {
         font-size: 2.5rem;
+    }
+
+    .propertyMain .dataSection .addressDiv {
+        font-size: 1.4rem;
+    }
+
+    .propertyMain .dataSection .priceP {
+        font-size: 1.3rem;
+        margin-top: 25px;
+    }
+
+    .propertyMain .dataSection .typeOfArticle {
+        font-size: 2rem;
+    }
+
+    .propertyMain .dataSection .areaAndRoomsArticle {
+        font-size: 1.7rem;
+    }
+
+    .propertyMain .dataSection .extrasArticle p {
+        font-size: 1.8rem;
     }    
 }
 
 @media only screen and (min-width: 1440px) {
+    .propertyMain .dataSection .priceP {
+        padding: 12px;
+        margin-top: 40px;
+    }
+
+    .propertyMain .dataSection .extrasArticle p {
+        margin: 20px;
+    }    
 }
 
 @media only screen and (min-width: 2560px) {
