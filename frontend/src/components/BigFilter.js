@@ -6,7 +6,7 @@ import propertiesActions from "../redux/action/propertiesActions"
 import CardProperty from "./CardProperty"
 import FiltersSelected from "./FiltersSelected"
 import citiesActions from "../redux/action/citiesActions"
-import "animate.css"
+// import "animate.css"
 
 const BigFilter = (props) => {
     const {filterObj, setFilter, getCities, cities} = props
