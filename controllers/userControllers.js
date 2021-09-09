@@ -206,8 +206,8 @@ const userControllers = {
     manageDreamHouseOfUser: (req, res)=>{
         console.log("Received Manage Filter AND Email List Petition:" + Date())
         let whatToDo = req.body.actionToDo === 'add'
-        User.findOneAndUpdate({_id: req.user._id}, {dreamProperty: whatToDo ? req.body.filter : {}, suscribedToNewsLetter: whatToDo && true})
-        .then(user => user ? res.json({success: true, response: `dream property ${whatToDo ? 'added to' : 'removed from'} user`}) : res.json({success: false, response: 'user not found'}))
+        User.findOneAndUpdate({_id: req.user._id}, {suscribedToNewsLetter: whatToDo && true})
+        .then(user => user ? res.json({success: true, response: `new property ${whatToDo ? 'added to' : 'removed from'} user`}) : res.json({success: false, response: 'user not found'}))
         .catch(err => handleError(res, err))
     },
     populateProperties: (req, res)=>{

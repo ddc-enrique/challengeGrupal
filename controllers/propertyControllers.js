@@ -47,20 +47,9 @@ const propertyControllers = {
         console.log("Received Post Property Petition:" + Date())
         if(req.user.admin){
             const newProperty = new Property({...req.body})
-            console.log(req.body)
-            const {isBrandNew, isHouse, forSale, haveGarden, haveGarage, havePool, numberOfBathrooms, numberOfBedrooms, numberOfRooms, roofedArea, totalArea, price} = req.body
-            const whatToSearchFor = {
-                isBrandNew,
-                isHouse,
-                forSale,
-                haveGarden,
-                haveGarage,
-                havePool,
-            } // hay que acordar QUE COSAS se guardan en el filtro del usuario cuando se agrega al usuario, para buscar ACA
-            // console.log(whatToSearchFor)
             newProperty.save()
             .then((property) => {
-                User.find({dreamProperty: whatToSearchFor, suscribedToNewsLetter: true})
+                User.find({suscribedToNewsLetter: true})
                 .then(async users => {
                     if(users.length > 0){
                         let emailsAccepted = []
@@ -68,9 +57,9 @@ const propertyControllers = {
                         for ( const user of users){
                             let message = `
                             <h1>Hola ${user.firstName} ${user.lastName}</h1>
-                            <p>Queremos informarte que tu casa de ensueño está disponible en nuestra página ahora:</p>
+                            <p>Queremos informarte que se han cargado una nueva propiedad en MarDelCasas:</p>
                             <break></break>
-                            <a href="https://mardelcasas.herokuapp.com/house/${property._id}">CLICK AQUI!</a>
+                            <a href="https://mardelcasas.herokuapp.com/propiedad/${property._id}">CLICK AQUI!</a>
                             `//reemplazar esta URL por una de frontend, que vaya en params un ID, que en front monte componente y useEffect did mount, haga pedido a esa ruta de api con el req params id
                             let mailOptions = {
                                 from: "Mar Del Casas <mardelcasas@gmail.com>",
