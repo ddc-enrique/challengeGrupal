@@ -13,9 +13,9 @@ const FiltersSelected = (props) => {
         console.log("Array de Formfilter en UseEffect", formFilter)
         console.log("filtros listos para eliminar", filtersSelected)
         let arrayAux =[] 
-
         Object.keys(formFilter).forEach((key, i) =>{
             if (!(formFilter[key] === "allCases" || formFilter[key] === false || formFilter[key] === "")){ 
+                let cityName = cities.filter(city => city._id === formFilter.city)[0].cityName
                 let nameDelete, valueDelete
                 switch (key) {
                     case "operation":
@@ -30,7 +30,7 @@ const FiltersSelected = (props) => {
                         break;
                     case "city":
                         nameDelete = "Ciudad/Región: "
-                        valueDelete = formFilter.city
+                        valueDelete = cityName
                         break;
                     case "isHouse":
                         nameDelete = "Tipo: "
@@ -155,7 +155,7 @@ const FiltersSelected = (props) => {
 
     return (
         <div className={!selectFilters ? "filtersSelected expandWidth" : "filtersSelected"}>
-            {(!selectFilters && filtersSelected.length) && <p className="infoP">Filtros Seleccionados: </p>}
+            {(!selectFilters && filtersSelected.length>0) && <p className="infoP">Filtros Seleccionados: </p>}
             {filtersSelected.map((eachFilter, i) => {
                 if (eachFilter) {
                     return <p 
