@@ -38,6 +38,7 @@ const CardProperty = (props) => {
             <div className="cardPropertyInfo">
                 <div className="infoHeader">
                     <Link className="buttom">+ Info</Link>
+
                     <h3>{currency} {property.price}</h3>
                     <h4>{contract}</h4>
                 </div>
