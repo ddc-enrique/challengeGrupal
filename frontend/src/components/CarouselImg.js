@@ -24,9 +24,8 @@ const CarouselImg = (props) => {
                 >
                 {props.property.map((img, index) => (
                     <SwiperSlide key={index}>
-                        <div>
-                            <div className="swiperSlide" style={{backgroundImage:`url(${img})`}}
-                            alt={img}></div>
+                        <div className="swiperSlide" style={{backgroundImage:`url(${img})`}}
+                        alt={img}>
                         </div>
                     </SwiperSlide>
                 ))}

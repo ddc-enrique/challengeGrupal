@@ -8,6 +8,7 @@ import userActions from "../redux/action/userActions";
 import GoogleLogin from "react-google-login";
 
 const SignUp = (props) => {
+  const [openValidation, setOpenValidation] = useState(false);
   const [errors, setErrors] = useState([]);
   const [user, setUser] = useState({
     firstName: "",
@@ -62,7 +63,7 @@ const SignUp = (props) => {
       if (res.success) {
         console.log("Te enviamos un mail para que valides tu cuenta");
       } else {
-       throw res.response
+        throw res.response;
       }
     } catch (e) {
       console.log(e);
@@ -174,7 +175,6 @@ const SignUp = (props) => {
         <Link to="/">Volver a Home</Link>
       </div>
       <div className="logGoogle">
-        <button>Inicia sesion con Facebook</button>
         <GoogleLogin
           clientId="449628523643-i6mlv9530rqnelgmf3gribco7nvsi4vr.apps.googleusercontent.com"
           className="botonSub"
@@ -184,16 +184,22 @@ const SignUp = (props) => {
         />
       </div>
       <div className="submit">
-        <p>¿No te llegó el mail de validación?</p>
-        <input
-          type="text"
-          name="eMail"
-          placeholder="Email"
-          onChange={(e) => setUser({ eMail: e.target.value })}
-        />
-        <div className="">
-          <button onClick={sendValidationEmail}>Enviar</button>
-        </div>
+        <Link to="#" onClick={() => setOpenValidation(!openValidation)}>
+          ¿No te llegó el mail de validación? Hacé click aquí
+        </Link>
+        {openValidation && (
+          <>
+            <input
+              type="text"
+              name="eMail"
+              placeholder="Email"
+              onChange={(e) => setUser({ eMail: e.target.value })}
+            />
+            <div className="">
+              <button onClick={sendValidationEmail}>Enviar</button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
