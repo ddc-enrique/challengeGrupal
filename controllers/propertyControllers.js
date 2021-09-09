@@ -23,10 +23,12 @@ const propertyControllers = {
         if (req.body.filter){
             if (Object.keys(req.body.filter).length === 0){
                 Property.find()
+                .populate({path: "city", select: "cityName"})
                 .then(properties => res.json({success: true, response: properties }))
                 .catch(err => handleError(res,err))
             }else{
                 Property.find({...req.body.filter, price: {$gte: req.body.filter.greater || 0, $lte: req.body.filter.lower || Number.MAX_VALUE}})
+                .populate({path: "city", select: "cityName"})
                 .then(properties => res.json({success: true, response: properties }))
                 .catch(err => handleError(res, err))
             }     
@@ -37,6 +39,7 @@ const propertyControllers = {
     getAProperty: (req, res) => {
         console.log("Received Get Property Petition:" + Date())
         Property.findOne({_id: req.params.id})
+        .populate({path: "city", select: "cityName"})
         .then(property => res.json({success: true, response: property}))
         .catch(err => handleError(res,err))
     },
