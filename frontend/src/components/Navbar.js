@@ -9,9 +9,15 @@ import userActions from "../redux/action/userActions";
 const NavBar = ({token, logOut}) => {
   const [navOpen, setNavOpen] = useState(false);
 
+  const showWishList = () => {
+    
+  }
+
   const nav = !token ? [  { name: "Ingresar", route: "/iniciar-sesion", action: null },
                         { name: "Registrarse", route: "/registrarse", action: null },]
-                      : [ { name:"Cerrar Sesión", route: "#", action: logOut }]
+                      : [ { name:"Cerrar Sesión", route: "#", action: logOut }, 
+                          { name:"Favoritos", route:"#", action: showWishList }]
+
   var navMap = nav.map((a, index) => (
     <Link key={index} to={a.route} onClick={a.action}>
       {a.name}

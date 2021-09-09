@@ -2,6 +2,9 @@ import { connect } from "react-redux"
 import { useEffect, useState, useRef } from "react"
 import { io } from "socket.io-client"
 import "../styles/userChat.css";
+import "../styles/UserChat1.css"
+import {ArrowBarDown, ArrowBarUp, XCircle} from "react-bootstrap-icons"
+import { BiSend } from "react-icons/bi"
 const UserChat = (props) =>{
     const {token} = props
     const [socket, setSocket] = useState(null)
@@ -93,22 +96,34 @@ const UserChat = (props) =>{
         )
     }
     return(
-        <div id="chatBoxHandler">
-            {!chatSwap && <button id="openSupportBtn" onClick={chatHandler}>💬</button>}
+        <div id="chatBoxHandler" className={chatSwap ? "growHeight" : "dontGrowHeight"}>
+            {/* {!chatSwap && <button id="openSupportBtn" onClick={chatHandler}></button>} */}
+            <div 
+                className="openSupportDiv"
+                onClick={chatHandler}
+            > 
+                {(!chatSwap && <ArrowBarUp /> || <ArrowBarDown />)} Número de operadores en línea: {adminsOnline} {chatSwap && <XCircle id="closeIcon" />}
+            </div>                        
             {chatSwap && <div id="chatBoxContainer">
-                <button id="closeSupportBtn" onClick={chatHandler}>❌</button>
-                <h4>Chat de Soporte</h4>
-                <p id="onlineOperators">Numero de operadores online: {adminsOnline}</p>
+                {/* <button id="closeSupportBtn" onClick={chatHandler}>❌</button> */}
+                <h4>¿Necesitas Ayuda?</h4>
+                {/* <p id="onlineOperators">Numero de operadores online: {adminsOnline}</p> */}
                 {(!helpRequested && adminsOnline > 0) && <button id="requestHelpBtn" onClick={requestHelp} type="button">CHATEAR</button>}
                 {adminsOnline === 0 && <p id="noOperatorsOnline">En estos momentos no hay operadores, Por favor contactanos a: mardelcasas@gmail.com</p>}
                 {(helpRequested && !gotHelp) && <p id="helpRequested">Ayuda solicitada! por favor espere...</p>}
                 {(helpRequested && gotHelp) && <>
                     <div id="chatBox" ref={commentsEndRef}>
-                        {messages.map((message, index) => <p key={index} className={message.sender === "Me" ? 'myMsg' : 'hisMsg'}>{message.sender === "Me" ? 'Yo: ' : 'Soporte: '}{message.message}</p>)}
+                        {messages.map((message, index) => 
+                            <span key={index}>  
+                                <p className={message.sender === "Me" ? 'myMsg' : 'hisMsg'}>{message.sender === "Me" ? 'Yo' : 'Soporte'}</p>
+                                <p className={message.sender === "Me" ? 'myMsg' : 'hisMsg'}>{message.message}</p>
+                            </span>
+                        )}
                     </div>
                     <div id="msgInputs">
-                        <input id="msgInput" onChange={inputHandler} onKeyDown={keySubmit} type="text" value={newMessage}></input>
-                        <button id="sendBtn" onClick={sendMessage}>✉️</button>
+                        {/* <input id="msgInput" onChange={inputHandler} onKeyDown={keySubmit} type="text" value={newMessage}></input> */}
+                        <textarea id="msgTextArea" onChange={inputHandler} onKeyDown={keySubmit} type="text" value={newMessage}> </textarea>
+                        <button id="sendBtn" onClick={sendMessage}><BiSend width="2" height="2"/></button>
                     </div>
                     </>
                 }

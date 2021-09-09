@@ -17,18 +17,20 @@ const Header = ({admin}) => {
 
   return (
     <header>
-      {(pathname === "/") && <div className="goBackPH"></div>}
-      {!(pathname === "/") && 
-        <Link to={linkValue}>
-          <ArrowLeftCircle
-            width="2rem" height="2rem"
-          />
-        </Link>
-      }
+      <div>  
+        {(pathname === "/") && <div className="goBackPH"></div>}
+        {!(pathname === "/") &&
+          <Link to={linkValue}>
+            <ArrowLeftCircle
+              width="2rem" height="2rem"
+            />
+          </Link>
+        }
       
-      <Link to="/">
-        <h1>MarDelCasas</h1>
-      </Link>
+        <Link to="/">
+          <h1>MarDelCasas</h1>
+        </Link>
+      </div>
 
       {admin &&
         <Link to="/admin" id="admin">

@@ -15,27 +15,34 @@ html * {
   header {
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     padding-top: 0.5rem;
     align-items: center;
     z-index: 1;
   }
 
-  header .goBackPH {
+  header div:first-child{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 5rem;
+  }
+
+  header>div>.goBackPH {
     width: 2rem;
     height: 2rem;
     margin-left: 1rem;
   }
 
-  header svg {
-    margin-left: 1rem;
+  header>div a svg {
+    margin: 0 .7rem;
   }
 
-  header a {
+  header div a {
     text-decoration: none;
   }
 
-  header h1 {
+  header div a h1 {
     text-shadow: 1px 1px 7px black;
     color: white;
     margin-bottom: 0.5rem;
@@ -106,10 +113,13 @@ html * {
     text-shadow: none;
     color: #6d6d6d;
     font-size: 2rem;
-    margin: 1rem 5rem;
+    /* margin: 1rem 5rem; */
   }
   .containerHome .containerHero {
     height: 46rem;
+  }
+  header div:first-child{
+    margin: 1rem 5rem;
   }
 }
 
