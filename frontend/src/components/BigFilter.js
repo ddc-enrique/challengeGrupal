@@ -228,7 +228,8 @@ const BigFilter = (props) => {
     console.log(formFilter)
     return (
         <div className="bigFilter">
-            <div className="bigFilterBox">          
+            <div className="image"></div>          
+            <div className="bigFilterBox">
                 <div>
                     {!selectFilters &&
                     <button onClick={() => setSelectFilters(true) }>

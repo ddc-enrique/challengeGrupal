@@ -21,7 +21,7 @@ html * {
     z-index: 1;
   }
 
-  header div:first-child {
+  header > div:first-child {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -35,7 +35,7 @@ html * {
   }
 
   header > div a svg {
-    margin: 0 0.7rem;
+    margin: 0 2.1rem;
   }
 
   header div a {
@@ -43,6 +43,8 @@ html * {
   }
 
   header div a h1 {
+    /* width: 2.3rem;
+    height: 2rem; */
     color: #797979;
     margin-bottom: 0.5rem;
     cursor: pointer;
@@ -119,7 +121,7 @@ html * {
     height: 46rem;
   }
   header div:first-child {
-    margin: 1rem 5rem;
+    margin: 1rem 3.2rem;
   }
 }
 

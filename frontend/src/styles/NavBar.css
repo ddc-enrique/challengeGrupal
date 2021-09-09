@@ -28,6 +28,7 @@
     z-index: 2;
     backdrop-filter: blur(14.5px);
     box-shadow: 6px 2px 5px #2e302e7a;
+    margin-left: -2rem;
   }
 
   .navBar .userMenu > a {
