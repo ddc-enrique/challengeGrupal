@@ -51,6 +51,8 @@
         border-radius: 0.3rem;
         border: 1px solid black;
         cursor: pointer;
+        animation: bounceIn;
+        animation-duration: 1s;
     }
     .bigFilter div .filtersSelected p *{ 
         vertical-align: middle;
