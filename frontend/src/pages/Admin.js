@@ -141,18 +141,19 @@ const Admin = (props) =>{
     return(
         <div className="supportChatContainer">
             <div className="chatBoxHandler">
-            <div className="whoImHelpingContainer">
-                <h4>A quien estoy ayudando:</h4>
-                {users.find(user => user.id === willHelp.whoToHelp) && <div>
-                <p>Nombre: {users.find(user => user.id === willHelp.whoToHelp).firstName}</p>
-                <p>Email: {users.find(user => user.id === willHelp.whoToHelp).eMail}</p>
-                <p>Id: {users.find(user => user.id === willHelp.whoToHelp).id}</p>
-                </div>}
-            </div>
+                <div className="whoImHelpingContainer">
+                    <h4>A quien estoy ayudando:</h4>
+                    {users.find(user => user.id === willHelp.whoToHelp) && <div>
+                    <p>Nombre: {users.find(user => user.id === willHelp.whoToHelp).firstName}</p>
+                    <p>Email: {users.find(user => user.id === willHelp.whoToHelp).eMail}</p>
+                    <p>Id: {users.find(user => user.id === willHelp.whoToHelp).id}</p>
+                    </div>}
+                </div>
 
                 <h4>Chat de Soporte</h4>
                 {tabs.map(tab => {
-                    return(<div className="tab" key={tab.sender}>
+                    return(
+                    <div className="tab" key={tab.sender}>
                         <h2>{tab.sender}</h2>
                         <div>
                             {tab.messages.map((message, index) => <p key={index}>{message}</p>)}
@@ -169,18 +170,18 @@ const Admin = (props) =>{
             </div>
 
             <div className="sendContainerChat">
-            <div className="handleWhoToHelpContainer">
-            <label htmlFor="sendTo">Enviar mensaje a ID:</label>
-                <input onChange={inputHandler} type="text" name="sendTo" value={newMessage.sendTo}></input>
-                <label htmlFor="whoToHelp">Habilitar chat a: </label>
-                <input onChange={inputHelpHandler} type="text" name="whoToHelp" value= {willHelp.whoToHelp}></input>
-                <button onClick={sendIHelp}>Habilitar</button>
+                <div className="handleWhoToHelpContainer">
+                    <label htmlFor="sendTo">Enviar mensaje a ID:</label>
+                    <input onChange={inputHandler} type="text" name="sendTo" value={newMessage.sendTo}></input>
+                    <label htmlFor="whoToHelp">Habilitar chat a: </label>
+                    <input onChange={inputHelpHandler} type="text" name="whoToHelp" value= {willHelp.whoToHelp}></input>
+                    <button onClick={sendIHelp}>Habilitar</button>
+                </div>
+                <div className="peopleToHelpContainer">
+                    <h4>Clientes que pidieron ayuda:</h4>
+                    {clients.length > 0 && clients.map(client => <p className="clientsSupport" key={client} id={client} onClick={handleClient}>{client}</p>)}
+                </div>
             </div>
-            <div className="peopleToHelpContainer">
-                <h4>Clientes que pidieron ayuda:</h4>
-                {clients.length > 0 && clients.map(client => <p className="clientsSupport" key={client} id={client} onClick={handleClient}>{client}</p>)}
-            </div>
-
             <div className="whoImHelpingContainer">
                 <h4>Lista de Usuarios conectados:</h4>
                 {users.find(user => user.id === willHelp.whoToHelp) && <div>
@@ -199,8 +200,9 @@ const Admin = (props) =>{
         </div>
     )
 }
-const mapStateToProps = (state) =>{
-    return {
+
+const mapStateToProps = (state) => {
+  return {
         token: state.user.token,
         admin: state.user.admin
     }
