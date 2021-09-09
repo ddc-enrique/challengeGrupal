@@ -21,6 +21,7 @@ const PropertiesList = (props) => {
                 console.log(res.data.response)
             })
             .catch(err => console.log(err))
+            console.log("Properties List se monto y se cargo prop")
         }
         if (cities === 0) {
             getCities().then(res => {
@@ -33,15 +34,15 @@ const PropertiesList = (props) => {
         }
     }, [])
     console.log(filterObj)
-    console.log("Array de propiedades",props.properties)
+    console.log("Array de propiedades", properties)
     return (
         <div className="containerPropertiesList">
             <Header />
             <BigFilter filterObj={filterObj}/>
             {/* select para ordenar */}
-            {/* {!(properties.length===0) && <div className="propertiesCardList">
-                {properties.map(property =><CardProperty property={property}/>)}
-            </div>} */}
+            <div className="propertiesCardList">
+                {properties.map(property =><CardProperty key={property._id} property={property}/>)}
+            </div>
             <Footer />
         </div>
     )

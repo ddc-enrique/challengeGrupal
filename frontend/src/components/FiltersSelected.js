@@ -110,9 +110,10 @@ const FiltersSelected = (props) => {
         setFiltersSelected(arrayAux)
     }, [formFilter])
 
-    const resetInputSelect = (nameInputSelect, i) => {
+    const resetInputSelect = (e, nameInputSelect, i) => {
         console.log(nameInputSelect)
         let initialValue
+        console.log("para colocar efecto", e.target)
         switch (nameInputSelect) {
             case "operation":
             case "city":
@@ -158,7 +159,7 @@ const FiltersSelected = (props) => {
                 if (eachFilter) {
                     return <p 
                                 key={eachFilter[2] + "F"}
-                                onClick={() => resetInputSelect(eachFilter[2], i)}
+                                onClick={(e) => resetInputSelect(e, eachFilter[2], i)}
                             >
                                 {`${eachFilter[0]} ${eachFilter[1]} `}<XOctagon/> 
                             </p> 

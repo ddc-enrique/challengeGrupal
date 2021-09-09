@@ -9,9 +9,10 @@ import citiesActions from "../redux/action/citiesActions"
 // import "animate.css"
 
 const BigFilter = (props) => {
-    const {filterObj, setFilter, getCities, cities} = props
+    const {filterObj, setFilter, getCities, cities, properties} = props
     console.log("Estoy en Big Filter")
     console.log("Filter que llega del store", filterObj)
+    const [bigFilter, setBigFilter] = useState(filterObj)
     const [formFilter, setFormFilter] = useState({
         operation: "allCases",  city:"allCases", isHouse: "allCases", 
         numberOfRooms:"allCases", numberOfBedrooms: "allCases", numberOfBathrooms: "allCases",
@@ -33,28 +34,26 @@ const BigFilter = (props) => {
     }, [])
 
     useEffect( () => {
-        let newOperation
+        setBigFilter(filterObj)
         let nameFormFilter
         let valueFormFilter
-        let enterSale 
-        let enterShortRental
+        let enterOperation = false
         if(Object.keys(filterObj).length){
             Object.keys(filterObj).forEach( key => {
                 if(key==="forSale" && filterObj[key]){
                     nameFormFilter = "operation"
                     valueFormFilter = "forSale"
-                    enterSale = true
+                    enterOperation = true
                 } 
                 if(key === "shortRental" && filterObj[key]){
                     valueFormFilter = "shortRental"
                     nameFormFilter = "operation"
-                    enterShortRental = true
+                    enterOperation = true
                 }
-                if( !enterSale && !enterShortRental && !filterObj.shortRental && !filterObj.forSale){
+                if( !enterOperation && !filterObj.shortRental && !filterObj.forSale){
                     valueFormFilter = "forRental"
                     nameFormFilter = "operation"
-                    enterShortRental = true
-                    enterSale = true
+                    enterOperation = true
                 } 
                 if( key.startsWith("numberOf") ){
                     nameFormFilter = key
@@ -80,7 +79,13 @@ const BigFilter = (props) => {
                     nameFormFilter = key
                     valueFormFilter = filterObj[key] ? true : false
                 }            
-                setFormFilter({ ...formFilter, [nameFormFilter]: valueFormFilter})
+                if(key !== "forsale" && key !== "shortRental"){
+                    setFormFilter({ ...formFilter, [nameFormFilter]: valueFormFilter})
+                } else {
+                    if (enterOperation) {
+                        setFormFilter({ ...formFilter, [nameFormFilter]: valueFormFilter})
+                    }
+                }
             })
         }
 
@@ -92,10 +97,10 @@ const BigFilter = (props) => {
 
     const deletePropertieFromObject = (name) => {
         let objectAux = {};
-        Object.keys(filterObj).forEach((key) =>{
-            if(key !== name) objectAux[key] = filterObj[key] //limpio el objeto filtro sin esta propiedad
+        Object.keys(bigFilter).forEach((key) =>{
+            if(key !== name) objectAux[key] = bigFilter[key] //limpio el objeto filtro sin esta propiedad
         })
-        setFilter(objectAux)
+        setBigFilter(objectAux)
         return objectAux
     }
 
@@ -103,23 +108,23 @@ const BigFilter = (props) => {
         switch (e.target.value) {
             case "allCases":
                 let objectAux = {};
-                Object.keys(filterObj).forEach((key) =>{
-                    if(!(key === "forSale" || key ==="shortRental")) objectAux[key] = filterObj[key]
+                Object.keys(bigFilter).forEach((key) =>{
+                    if(!(key === "forSale" || key ==="shortRental")) objectAux[key] = bigFilter[key]
                 })
-                setFilter(objectAux)
+                setBigFilter(objectAux)
                 break;
             
             case "forSale":
-                setFilter({ ...filterObj, forSale: true, shortRental:false })
+                setBigFilter({ ...bigFilter, forSale: true, shortRental:false })
                 
                 break;
              
             case "forRental":
-                setFilter({ ...filterObj, forSale: false, shortRental:false })                
+                setBigFilter({ ...bigFilter, forSale: false, shortRental:false })                
                 break;                
             
             case "shortRental":
-                setFilter({ ...filterObj, forSale: false, shortRental: true })                
+                setBigFilter({ ...bigFilter, forSale: false, shortRental: true })                
                 break;
 
             default:
@@ -132,9 +137,9 @@ const BigFilter = (props) => {
         if (e.target.value === "allCases") {
             deletePropertieFromObject(e.target.name)
         } else if( e.target.value === condition) {
-            setFilter( { ...filterObj, [e.target.name]: firstValue } )
+            setBigFilter( { ...bigFilter, [e.target.name]: firstValue } )
         } else {
-            setFilter( { ...filterObj, [e.target.name]: secondValue } )
+            setBigFilter( { ...bigFilter, [e.target.name]: secondValue } )
         }
         setFormFilter({ ...formFilter, [e.target.name]: e.target.value})
     }
@@ -144,7 +149,7 @@ const BigFilter = (props) => {
         if(e.target.value === "") {
             deletePropertieFromObject(e.target.name)
         } else {
-            setFilter( { ...filterObj, [e.target.name]: parseInt(e.target.value) } )
+            setBigFilter( { ...bigFilter, [e.target.name]: parseInt(e.target.value) } )
         }
         setFormFilter({ ...formFilter, [e.target.name]: e.target.value})
     }    
@@ -153,15 +158,15 @@ const BigFilter = (props) => {
         if (!e.target.checked) {
             deletePropertieFromObject(e.target.name)
         } else {
-            setFilter( { ...filterObj, [e.target.name]: e.target.checked })
+            setBigFilter( { ...bigFilter, [e.target.name]: e.target.checked })
         }
         setFormFilter({ ...formFilter, [e.target.name]: e.target.checked})
     }
 
     const searchProperties = () => {
         console.log("objeto que filtra")
-        console.log(filterObj)// llamar al action con axios
-        props.getPropertiesFiltered(filterObj)
+        console.log(bigFilter)// llamar al action con axios
+        props.getPropertiesFiltered(bigFilter)
         .then(res => {
             if(!res.data.success){
                 throw new Error('Something went wrong')
@@ -174,11 +179,11 @@ const BigFilter = (props) => {
         setSelectFilters(false)
     }
     console.log("Aca tengo las properties q vienen de props")
-    console.log(props.properties)
-    const [sortedProperties, setSortedProperties] = useState(props.properties)
+    console.log(properties)
+    const [sortedProperties, setSortedProperties] = useState(properties)
     useEffect(()=>{
-        setSortedProperties(props.properties)
-    },[props.properties])
+        setSortedProperties(properties)
+    },[properties])
     const listFilterHandler = (e) => {
         switch (e.target.value){
             case "minPrice":
@@ -210,7 +215,7 @@ const BigFilter = (props) => {
                 )
                 break;
             default:
-                setSortedProperties(props.properties)
+                setSortedProperties(properties)
                 return   
         }
         
@@ -218,7 +223,8 @@ const BigFilter = (props) => {
         console.log("ordenar")
         console.log(sortedProperties) //ESTE ARRAY SE TIENE QUE ENVIAR EN 
     }
-
+    console.log("antes de entrar en el return", properties)
+    console.log(formFilter)
     return (
         <div className="bigFilter">
             <div className="bigFilterBox">          
@@ -378,9 +384,9 @@ const BigFilter = (props) => {
             </div>
             <h1 className="jelp">Prueba otra vez!</h1>
             <h3 style={{textAlign:"center"}}>No se encontraron propiedades con esas especificaciones, por favor intenta con un filtro diferente</h3>
-            <div className="propertiesCardList">
+            {/* <div className="propertiesCardList">
                 {props.properties.map(property =><CardProperty property={property}/>)}
-            </div>
+            </div> */}
         </div>
     )
 }

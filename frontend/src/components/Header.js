@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 const Header = ({admin}) => {
   const history = useHistory()
   const {pathname} = history.location
-  console.log(admin)
   let linkValue
   if (pathname.startsWith("/propiedad/")) {
     linkValue = "/lista-de-propiedades"
