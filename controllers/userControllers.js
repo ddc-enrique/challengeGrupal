@@ -60,7 +60,7 @@ const userControllers = {
                     }
                     if(!bcryptjs.compareSync(password, userFound.password))throw new Error(errMessage)
                     const token = jwt.sign({...userFound}, process.env.SECRETORKEY) 
-                    res.json({success: true, response: {photoURL: userFound.photoURL, firstName: userFound.firstName, lastName: userFound.lastName, eMail: userFound.eMail, token: token, admin: userFound.admin}})
+                    res.json({success: true, response: {photoURL: userFound.photoURL, firstName: userFound.firstName, lastName: userFound.lastName, eMail: userFound.eMail, token: token, admin: userFound.admin, likedProperties: userFound.likedProperties}})
                 })
                 .catch(err => handleError(res, err))
             }else{
@@ -209,6 +209,22 @@ const userControllers = {
         User.findOneAndUpdate({_id: req.user._id}, {suscribedToNewsLetter: whatToDo && true})
         .then(user => user ? res.json({success: true, response: `new property ${whatToDo ? 'added to' : 'removed from'} user`}) : res.json({success: false, response: 'user not found'}))
         .catch(err => handleError(res, err))
+    },
+    populateProperties: (req, res)=>{
+        console.log("Received Populate Favourites Properties Petition:" + Date())
+        User.findOne({ _id: req.user._id }).populate({
+          path: 'likedProperties',
+          populate: { path: 'city' }
+        }).then(response => res.json({success: true, response: response.likedProperties}))
+        .catch(err => handleError(res, err))
+    },
+    likeAProperty: (req, res) =>{
+        console.log("Received Like A Property Petition:" + Date())
+        let foundItinerary =  req.user.likedProperties.indexOf(req.params.id)
+        User.findOneAndUpdate({_id: req.user._id}, { [`$${foundItinerary !== -1 ? 'pull' : 'push'}`]: { likedProperties: req.params.id } }, {new:true})
+        .then(modifiedUser => {
+            res.json({success: true, response: modifiedUser.likedProperties})
+        }).catch(err => handleError(res, err))
     },
 }
 
