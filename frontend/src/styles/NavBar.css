@@ -74,12 +74,13 @@
 }
 
 @media only screen and (min-width: 991px) {
-  .navBar {
-    width: 13rem;
-  }
+  
 }
 
 @media only screen and (min-width: 1024px) {
+  .navBar .userMenu{
+    width: 13rem;
+  }
 }
 
 @media only screen and (min-width: 1440px) {

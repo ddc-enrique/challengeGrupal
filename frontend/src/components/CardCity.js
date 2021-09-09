@@ -26,6 +26,7 @@ const CardCity = (props) => {
   }, []);
   return (
     <div className="divCard">
+    <div></div>
       <Link to="/city">
         <div
           className="cardCity"

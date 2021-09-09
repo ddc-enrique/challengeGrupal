@@ -1,13 +1,23 @@
 @media only screen and (min-width: 375px) {
   main {
     padding-bottom: 2rem;
-    /* background-image: url("../assets/background375-2.jpg"); */
+    /* background-image: url("../assets/4.jpg"); */
+    /* background-color: rgb(180, 180, 180); */
+    backdrop-filter: blur(14.5px);
+    background-position: 100% -111%;
+    background-size: cover;
+  }
+  
+  main:before {
+    content: "";
+    position: absolute;
+    background-color: rgb(20, 20, 20);
   }
   main .mainTitle {
     text-align: center;
-    color: rgb(48, 66, 168);
+    color: rgb(119, 119, 119);
     padding: 2rem 0;
-    border-top: 20px solid blue;
+    border-top: 20px solid rgb(133, 133, 133);
   }
 
   .mainCityCarBox {
@@ -34,12 +44,13 @@
     border-radius: 0.5rem;
     background-position: center;
     background-size: cover;
+    box-shadow: 0.5px 0.5px 8px #0f0f0f69;
   }
 
   .divCard .cardCity:before {
     content: "";
     position: absolute;
-    background-color: #020202;
+    background-color: #020202af;
     opacity: 0.5;
     width: 20rem;
     height: 18rem;

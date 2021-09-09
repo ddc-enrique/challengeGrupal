@@ -10,7 +10,7 @@ SwiperCore.use([Navigation, Pagination, Autoplay ]);
 
 const CarouselImg = (props) => {
 
-    // console.log(props)
+    console.log(props)
     return (
         <div className="swiperBox">
             <Swiper
@@ -19,8 +19,7 @@ const CarouselImg = (props) => {
                 navigation
                 spaceBetween={1} 
                 slidesPerView={1}
-                loop={true}
-                autoplay={{"dealy": 3500, "disableOnInteraction": false, pauseOnMouseEnter: true}}>
+                loop={true}>
                 {props.property.map((img, index) => (
                     <SwiperSlide key={index}>
                         <div className="swiperSlide" style={{backgroundImage:`url(${img})`}}
