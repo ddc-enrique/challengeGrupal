@@ -1,8 +1,4 @@
-.jelp {
-  text-align: center;
-  animation: shakeX;
-  animation-duration: 2s;
-}
+
 
 @media only screen and (min-width: 375px) {
   .bigFilter {
