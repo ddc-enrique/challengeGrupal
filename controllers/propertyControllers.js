@@ -47,6 +47,7 @@ const propertyControllers = {
         console.log("Received Post Property Petition:" + Date())
         if(req.user.admin){
             const newProperty = new Property({...req.body})
+            console.log(req.body)
             const {isBrandNew, isHouse, forSale, haveGarden, haveGarage, havePool, numberOfBathrooms, numberOfBedrooms, numberOfRooms, roofedArea, totalArea, price} = req.body
             const whatToSearchFor = {
                 isBrandNew,
@@ -55,9 +56,6 @@ const propertyControllers = {
                 haveGarden,
                 haveGarage,
                 havePool,
-                numberOfBathrooms,
-                numberOfBedrooms,
-                numberOfRooms
             } // hay que acordar QUE COSAS se guardan en el filtro del usuario cuando se agrega al usuario, para buscar ACA
             // console.log(whatToSearchFor)
             newProperty.save()

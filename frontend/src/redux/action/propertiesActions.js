@@ -40,6 +40,25 @@ const propertiesActions = {
     return (dispatch) => {
       dispatch({ type: "SET_FILTER", payload: filter})
     }
+  },
+
+  postNewProperty: (newProperty, token) =>{
+    return async () => {
+      try{
+        let res = await axios.post("http://localhost:4000/api/property", {...newProperty},{
+          headers:{
+            Authorization: 'Bearer ' + token
+          }
+        })
+        if(res.data.success){
+          return {success: true}
+        }else{
+          throw new Error('No se pudo agregar la propiedad')
+        }
+      }catch(err){
+        return {success: false, response: err.message}
+      }
+    }
   }
 
 };
