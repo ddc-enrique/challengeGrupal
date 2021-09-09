@@ -5,7 +5,7 @@ import propertiesActions from '../redux/action/propertiesActions'
 
 
 const FiltersSelected = (props) => {
-    const {deletePropertieFromObject, formFilter, setFormFilter, cities, getPropertiesFiltered} = props
+    const {deletePropertieFromObject, formFilter, setFormFilter, cities, getPropertiesFiltered, selectFilters} = props
     const [filtersSelected, setFiltersSelected] = useState([])
     console.log("Estoy en FiltersSelected")
     useEffect(() => {
@@ -13,9 +13,9 @@ const FiltersSelected = (props) => {
         console.log("Array de Formfilter en UseEffect", formFilter)
         console.log("filtros listos para eliminar", filtersSelected)
         let arrayAux =[] 
-
         Object.keys(formFilter).forEach((key, i) =>{
             if (!(formFilter[key] === "allCases" || formFilter[key] === false || formFilter[key] === "")){ 
+                let cityName = cities.filter(city => city._id === formFilter.city)[0].cityName
                 let nameDelete, valueDelete
                 switch (key) {
                     case "operation":
@@ -30,7 +30,7 @@ const FiltersSelected = (props) => {
                         break;
                     case "city":
                         nameDelete = "Ciudad/Región: "
-                        valueDelete = formFilter.city
+                        valueDelete = cityName
                         break;
                     case "isHouse":
                         nameDelete = "Tipo: "
@@ -143,18 +143,19 @@ const FiltersSelected = (props) => {
         setFormFilter( { ...formFilter, [nameInputSelect]: initialValue})
         let newFilter = deletePropertieFromObject(nameInputSelect) // cambiar el objeto filter en redux
         console.log("nuevo filtro despues de eliminar bloque", newFilter)
-        // getPropertiesFiltered(newFilter)
-        // .then(res => {
-        //     if(!res.data.success){
-        //         throw new Error('Something went wrong')
-        //     }
-        //     console.log(res.data.response)
-        // })
-        // .catch(err => console.log(err))
+        getPropertiesFiltered(newFilter)
+        .then(res => {
+            if(!res.data.success){
+                throw new Error('Something went wrong')
+            }
+            console.log(res.data.response)
+        })
+        .catch(err => console.log(err))
     }
 
     return (
-        <div className="filtersSelected">
+        <div className={!selectFilters ? "filtersSelected expandWidth" : "filtersSelected"}>
+            {(!selectFilters && filtersSelected.length>0) && <p className="infoP">Filtros Seleccionados: </p>}
             {filtersSelected.map((eachFilter, i) => {
                 if (eachFilter) {
                     return <p 
