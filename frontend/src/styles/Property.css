@@ -28,6 +28,26 @@
 .propertyMain .carrouselSection {
     width: 100%;
     margin: 10px 0px;
+    position: relative;
+    z-index: 1;
+}
+
+/* .propertyMain .dataSection .priceP { */
+.propertyMain .carrouselSection .priceP {    
+    transform: rotate(45deg);
+    min-width: 6rem;
+    max-width: 8rem;
+    text-align: center;
+    background: green;
+    color: #EAD7DB;
+    padding: .5rem;
+    border-radius: 1rem;
+    flex: 1;
+    font-size: 0.8rem;
+    position: absolute;
+    z-index: 2;
+    left: 15rem;
+    top: 1rem;
 }
 
 .propertyMain .dataSection {
@@ -44,17 +64,6 @@
     align-items: flex-start;
     justify-content: space-between;
     width: 100%;
-}
-
-.propertyMain .dataSection .priceP {
-    transform: rotate(45deg);
-    background: green;
-    color: #EAD7DB;
-    padding: 10px;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    margin-top: 20px;
-    flex: 1;
 }
 
 .propertyMain .dataSection .addressDiv {
@@ -128,6 +137,13 @@
         font-size: 0.8rem;
     }
 
+    .propertyMain .carrouselSection .priceP {
+        max-width: 7rem;
+        top: .9rem;
+        left: 12.7rem;
+        font-size: .7rem;
+    }
+
     .propertyMain .dataSection .addressDiv {
         font-size: 0.7rem;
     }
@@ -155,6 +171,13 @@
 
     .propertyMain .carrouselSection {
         width: 60%;
+    }
+
+    .propertyMain .carrouselSection .priceP {
+        max-width: 6rem;
+        top: .9rem;
+        left: 22.5rem;
+        font-size: .7rem;
     }
 
     .propertyMain .dataSection {

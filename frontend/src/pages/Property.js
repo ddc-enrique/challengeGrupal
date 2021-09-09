@@ -15,6 +15,7 @@ import {GiCctvCamera} from "react-icons/gi"
 import {BiCar} from "react-icons/bi"
 import {GiParkBench} from "react-icons/gi"
 import {FaSwimmingPool} from "react-icons/fa"
+import { BookmarkStar, BookmarkStarFill } from "react-bootstrap-icons";
 
 const Property = (props) => {
     const [connectionWithAPI, setConnectionWithAPI] = useState("connected")
@@ -58,6 +59,7 @@ const Property = (props) => {
     const renderCarrousel = () => {
         return (
             <section className="carrouselSection">
+                <p className="priceP">{`${property.isUSD ? "USD" : "ARS"} ${property.price}`}</p>
                 <article>
                     <CarouselImg property={property.photosURL}/>
                 </article>
@@ -77,7 +79,8 @@ const Property = (props) => {
                             <h3>Barrio: {property.district}</h3>
                             <h3>Ciudad: {property.city.cityName}</h3>
                         </div>
-                        <p className="priceP">{`${property.isUSD ? "USD" : "ARS"} ${property.price}`}</p>
+                        
+                        {/* <p className="priceP">{`${property.isUSD ? "USD" : "ARS"} ${property.price}`}</p> */}
                     </article>
                     <article className="typeOfArticle">
                         <p>{`
@@ -142,7 +145,8 @@ const Property = (props) => {
 
 const mapStateToProps = (state) =>{
     return {
-        properties: state.properties.properties
+        properties: state.properties.properties,
+        token: state.user.token
     }
 }
 const mapDispatchToProps = {
