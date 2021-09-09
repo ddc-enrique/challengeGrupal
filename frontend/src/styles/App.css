@@ -56,23 +56,24 @@ html * {
   }
 
   .swiper {
-    width: 100%;
-    height: 100%;
-    color: #000;
+      width: 100%;
+      height: 100%;
+      color: #000;
+      border-top-left-radius: 0.5rem;
+      border-bottom-left-radius: 0.5rem;
   }
 
   .swiperSlide {
-    width: 100%;
-    height: 100%;
-    background-position: center;
-    background-size: cover;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
+      width: 100%;
+      height: 100%;
+      background-position: center;
+      background-size: cover;
+      border-top-left-radius: 0.5rem;
+      border-bottom-left-radius: 0.5rem;
   }
 
-  .swiper-button-next,
-  .swiper-button-prev {
-    color: #000;
+  .swiper-button-next, .swiper-button-prev {
+    color: white !important;
     transform: scale(0.5);
   }
 }

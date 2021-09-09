@@ -80,9 +80,6 @@ div.infoHeader h3, div.infoHeader h4{
     .cardProperty {
         width: 45%;
     }
-    div.pictureCardProperty{
-        justify-content: end;
-    }
     
 }
 
@@ -104,6 +101,7 @@ div.infoHeader h3, div.infoHeader h4{
     div.pictureCardProperty{
         width: 45%;
         height: 100%;
+        padding: 0;
         border-top-right-radius: 0rem;
         border-bottom-left-radius: 0.5rem;
     }
