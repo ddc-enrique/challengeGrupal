@@ -38,13 +38,13 @@ let usersConnected = []
 let adminsConnected = []
 // let didReset = false
 io.on("connection", (socket) => {
-    // if(!didReset){
-    //     console.log("mande a resetear")
-    //     setTimeout(() => {
-    //         io.sockets.emit("resetAll")
-    //     }, 4000)
-    //     didReset = true
-    // }
+    if(!didReset){
+        console.log("mande a resetear")
+        setTimeout(() => {
+            io.sockets.emit("resetAll")
+        }, 4000)
+        didReset = true
+    }
     let error = null
     let verifiedUser = null
     try{
