@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import userActions from "../redux/action/userActions";
 
 
-const NavBar = ({token, logOut}) => {
+const NavBar = ({token, logOut, photoURL}) => {
   const [navOpen, setNavOpen] = useState(false);
 
   const showWishList = () => {
@@ -23,13 +23,13 @@ const NavBar = ({token, logOut}) => {
       {a.name}
     </Link>
   ));
-
+    console.log(photoURL)
   return (
     <div className="navBar">
       <button onClick={() => setNavOpen(!navOpen)}>
         <img
           className="logoUser"
-          src="/assets/logo.png"
+          src={photoURL === null ? "/assets/logo.png" : photoURL}
           alt="logo-user"
           width="50px"
           height="50px"
@@ -57,6 +57,7 @@ const mapDispatchToProps = {
 const mapStateToProps = (state) =>{
   return {
     token: state.user.token,
+    photoURL: state.user.photoURL
   } 
 }
 

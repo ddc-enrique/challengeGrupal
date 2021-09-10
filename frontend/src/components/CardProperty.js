@@ -14,7 +14,7 @@ const CardProperty = (props) => {
     const type = property.isHouse ? "Casa" : "Departamento"
     return(
         <>
-        <Link property={property} to={`/propiedad/${property._id}`} className="cardProperty" id="mobile">
+        <Link to={`/propiedad/${property._id}`} className="cardProperty" id="mobile">
             <div className="pictureCardProperty"  style={{backgroundImage:`url(${property.photosURL[0]})`}}>
                 <h3>{currency} {property.price}</h3>
                 <h4>{contract}</h4>
@@ -31,14 +31,13 @@ const CardProperty = (props) => {
                 <p className="propertyInfoThree"><IoIosPin/> {property.address}, {property.district}</p>
             </div>
         </Link>
-        <div property={property} className="cardProperty Desktop">
+        <div className="cardProperty Desktop">
             <div className="pictureCardProperty"  style={{backgroundImage:`url(${property.photosURL[0]})`}}>
                 <CarouselImg property={property.photosURL}/>
             </div>
             <div className="cardPropertyInfo">
                 <div className="infoHeader">
-                    <Link to="/" className="buttom">+ Info</Link>
-
+                    <Link to={`/propiedad/${property._id}`} className="buttom">+ Info</Link>
                     <h3>{currency} {property.price}</h3>
                     <h4>{contract}</h4>
                 </div>

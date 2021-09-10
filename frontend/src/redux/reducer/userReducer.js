@@ -1,5 +1,6 @@
 const initState = {
     token: null,
+    photoURL: null,
     admin: false,
 }
 const userReducer = (state = initState, action) => {
@@ -7,6 +8,7 @@ const userReducer = (state = initState, action) => {
         case "LOG_IN":
             return {
                 token: action.payload.token,
+                photoURL: action.payload.photoURL,
                 admin: action.payload.admin,
             }
         case "LOG_OUT": 
