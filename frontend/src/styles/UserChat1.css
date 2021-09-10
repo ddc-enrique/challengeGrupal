@@ -4,6 +4,7 @@
     transition: height 1s;
     background-color: rgba(94, 142, 187, 0.61);
     backdrop-filter: blur(14.5px);
+    -webkit-backdrop-filter: blur(14.5px);
 }
 
 #chatBoxHandler.growHeight {
@@ -22,6 +23,7 @@
     justify-content: center;
     align-items: center;  
     position: relative;  
+    cursor: pointer;
 }
 
 #chatBoxHandler .openSupportDiv svg {
@@ -42,6 +44,7 @@
     width: 100%;
     background-color: rgba(94, 142, 187, 0.61);
     backdrop-filter: blur(14.5px);    
+    -webkit-backdrop-filter: blur(14.5px);
 }
 
 /* #chatBoxHandler #chatBoxContainer h4{
@@ -79,7 +82,20 @@
     background-color: white;
     padding: 1rem;    
     box-shadow: 6px 2px 5px #2e302e7a;
+    /* margin-top: 1rem; */
 }
+
+/* #chatBoxHandler #chatBoxContainer #chatBox .myMsg:nth-child(2n)::before{
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 0.7rem solid transparent;
+    border-right: 0.7rem solid transparent;
+    border-bottom: 0.7rem solid #fff;
+    position: absolute;
+    top: 3.8rem;
+    left: 27.5rem;
+} */
 
 #chatBoxHandler #chatBoxContainer #chatBox .hisMsg{
     text-align: left;
@@ -89,10 +105,24 @@
 #chatBoxHandler #chatBoxContainer #chatBox .hisMsg:nth-child(2n){
     background-color: black;
     color: whitesmoke;
+    /* margin-top: 1rem; */
     font-weight: 500;
     padding: 1rem;    
     box-shadow: 6px 2px 5px #2e302e7a;
 }
+
+/* PROBAR CON TRANSFORM */
+/* #chatBoxHandler #chatBoxContainer #chatBox .hisMsg:nth-child(2n)::before{
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 0.7rem solid transparent;
+    border-right: 0.7rem solid transparent;
+    border-bottom: 0.7rem solid black;
+    position: absolute;
+    top: 9.6rem;
+    left: 1rem;
+} */
 
 #chatBoxHandler #chatBoxContainer #msgInputs{
     height: 4rem;

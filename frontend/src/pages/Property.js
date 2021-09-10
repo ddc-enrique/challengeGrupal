@@ -106,19 +106,18 @@ const Property = (props) => {
                         </div>
                     </article>
                     <article className="extrasArticle">
-                        <p style={{color: property.hasAttendant ? "green" : "red"}}><VscPerson/> Encargado</p>
-                        <p style={{color: property.haveCameras ? "green" : "red"}}><GiCctvCamera/> Camaras</p>
-                        <p style={{color: property.haveGarage ? "green" : "red"}}><BiCar/> Cochera</p>
-                        <p style={{color: property.haveGarden ? "green" : "red"}}><GiParkBench/> Parque</p>
-                        <p style={{color: property.havePool ? "green" : "red"}}><FaSwimmingPool/> Pileta</p>
+                        <p style={property.hasAttendant ? {color: "green", textDecoration: "none"} : {color: "red", textDecoration: "line-through"}}><VscPerson/> Encargado</p>
+                        <p style={property.haveCameras ? {color: "green", textDecoration: "none"} : {color: "red", textDecoration: "line-through"}}><GiCctvCamera/> Camaras</p>
+                        <p style={property.haveGarage ? {color: "green", textDecoration: "none"} : {color: "red", textDecoration: "line-through"}}><BiCar/> Cochera</p>
+                        <p style={property.haveGarden ? {color: "green", textDecoration: "none"} : {color: "red", textDecoration: "line-through"}}><GiParkBench/> Parque</p>
+                        <p style={property.havePool ? {color: "green", textDecoration: "none"} : {color: "red", textDecoration: "line-through"}}><FaSwimmingPool/> Pileta</p>
                     </article>
                 </section>
                 {renderVideo()}
             </>
         )
     }
-
-    console.log(property, connectionWithAPI, loading)
+    
     return (
         <>
             <Header/>
