@@ -13,7 +13,7 @@ const NavBar = ({token, logOut, photoURL}) => {
   console.log(token)
   
   const showWishList = () => {
-    setWishList(true);
+    setWishList(!wishlist);
   }
 
   const closeWishList = () => {
@@ -34,13 +34,7 @@ const NavBar = ({token, logOut, photoURL}) => {
   return (
     <div className="navBar">
       <button onClick={() => setNavOpen(!navOpen)}>
-        <img
-          className="logoUser"
-          src={photoURL === null ? "/assets/logo.png" : photoURL}
-          alt="logo-user"
-          width="50px"
-          height="50px"
-        />
+        {photoURL === null ? <div style={{backgroundImage: `url("/assets/logo.png")`}} alt="logo user" className="logoUser"></div> : <div style={{backgroundImage: `url("${photoURL}")`}} alt="logo user" className="logoUser"></div>} 
       </button>
       {wishlist &&  <WishList closeWishList={closeWishList} />}
       {navOpen && (
@@ -70,3 +64,12 @@ const mapStateToProps = (state) =>{
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+
+
+ // <img
+        //   className="logoUser"
+        //   src={photoURL === null ? "/assets/logo.png" : photoURL}
+        //   alt="logo-user"
+        //   width="50px"
+        //   height="50px"
+        // />

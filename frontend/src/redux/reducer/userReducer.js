@@ -2,7 +2,9 @@ const initState = {
     token: null,
     photoURL: null,
     admin: false,
-    likedProperties: []
+    wishList: [],
+    userId: null
+
 }
 const userReducer = (state = initState, action) => {
     switch (action.type) {
@@ -11,13 +13,19 @@ const userReducer = (state = initState, action) => {
                 token: action.payload.token,
                 photoURL: action.payload.photoURL,
                 admin: action.payload.admin,
+                userId: action.payload.userId
+            }
+        case "UPDATE_WISHLIST":
+            return {
+                ...state,
+                wishList: action.payload,
             }
         case "LOG_OUT": 
             return initState
         case "GET_USERS_FAVOURITES":
             return {
                 ...state,
-                likedProperties: action.payload
+                wishList: action.payload
             }
         default: 
             return state
