@@ -43,15 +43,11 @@ const Admin = (props) =>{
         socket.on("newMessage", (message) =>{
             setMessages(messages => [...messages, {message: message.message, sender: message.sender}])
         })
-    },[socket])
-    if(socket){
         socket.on("resetAll", ()=>{
-            setMessages([])
-            setClients([])
-            setUsers([])
-            setTabs([])
+                console.log("se reseteo")
         })
-    }
+    },[socket])
+    
     const [newMessage, setNewMessage] = useState({
         message: '',
         sendTo: ''

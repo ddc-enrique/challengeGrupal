@@ -36,11 +36,12 @@ const io = socket(serva, {
 
 let usersConnected = []
 let adminsConnected = []
-// let didReset = false
+let didReset = false
 io.on("connection", (socket) => {
     if(!didReset){
         console.log("mande a resetear")
         setTimeout(() => {
+            console.log("resetió")
             io.sockets.emit("resetAll")
         }, 4000)
         didReset = true
