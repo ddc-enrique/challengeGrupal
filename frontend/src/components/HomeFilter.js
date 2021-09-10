@@ -10,7 +10,6 @@ const HomeFilter = (props) => {
     const history = useHistory()
 
     const searchInPropertiesList = async () => {
-        console.log(filter)
         try {            
             let res = await props.getPropertiesFiltered(filter)
             console.log("array de propiedades en home despues de hacer primera busqueda")
@@ -27,7 +26,6 @@ const HomeFilter = (props) => {
     }
 
     const changeClassHandle = (e) => {
-        e.preventDefault()
         let elementClicked = e.target.dataset.type
         let childrenUl = e.target.parentNode.children 
         var forSaleValue = true

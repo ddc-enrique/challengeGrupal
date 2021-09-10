@@ -6,11 +6,12 @@ import { connect } from "react-redux";
 import userActions from "../redux/action/userActions";
 import WishList from "./WishList";
 
-
 const NavBar = ({token, logOut}) => {
   const [navOpen, setNavOpen] = useState(false);
   const [wishlist, setWishList] = useState(false);
 
+  console.log(token)
+  
   const showWishList = () => {
     setWishList(true);
   }
@@ -41,7 +42,7 @@ const NavBar = ({token, logOut}) => {
           height="50px"
         />
       </button>
-      {wishlist &&  <WishList closeWishList={closeWishList} token={token}/>}
+      {wishlist &&  <WishList closeWishList={closeWishList} />}
       {navOpen && (
         <div>
           <nav className="userMenu">{navMap}</nav>
