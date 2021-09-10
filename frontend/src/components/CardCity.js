@@ -1,4 +1,4 @@
-import "../styles/CardCity.css"; //css contiene main y cardCity
+import "../styles/CardCity2.css"; //css contiene main y cardCity
 import React from "react";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
@@ -40,15 +40,17 @@ const CardCity = (props) => {
   }
   return (
     <div className="divCard">
-      <div>
+      <div  onClick={searchInPropertiesList}>
           <div
             className="cardCity"
             style={{ backgroundImage: `url(${photoURL})` }}
-            onClick={searchInPropertiesList}
+           
           >
-            <h1>{cityName}</h1>
-            <p>({numberProperties} propiedades)</p>
           </div>
+         <div>
+         <h1>{cityName}</h1>
+            <p>({numberProperties} propiedades)</p>
+         </div>
       </div>
     </div>
   );

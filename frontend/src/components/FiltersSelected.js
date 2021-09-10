@@ -15,7 +15,6 @@ const FiltersSelected = (props) => {
         let arrayAux =[] 
         Object.keys(formFilter).forEach((key, i) =>{
             if (!(formFilter[key] === "allCases" || formFilter[key] === false || formFilter[key] === "")){ 
-                let cityName = cities.filter(city => city._id === formFilter.city)[0].cityName
                 let nameDelete, valueDelete
                 switch (key) {
                     case "operation":
@@ -30,7 +29,7 @@ const FiltersSelected = (props) => {
                         break;
                     case "city":
                         nameDelete = "Ciudad/Región: "
-                        valueDelete = cityName
+                        valueDelete = cities.filter(city => city._id === formFilter.city)[0].cityName
                         break;
                     case "isHouse":
                         nameDelete = "Tipo: "

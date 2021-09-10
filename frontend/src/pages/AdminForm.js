@@ -181,7 +181,8 @@ const AdminForm = (props) => {
 
   return (
     <div className="formProperties">
-      <h1>Formulario de carga propiedades:</h1>
+    <form className="formAdmin">
+      <h1>Cargar propiedades:</h1>
       <div>
         <h4>Locación:</h4>
         <label htmlFor="address">Domicilio:</label>
@@ -239,6 +240,8 @@ const AdminForm = (props) => {
           onChange={forSaleHandler}
           checked={newForm.forSale}
         ></input>
+
+        <div>
         <label htmlFor="rentDuration">
           Duración del contrato (SI ES ALQUILER):
         </label>
@@ -249,15 +252,17 @@ const AdminForm = (props) => {
           onChange={inputHandler}
           value={newForm.rentDuration}
         ></input>
+        </div>
         <label htmlFor="price">Precio:</label>
         <input
+        className="price"
           type="number"
           name="price"
           id="price"
           onChange={inputHandler}
           value={newForm.price}
         ></input>
-        <label htmlFor="isUSD">
+        <label  htmlFor="isUSD">
           {newForm.isUSD ? "En dolares" : "En pesos"}
         </label>
         <input
@@ -270,7 +275,7 @@ const AdminForm = (props) => {
       </div>
       <div>
         <h4>Cantidades y precio:</h4>
-        <label htmlFor="numberOfBathrooms">Numero de baños:</label>
+        <label htmlFor="numberOfBathrooms">Número de baños:</label>
         <input
           type="number"
           name="numberOfBathrooms"
@@ -278,7 +283,7 @@ const AdminForm = (props) => {
           onChange={inputHandler}
           value={newForm.numberOfBathrooms}
         ></input>
-        <label htmlFor="numberOfBedrooms">Numero de dormitorios:</label>
+        <label htmlFor="numberOfBedrooms">Número de dormitorios:</label>
         <input
           type="number"
           name="numberOfBedrooms"
@@ -286,7 +291,7 @@ const AdminForm = (props) => {
           onChange={inputHandler}
           value={newForm.numberOfBedrooms}
         ></input>
-        <label htmlFor="numberOfRooms">Numero de ambientes:</label>
+        <label htmlFor="numberOfRooms">Número de ambientes:</label>
         <input
           type="number"
           name="numberOfRooms"
@@ -433,6 +438,7 @@ const AdminForm = (props) => {
           ))}
         </select>
       </div>
+      </form>
       <button type="button" onClick={submitPropertyHandler}>
         CARGAR PROPIEDAD
       </button>
