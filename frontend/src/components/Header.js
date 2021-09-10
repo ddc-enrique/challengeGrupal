@@ -36,6 +36,11 @@ const Header = ({admin}) => {
           Panel Admin
         </Link>
       }
+      {admin &&
+        <Link to="/addprop" id="adminForm">
+          Admin Form
+        </Link>
+      }
 
       <div className="nav">
         <Navbar />

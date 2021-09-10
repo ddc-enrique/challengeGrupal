@@ -70,6 +70,26 @@ const userActions = {
     return (dispatch) => {
       dispatch({ type:"LOG_OUT" })
     }
+  },
+  putSubscribeEmail: (token) => {
+    return async () => {
+      try {
+        let response = await axios.put(
+          `http://localhost:4000/api/user/managefilter`,
+          {actionToDo: "add"},
+          {headers: {
+            authorization: 'Bearer ' + token
+          }}
+        )
+        if (response.data.success) {
+          return {success: true, response: response.data.response}
+        } else {
+          throw new Error()
+        }
+      } catch {
+        return{success: false, error: "Error de conexión. Intente mas tarde"}
+      }
+    }
   }
 };
 

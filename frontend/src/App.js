@@ -8,6 +8,7 @@ import Property from "./pages/Property"
 import ValidateEmail from "./pages/ValidateEmail";
 import UserChat from "./components/UserChat";
 import Admin from "./pages/Admin";
+import AdminForm from "./pages/AdminForm";
 import { connect } from "react-redux";
 import ResetPassword from "./pages/ResetPassword";
 function App (props) {
@@ -23,6 +24,7 @@ function App (props) {
         {!token && <Route path="/registrarse" component={SignUp} />}
         {!token && <Route path="/iniciar-sesion" component={SignIn} />}
         {admin && <Route path="/admin" component={Admin}/>}
+        <Route path="/addprop" component={AdminForm}/>
         <Redirect to="/" />
       </Switch>
       {(!admin) && <UserChat/>}

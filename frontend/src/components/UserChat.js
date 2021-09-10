@@ -11,6 +11,8 @@ const UserChat = (props) =>{
     const [adminsOnline, setAdminsOnline] = useState(0)
     useEffect(()=>{
         if(!token){
+            // limpie el chat
+            // droppear el socket
             return false
         }
         setSocket(io('http://localhost:4000', {
