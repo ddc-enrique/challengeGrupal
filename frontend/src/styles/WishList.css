@@ -10,7 +10,7 @@
         position: absolute;
         top: 5rem;
         right: 5vw;
-        border: 1px solid lightgray;
+        border: 1px solid gray;
     }
 
     ::-webkit-scrollbar {
@@ -46,26 +46,10 @@
 
     .wishList .wishListBox .wishListItem {
         transform: scale(0.8);
-
     }
 
-
-
-    
-    .wishCard {
+    .wishList .wishListBox .wishListItem .cardProperty {
         width: 100%;
-        display: flex;
-        margin-bottom: 1rem;
-    }
-    
-    .wishCard .wishCardImg {
-        background-color: blue;
-        width: 80px;
-        height: 80px;
-    }
-
-    .wishCard .wishCardDescrip {
-        padding-left: 1.5rem;
     }
     
 }
@@ -77,12 +61,33 @@
 }
 
 @media only screen and (min-width: 768px) {
+
+    .wishList .wishListBox {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        
+    }
+
+    .wishList .wishListBox .wishListItem .cardProperty {
+        width: 100%;
+    }
+
 }
 
 @media only screen and (min-width: 991px) {
 }
 
 @media only screen and (min-width: 1024px) {
+    
+    .wishList {
+        z-index: 2;
+    }
+
+    .wishList .wishListTitle { 
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+    }
+
 }
 
 @media only screen and (min-width: 1440px) {
