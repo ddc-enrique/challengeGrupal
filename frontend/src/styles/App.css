@@ -21,7 +21,7 @@ html * {
     z-index: 1;
   }
 
-  header div:first-child {
+  header > div:first-child {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -118,7 +118,7 @@ html * {
   .containerHome .containerHero {
     height: 46rem;
   }
-  header div:first-child {
+  header > div:first-child {
     margin: 1rem 5rem;
   }
 }

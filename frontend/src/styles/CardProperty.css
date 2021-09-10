@@ -15,6 +15,7 @@ div.propertiesCardList{
     border-radius: 0.5rem;
     text-decoration: none;
     display: block;
+    margin: 0 auto;
 }
 
 div.pictureCardProperty{
