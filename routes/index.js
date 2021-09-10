@@ -60,7 +60,7 @@ router.route('/user/managefilter')
 router.route('/user/like/:id')
 .get(
     passport.authenticate('jwt', {session: false}), 
-    userControllers.likeAProperty
+    userControllers.updateLikedProperties
 )
 router.route('/user/favourites')
 .get(

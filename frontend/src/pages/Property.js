@@ -15,11 +15,14 @@ import {GiCctvCamera} from "react-icons/gi"
 import {BiCar} from "react-icons/bi"
 import {GiParkBench} from "react-icons/gi"
 import {FaSwimmingPool} from "react-icons/fa"
+import { BookmarkStar, BookmarkStarFill } from "react-bootstrap-icons";
+import userActions from "../redux/action/userActions"
 
 const Property = (props) => {
     const [connectionWithAPI, setConnectionWithAPI] = useState("connected")
     const [loading, setLoading] = useState(true)
     const [property, setProperty] = useState({})
+    const [flagWishList, setFlagWishList] = useState(false)
     useEffect(() => {
         window.scroll(0,0)
         if (props.properties.length === 0) {
@@ -37,8 +40,27 @@ const Property = (props) => {
             setProperty(propertySelected[0])
             setLoading(false)
         }
+        if(props.wishList){
+            setFlagWishList(props.wishList.includes(property._id))
+        }
+        
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+
+    const modifyWishList = async () => {
+        if (props.token){
+            try {
+                let res = await props.updateWishList(props.token, property._id)
+                if(!res.success) throw res.response
+                setFlagWishList(res.response.includes(property._id))
+            } catch (error) {
+                console.log(error)
+            }
+        } else {
+            alert("iniciar sesion")
+        }
+    }
 
     const renderVideo = () => {
         return (
@@ -58,6 +80,8 @@ const Property = (props) => {
     const renderCarrousel = () => {
         return (
             <section className="carrouselSection">
+                <p className="priceP">{`${property.isUSD ? "USD" : "ARS"} ${property.price}`}</p>
+                {/* <p className="priceP">{`${property.isUSD ? "USD" : "ARS"} 1000000`}</p> */}
                 <article>
                     <CarouselImg property={property.photosURL}/>
                 </article>
@@ -77,7 +101,16 @@ const Property = (props) => {
                             <h3>Barrio: {property.district}</h3>
                             <h3>Ciudad: {property.city.cityName}</h3>
                         </div>
-                        <p className="priceP">{`${property.isUSD ? "USD" : "ARS"} ${property.price}`}</p>
+                        {!flagWishList &&
+                        <BookmarkStar 
+                            className={props.token ? "wishListBtn" : "wishListBtn reject"}
+                            onClick={modifyWishList}
+                        />}
+                        {flagWishList &&
+                        <BookmarkStarFill
+                            className={props.token ? "wishListBtn" : "wishListBtn reject"}
+                            onClick={modifyWishList}
+                        />}
                     </article>
                     <article className="typeOfArticle">
                         <p>{`
@@ -141,11 +174,15 @@ const Property = (props) => {
 
 const mapStateToProps = (state) =>{
     return {
-        properties: state.properties.properties
+        properties: state.properties.properties,
+        token: state.user.token,
+        wishList: state.user.wishList,
+        userId: state.user.userId
     }
 }
 const mapDispatchToProps = {
-    getProperty: propertiesActions.getProperty
+    getProperty: propertiesActions.getProperty, 
+    updateWishList: userActions.updateWishList
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Property)

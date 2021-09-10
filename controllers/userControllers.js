@@ -60,7 +60,7 @@ const userControllers = {
                     }
                     if(!bcryptjs.compareSync(password, userFound.password))throw new Error(errMessage)
                     const token = jwt.sign({...userFound}, process.env.SECRETORKEY) 
-                    res.json({success: true, response: {photoURL: userFound.photoURL, firstName: userFound.firstName, lastName: userFound.lastName, eMail: userFound.eMail, token: token, admin: userFound.admin, likedProperties: userFound.likedProperties}})
+                    res.json({success: true, response: {photoURL: userFound.photoURL, firstName: userFound.firstName, lastName: userFound.lastName, eMail: userFound.eMail, token: token, admin: userFound.admin, likedProperties: userFound.likedProperties, userId: userFound._id}})
                 })
                 .catch(err => handleError(res, err))
             }else{
@@ -218,10 +218,10 @@ const userControllers = {
         }).then(response => res.json({success: true, response: response.likedProperties}))
         .catch(err => handleError(res, err))
     },
-    likeAProperty: (req, res) =>{
+    updateLikedProperties: (req, res) =>{
         console.log("Received Like A Property Petition:" + Date())
-        let foundItinerary =  req.user.likedProperties.indexOf(req.params.id)
-        User.findOneAndUpdate({_id: req.user._id}, { [`$${foundItinerary !== -1 ? 'pull' : 'push'}`]: { likedProperties: req.params.id } }, {new:true})
+        let foundProperty =  req.user.likedProperties.indexOf(req.params.id)
+        User.findOneAndUpdate({_id: req.user._id}, { [`$${foundProperty !== -1 ? 'pull' : 'push'}`]: { likedProperties: req.params.id } }, {new:true})
         .then(modifiedUser => {
             res.json({success: true, response: modifiedUser.likedProperties})
         }).catch(err => handleError(res, err))
