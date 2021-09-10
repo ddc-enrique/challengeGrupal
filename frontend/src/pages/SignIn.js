@@ -13,6 +13,8 @@ const SignIn = (props) => {
   const [user, setUser] = useState({
     password: "",
     eMail: "",
+    google: false,
+    facebook: false
   })
 
   const renderToast = (message, type) => {
