@@ -2,6 +2,7 @@ const initState = {
     token: null,
     photoURL: null,
     admin: false,
+    likedProperties: []
 }
 const userReducer = (state = initState, action) => {
     switch (action.type) {
@@ -13,6 +14,11 @@ const userReducer = (state = initState, action) => {
             }
         case "LOG_OUT": 
             return initState
+        case "GET_USERS_FAVOURITES":
+            return {
+                ...state,
+                likedProperties: action.payload
+            }
         default: 
             return state
     }

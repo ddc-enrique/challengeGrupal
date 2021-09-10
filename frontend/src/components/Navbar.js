@@ -4,13 +4,20 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import userActions from "../redux/action/userActions";
-
+import WishList from "./WishList";
 
 const NavBar = ({token, logOut, photoURL}) => {
   const [navOpen, setNavOpen] = useState(false);
+  const [wishlist, setWishList] = useState(false);
 
+  console.log(token)
+  
   const showWishList = () => {
-    
+    setWishList(true);
+  }
+
+  const closeWishList = () => {
+    setWishList(false)
   }
 
   const nav = !token ? [  { name: "Ingresar", route: "/iniciar-sesion", action: null },
@@ -35,8 +42,9 @@ const NavBar = ({token, logOut, photoURL}) => {
           height="50px"
         />
       </button>
+      {wishlist &&  <WishList closeWishList={closeWishList} />}
       {navOpen && (
-        <>
+        <div>
           <nav className="userMenu">{navMap}</nav>
           <div className="closeDiv1" 
             onClick={() => setNavOpen(false)}>
@@ -44,7 +52,7 @@ const NavBar = ({token, logOut, photoURL}) => {
           <div className="closeDiv2" 
             onClick={() => setNavOpen(false)}>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

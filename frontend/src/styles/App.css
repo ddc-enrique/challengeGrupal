@@ -120,8 +120,9 @@ html * {
   .containerHome .containerHero {
     height: 46rem;
   }
-  header div:first-child {
-    margin: 1rem 3.2rem;
+  
+  header > div:first-child {
+    margin: 1rem 5rem;
   }
 }
 
