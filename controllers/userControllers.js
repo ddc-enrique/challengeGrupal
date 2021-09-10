@@ -72,17 +72,28 @@ const userControllers = {
     sendValidationMail: (req, res)=>{
         console.log("Received Send Validation Mail Petition:" + Date())
         let message = `
-            <h1>Hola ${req.user.firstName} ${req.user.lastName}</h1>
-            <p>Por favor para confirmar su cuenta haga click en el siguiente link:</p>
-            <break></break>
-            <a href="https://mardelcasas.herokuapp.com/api/user/validatemail/${req.user._id}">CLICK AQUI!</a>
+            <header style="text-align:center;color:black;">
+                <h1 style="font-size:30px;text-decoration:underline;">MarDelCasas</h1>
+                <h2>¡Hola ${req.user.firstName} ${req.user.lastName}!</h2>
+            </header>
+            <main style="text-align:center;margin-bottom:20px;">
+                <p style="color:black;font-size:20px;text-align:center;">Por favor para confirmar su cuenta haga click en el siguiente link:</p>
+                <a href="https://mardelcasas.herokuapp.com/api/user/validatemail/${req.user._id}" style="font-size:25px;text-align:center;display:block;">CLICK AQUI!</a>
+            </main>
+            <footer style="text-align:center;">
+                <p>MarDeLasCasas SRL</p>
+                <p>Dir: Jujuy 995, Mar del Plata, Buenos Aires</p>
+                <p>Telefono: +54 2235391098</p>
+                <p style="color:red;">+ INFO!: <span style="color:blue;">mardelcasas@gmail.com</span></p>
+            </footer>
+            
         `//reemplazar esta URL por una de frontend, que vaya en params un ID, que en front monte componente y useEffect did mount, haga pedido a esa ruta de api con el req params id
         let mailOptions = {
             from: "Mar Del Casas <mardelcasas@gmail.com>",
             to: `${req.user.firstName} <${req.user.eMail}>`,
             subject: `Bienvenido ${req.user.firstName}!`,
             text: message,
-            html: message
+            html: message,
         }
         transporter.sendMail(mailOptions, (err, data) => {
             err ? res.json({success: false, response: err}) : res.json({success: true, response: data})
