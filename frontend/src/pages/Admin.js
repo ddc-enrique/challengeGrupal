@@ -148,7 +148,6 @@ const Admin = (props) =>{
                     <p>Id: {users.find(user => user.id === willHelp.whoToHelp).id}</p>
                     </div>}
                 </div>
-
                 <h4>Chat de Soporte</h4>
                 {tabs.map(tab => {
                     return(
@@ -159,9 +158,6 @@ const Admin = (props) =>{
                         </div>
                     </div>)
                 })}
-                {/* <div className="chatBox" ref={commentsEndRef}>
-                    {messages.map((message, index) => <p key={index}>{message.sender === "Me" ? 'Yo: ' : "Usuario: "}{message.message}</p>)}
-                </div> */}
                 <div className="inputToSend">
                     <input onChange={inputHandler} onKeyDown={keySubmit} type="text" name="message" value={newMessage.message}></input>
                     <button onClick={sendMessage}>ENVIAR</button>
@@ -183,14 +179,6 @@ const Admin = (props) =>{
             </div>
             <div className="whoImHelpingContainer">
                 <h4>Lista de Usuarios conectados:</h4>
-                {users.find(user => user.id === willHelp.whoToHelp) && <div>
-                <p>Nombre: {users.find(user => user.id === willHelp.whoToHelp).firstName}</p>
-                <p>Email: {users.find(user => user.id === willHelp.whoToHelp).eMail}</p>
-                <p>Id: {users.find(user => user.id === willHelp.whoToHelp).id}</p>
-                </div>}
-            </div>
-            </div>
-            {/* <div className="usersConnected">
                 {users.length > 0 && users.map(user => <div key={user.id}>
                 <p>Nombre: {user.firstName}</p>
                 <p>Email: {user.eMail}</p>
