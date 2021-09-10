@@ -1,6 +1,8 @@
 const initState = {
     token: null,
     admin: false,
+    wishList: [],
+    userId: null
 }
 const userReducer = (state = initState, action) => {
     switch (action.type) {
@@ -8,6 +10,12 @@ const userReducer = (state = initState, action) => {
             return {
                 token: action.payload.token,
                 admin: action.payload.admin,
+                userId: action.payload.userId
+            }
+        case "UPDATE_WISHLIST":
+            return {
+                ...state,
+                wishList: action.payload,
             }
         case "LOG_OUT": 
             return initState

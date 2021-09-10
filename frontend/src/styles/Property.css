@@ -34,20 +34,21 @@
 
 /* .propertyMain .dataSection .priceP { */
 .propertyMain .carrouselSection .priceP {    
-    transform: rotate(45deg);
-    min-width: 6rem;
-    max-width: 8rem;
+    transform: rotate(35deg);
+    width: 6rem;
     text-align: center;
     background: green;
     color: #EAD7DB;
     padding: .5rem;
-    border-radius: 1rem;
+    border-radius: 2.5rem;
+    border-top-left-radius : 22rem;
+    border-top-right-radius : 22rem;
     flex: 1;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     position: absolute;
     z-index: 2;
     left: 15rem;
-    top: 1rem;
+    top: .6rem;
 }
 
 .propertyMain .dataSection {
@@ -70,6 +71,17 @@
     font-size: 0.9rem;
     align-self: flex-start;
     flex: 3;
+}
+
+.propertyMain .dataSection article svg.wishListBtn {
+    color: orange;
+    width: 1.8rem;
+    height: 1.8rem;
+    cursor: pointer;
+}
+
+.propertyMain .dataSection article svg.reject {
+    cursor: no-drop;
 }
 
 .propertyMain .dataSection .addressDiv h3 {
@@ -175,8 +187,8 @@
 
     .propertyMain .carrouselSection .priceP {
         max-width: 6rem;
-        top: .9rem;
-        left: 22.5rem;
+        left: 22rem;
+        top: .7rem;
         font-size: .7rem;
     }
 

@@ -90,7 +90,20 @@ const userActions = {
         return{success: false, error: "Error de conexión. Intente mas tarde"}
       }
     }
-  }
+  },
+  updateWishList: (token, propertyId) => {
+    console.log("token en updateWishList", token)    
+    return async (dispatch) => {
+      let res = await axios.get(
+        `http://localhost:4000/api/user/like/${propertyId}`,
+        {headers: {
+          authorization: 'Bearer ' + token
+        }}
+      );      
+      if(res.data.success) dispatch({ type:"UPDATE_WISHLIST", payload: res.data.response})
+      return res.data;
+    };
+  },
 };
 
 export default userActions;
