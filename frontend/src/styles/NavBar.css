@@ -6,7 +6,11 @@
     position: relative;
     width: 10rem;
   }
-  .navBar img {
+  .navBar .logoUser {
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    background-position: center;
     border-radius: 66%;
     box-shadow: 0.5px 0.5px 4px #80808082;
   }

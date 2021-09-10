@@ -26,8 +26,29 @@
 }
 
 .propertyMain .carrouselSection {
-  width: 100%;
-  margin: 10px 0px;
+    width: 100%;
+    margin: 10px 0px;
+    position: relative;
+    z-index: 1;
+}
+
+/* .propertyMain .dataSection .priceP { */
+.propertyMain .carrouselSection .priceP {    
+    transform: rotate(35deg);
+    width: 6rem;
+    text-align: center;
+    background: green;
+    color: #EAD7DB;
+    padding: .5rem;
+    border-radius: 2.5rem;
+    border-top-left-radius : 22rem;
+    border-top-right-radius : 22rem;
+    flex: 1;
+    font-size: 0.7rem;
+    position: absolute;
+    z-index: 2;
+    left: 75%;
+    top: 6%;
 }
 
 .propertyMain .dataSection {
@@ -46,7 +67,8 @@
   width: 100%;
 }
 
-.propertyMain .dataSection .priceP {
+
+/*.propertyMain .dataSection .priceP {
   transform: rotate(45deg);
   background: green;
   color: #ead7db;
@@ -55,12 +77,23 @@
   font-size: 0.8rem;
   margin-top: 20px;
   flex: 1;
-}
+}*/
 
 .propertyMain .dataSection .addressDiv {
   font-size: 0.9rem;
   align-self: flex-start;
   flex: 3;
+}
+
+.propertyMain .dataSection article svg.wishListBtn {
+    color: orange;
+    width: 1.8rem;
+    height: 1.8rem;
+    cursor: pointer;
+}
+
+.propertyMain .dataSection article svg.reject {
+    cursor: no-drop;
 }
 
 .propertyMain .dataSection .addressDiv h3 {
@@ -127,9 +160,17 @@
     font-size: 0.8rem;
   }
 
-  .propertyMain .dataSection .addressDiv {
-    font-size: 0.7rem;
-  }
+    .propertyMain .carrouselSection .priceP {
+        width: 6rem;
+        top: 7%;
+        left: 71%;
+        font-size: .7rem;
+    }
+
+    .propertyMain .dataSection .addressDiv {
+        font-size: 0.7rem;
+    }
+
 
   .propertyMain .dataSection .priceP {
     font-size: 0.7rem;
@@ -156,10 +197,18 @@
     width: 60%;
   }
 
-  .propertyMain .dataSection {
-    width: 35%;
-    margin-left: 5%;
-  }
+    .propertyMain .carrouselSection .priceP {
+        /* width: 6rem; */
+        left: 81%;
+        top: 5%;
+        font-size: .7rem;
+    }
+
+    .propertyMain .dataSection {
+        width: 35%;
+        margin-left: 5%;
+    }
+
 
   .propertyMain .dataSection .addressDiv {
     font-size: 0.6rem;
@@ -183,9 +232,21 @@
     font-size: 2.5rem;
   }
 
-  .propertyMain .dataSection .addressDiv {
-    font-size: 1.4rem;
-  }
+  .propertyMain .carrouselSection {
+        width: 60%;
+    }
+
+    .propertyMain .carrouselSection .priceP {
+        width: 12rem;
+        font-size: 1.6rem;
+        left: 81%;
+        top: 6%;
+    }
+
+    .propertyMain .dataSection .addressDiv {
+        font-size: 1.4rem;
+    }
+
 
   .propertyMain .dataSection .priceP {
     font-size: 1.3rem;
