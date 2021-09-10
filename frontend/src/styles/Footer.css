@@ -28,7 +28,6 @@ footer div div div.contactInfo{
 
 footer div.copyright{
     padding: 0.5rem;
-    width: 99%;
     background-color: #1a1d19;
     text-align: center;
 }
@@ -75,12 +74,6 @@ footer div div.socialNetworks{
     footer div div.socialNetworks{
         flex-direction: row;
         justify-content: space-evenly;
-    }
-    footer div.contact {
-        width: 99%;
-        height: 5rem;
-        background-color: #983900;
-        border-top-right-radius: 2.5rem;
     }
 }
 

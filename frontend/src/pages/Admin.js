@@ -183,6 +183,14 @@ const Admin = (props) =>{
             </div>
             <div className="whoImHelpingContainer">
                 <h4>Lista de Usuarios conectados:</h4>
+                {users.find(user => user.id === willHelp.whoToHelp) && <div>
+                <p>Nombre: {users.find(user => user.id === willHelp.whoToHelp).firstName}</p>
+                <p>Email: {users.find(user => user.id === willHelp.whoToHelp).eMail}</p>
+                <p>Id: {users.find(user => user.id === willHelp.whoToHelp).id}</p>
+                </div>}
+            </div>
+            </div>
+            {/* <div className="usersConnected">
                 {users.length > 0 && users.map(user => <div key={user.id}>
                 <p>Nombre: {user.firstName}</p>
                 <p>Email: {user.eMail}</p>

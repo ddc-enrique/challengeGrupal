@@ -30,12 +30,12 @@ const SignUp = (props) => {
         toast.addEventListener("mouseenter", Swal.stopTimer);
         toast.addEventListener("mouseleave", Swal.resumeTimer);
       },
-    })
+    });
     Toast.fire({
       icon: type,
       title: message,
-    })
-  }
+    });
+  };
 
   const inputHandler = (e) => {
     setUser({
@@ -46,9 +46,13 @@ const SignUp = (props) => {
 
   const submitUser = async () => {
     if (Object.values(user).includes("")) {
-      setErrors([{message: "todos los campos son obligatorios", path: ["extra"]}])
+      setErrors([
+        { message: "Todos los campos son obligatorios", path: ["extra"] },
+      ]);
     } else if (!user.eMail.includes("@")) {
-      setErrors([{message: "Por favor ingrese un mail válido", path: ["extra"]}])
+      setErrors([
+        { message: "Por favor ingrese un mail válido", path: ["extra"] },
+      ]);
     } else {
       try {
         let res = await props.registerUser(user);
@@ -57,21 +61,29 @@ const SignUp = (props) => {
           else setErrors(res.errors);
         } else if (res.success) {
           try {
-            renderToast("Usuario registrado con éxito", "success")
+            renderToast("Usuario registrado con éxito", "success");
             let responseSendEmail = await props.validationUserToken(
               res.response.token
             );
             if (responseSendEmail.success)
-              renderToast("Te enviamos un mail para que valides tu cuenta", "success")
+              renderToast(
+                "Te enviamos un mail para que valides tu cuenta",
+                "success"
+              );
             else {
-              setErrors([{message: "Hubo un error, intente nuevamente más tarde", path: ["extra"]}])
+              setErrors([
+                {
+                  message: "Hubo un error, intente nuevamente más tarde",
+                  path: ["extra"],
+                },
+              ]);
             }
           } catch (e) {
             console.log(e);
           }
         }
       } catch (e) {
-        renderToast(e, "warning")
+        renderToast(e, "warning");
       }
     }
   };
@@ -80,12 +92,15 @@ const SignUp = (props) => {
     try {
       let res = await props.validationUserEmail(user.eMail);
       if (res.success) {
-        renderToast("Te enviamos un mail para que valides tu cuenta", "success")
+        renderToast(
+          "Te enviamos un mail para que valides tu cuenta",
+          "success"
+        );
       } else {
         throw res.response;
       }
     } catch (e) {
-      renderToast("Usuario no válido", "warning")
+      renderToast("Usuario no válido", "warning");
     }
   };
 
@@ -101,22 +116,31 @@ const SignUp = (props) => {
     try {
       let res = await props.registerUser(user);
       if (!res.success) {
-        renderToast("El mail ya está registrado", "warning")
+        renderToast("El mail ya está registrado", "warning");
       } else {
         try {
-          renderToast("Usuario registrado con éxito", "success")
+          renderToast("Usuario registrado con éxito", "success");
           let response = await props.validationUserToken(res.response.token);
           if (response.success)
-            renderToast("Te enviamos un mail para que valides tu cuenta", "warning")
+            renderToast(
+              "Te enviamos un mail para que valides tu cuenta",
+              "warning"
+            );
           else {
-            renderToast("Hubo un error, intente nuevamente más tarde", "warning")
+            renderToast(
+              "Hubo un error, intente nuevamente más tarde",
+              "warning"
+            );
           }
         } catch (e) {
           console.log(e);
         }
       }
     } catch (err) {
-      renderToast("Tenemos un problema, por favor intenta más tarde", "warning")
+      renderToast(
+        "Tenemos un problema, por favor intenta más tarde",
+        "warning"
+      );
     }
   };
 
@@ -130,8 +154,8 @@ const SignUp = (props) => {
   };
 
   const submitWithEnter = (e) => {
-    e.key === "Enter" && submitUser()
-  }
+    e.key === "Enter" && submitUser();
+  };
 
   return (
     <div className="formSign">

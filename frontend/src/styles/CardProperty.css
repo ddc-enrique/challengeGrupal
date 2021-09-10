@@ -7,15 +7,15 @@ div.propertiesCardList {
   gap: 2rem;
 }
 
-.cardProperty{
-    width: 90%;
-    height: 20rem;
-    background-color: #a8433d;
-    color: white;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    display: block;
-    margin: 0 auto;
+.cardProperty {
+  width: 90%;
+  height: 20rem;
+  background-color: transparent;
+  color: white;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  display: block;
+  border: 1px solid rgb(197, 197, 197);
 }
 
 div.pictureCardProperty {
@@ -33,19 +33,18 @@ div.pictureCardProperty {
 
 div.pictureCardProperty h3 {
   align-self: flex-end;
-  background-color: #a8433d;
+  background-color: #03a022;
   padding: 0.2rem 0.3rem;
-  border-radius: 0.3rem;
 }
 
 div.pictureCardProperty h4 {
-  background-color: black;
+  background-color: rgb(36, 39, 219);
   align-self: flex-start;
   padding: 0.1rem 0.3rem;
-  border-radius: 0.2rem;
 }
 
 div.cardPropertyInfo {
+  color: rgb(80, 80, 80);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -62,16 +61,21 @@ div div p.propertyInfoThree {
   font-size: 1.1rem;
 }
 div.infoHeader h4 {
-    background-color: #03a022;
-    color: white;
-    padding: .5rem;
-    margin-top: -5rem;
+  background-color: rgb(36, 39, 219);
+  color: white;
+  padding: 0.5rem;
+  width: 13rem;
+  margin-top: -5rem;
 }
 div.infoHeader h3 {
-    background-color: skyblue;
-    color: white;
-    padding: .5rem;
-    margin-top: -5rem;
+  background-color: #03a022;
+  width: 8rem;
+  text-align: center;
+  font-size: 1rem;
+  color: white;
+  padding: 0.5rem;
+  margin-top: -5rem;
+  margin-left: 0.5rem;
 }
 div.infoHeader h3,
 div.infoHeader h4 {
@@ -81,16 +85,18 @@ div.infoHeader h4 {
 .Desktop {
   display: none;
 }
-.bigFilter div button, .bigFilter .sortList select, select {
-    cursor: pointer;
+.bigFilter div button,
+.bigFilter .sortList select,
+select {
+  cursor: pointer;
 }
 .bigFilter div button:hover {
-    background-color: #ff8a2aef!important;
-  }
+  background-color: #ff8a2aef !important;
+}
 
-  .bigFilter .sortList {
-      background-color:orange;
-  }
+.bigFilter .sortList {
+  background-color: orange;
+}
 @media only screen and (min-width: 768px) {
   div.propertiesCardList {
     flex-direction: row;
@@ -144,13 +150,15 @@ div.infoHeader h4 {
     border-bottom-right-radius: 0.5rem;
   }
 
- .infoHeader .buttom {
+  .infoHeader .buttom {
     text-decoration: none;
     color: white;
+    position: absolute;
+    width: 5rem;
     background-color: #f97406ef;
     padding: 0.5rem 1rem;
-    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.616);
-    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.404);
+    text-shadow: 1px 1px 0px rgb(0 0 0 / 62%);
+    box-shadow: 1px 2px 5px rgb(0 0 0 / 40%);
   }
 
   div.pictureCardProperty h3 {
