@@ -19,7 +19,7 @@
   }
 
   .navBar .userMenu {
-    margin-top: .8rem;
+    margin-top: -0.2rem;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.884);
     border-radius: 0.3rem;
@@ -66,6 +66,9 @@
 }
 
 @media only screen and (min-width: 425px) {
+  .navBar .userMenu {
+    margin-top: -0.5rem;
+  }
 }
 
 @media only screen and (min-width: 576px) {
@@ -75,16 +78,19 @@
 }
 
 @media only screen and (min-width: 991px) {
-  
 }
 
 @media only screen and (min-width: 1024px) {
-  .navBar .userMenu{
+  .navBar .userMenu {
     width: 13rem;
+    margin-top: 1.2rem;
   }
 }
 
 @media only screen and (min-width: 1440px) {
+  .navBar .userMenu {
+    margin-top: 0.5rem;
+  }
 }
 
 @media only screen and (min-width: 2560px) {

@@ -104,6 +104,15 @@ const userActions = {
       return res.data;
     };
   },
+
+  getWishList: (token) => {
+    return async (dispatch) => {
+        let response = await axios.get("http://localhost:4000/api/user/favourites", { headers: { authorization: "Bearer " + token }})
+        console.log(response.data.response) 
+        dispatch({ type: "GET_USERS_FAVOURITES", payload: response.data.response }) 
+        return response
+    }
+  },
 };
 
 export default userActions;

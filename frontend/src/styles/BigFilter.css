@@ -285,8 +285,8 @@
     font-size: 1.5rem;
     /* border: 1px solid black; */
     color: white;
-    border: 1px solid #f97d16!important;    
-    background-color: #f97d16!important;
+    border: 1px solid #f97d16 !important;
+    background-color: #f97d16 !important;
     border-radius: 0.4rem;
     background-color: transparent;
     display: flex;
@@ -565,7 +565,7 @@
   }
 
   .bigFilter .bigFilterBox {
-    width: 90%;
+    width: 89%;
     margin: 0 auto;
   }
   .bigFilter .image {
@@ -625,7 +625,7 @@
 
   /* algunos ajustes compartidos por varios */
   .bigFilter .filtersToSelect {
-    width: 100%;
+    width: 88%;
     margin: 0 auto;
   }
 
@@ -745,7 +745,8 @@
     margin-top: 0.7rem;
     border: 1px solid lightgray;
     border-radius: 0.3rem;
-    box-shadow: 10px 10px 4px -1px rgb(0 0 0 / 10%);  }
+    box-shadow: 10px 10px 4px -1px rgb(0 0 0 / 10%);
+  }
 
   .metrosBigFilterDesktopResponsive {
     visibility: visible;
@@ -843,13 +844,17 @@
     border-radius: 0.3rem;
     box-shadow: 10px 10px 31px -1px rgba(0, 0, 0, 0.1);
   }
-
 }
 
 @media only screen and (min-width: 1024px) {
 }
 
 @media only screen and (min-width: 1440px) {
+  .containerHome .homeFilter .firstRow {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: -6rem;
+  }
 }
 
 @media only screen and (min-width: 2560px) {

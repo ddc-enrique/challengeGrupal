@@ -4,13 +4,20 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import userActions from "../redux/action/userActions";
+import WishList from "./WishList";
 
-
-const NavBar = ({token, logOut}) => {
+const NavBar = ({token, logOut, photoURL}) => {
   const [navOpen, setNavOpen] = useState(false);
+  const [wishlist, setWishList] = useState(false);
 
+  console.log(token)
+  
   const showWishList = () => {
-    
+    setWishList(true);
+  }
+
+  const closeWishList = () => {
+    setWishList(false)
   }
 
   const nav = !token ? [  { name: "Ingresar", route: "/iniciar-sesion", action: null },
@@ -23,20 +30,21 @@ const NavBar = ({token, logOut}) => {
       {a.name}
     </Link>
   ));
-
+    console.log(photoURL)
   return (
     <div className="navBar">
       <button onClick={() => setNavOpen(!navOpen)}>
         <img
           className="logoUser"
-          src="/assets/logo.png"
+          src={photoURL === null ? "/assets/logo.png" : photoURL}
           alt="logo-user"
           width="50px"
           height="50px"
         />
       </button>
+      {wishlist &&  <WishList closeWishList={closeWishList} />}
       {navOpen && (
-        <>
+        <div>
           <nav className="userMenu">{navMap}</nav>
           <div className="closeDiv1" 
             onClick={() => setNavOpen(false)}>
@@ -44,7 +52,7 @@ const NavBar = ({token, logOut}) => {
           <div className="closeDiv2" 
             onClick={() => setNavOpen(false)}>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
@@ -57,6 +65,7 @@ const mapDispatchToProps = {
 const mapStateToProps = (state) =>{
   return {
     token: state.user.token,
+    photoURL: state.user.photoURL
   } 
 }
 
