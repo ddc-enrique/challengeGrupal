@@ -9,22 +9,26 @@ const UserChat = (props) =>{
     const {token} = props
     const [socket, setSocket] = useState(null)
     const [adminsOnline, setAdminsOnline] = useState(0)
-    useEffect(()=>{
-        if(!token){
-            // limpie el chat
-            // droppear el socket
-            return false
-        }
-        setSocket(io('http://localhost:4000', {
-            auth:{
-                token: token
-            }
-        }))
-     //eslint-disable-next-line
-    },[token])
+    const [chatSwap, setChatSwap] = useState(false)
     const [gotHelp, setGotHelp] = useState(false)
     const [whoIsHelpingMe, setWhoIsHelpingMe] = useState('')
     const [messages, setMessages] = useState([])
+    const [helpRequested, setHelpRequested] = useState(false)
+    useEffect(()=>{
+        if(!token){
+            console.log("entre al disconnect del userchat")
+            socket && socket.disconnect()
+            return false
+        }else{
+            setSocket(io('http://localhost:4000', {
+                auth:{
+                    token: token
+                }
+            }))
+        }
+     //eslint-disable-next-line
+    },[token])
+    
     useEffect(()=>{
         if(!token){
             return false
@@ -41,12 +45,21 @@ const UserChat = (props) =>{
             setGotHelp(true)
         })
         socket.on("newMessage", (message) =>{
-            // console.log(message)
+            console.log(message)
             // console.log("Cuando me llega el mensaje del admin", messages)
             setMessages(messages => [...messages, message])
             // console.log("Despues de pushearlo", messages)
         })
     },[socket])
+    if(socket){
+        socket.on("resetAll", () =>{
+            console.log("estoy aca")
+            setMessages([])
+            setGotHelp(false)
+            setHelpRequested(false)
+            setWhoIsHelpingMe('')
+        })
+    }
     const [newMessage, setNewMessage] = useState("")
     const inputHandler = (e) => {
         setNewMessage(e.target.value)
@@ -61,8 +74,9 @@ const UserChat = (props) =>{
         // console.log("Despues de pushearlo", messages)
         setNewMessage('')
     }
-    const [helpRequested, setHelpRequested] = useState(false)
+    
     const requestHelp = () => {
+        console.log("Pedí ayuda")
         socket.emit('clientNeedHelp')
         setHelpRequested(true)
     }
@@ -70,16 +84,18 @@ const UserChat = (props) =>{
         // console.log(e.key)
         e.key === 'Enter' && sendMessage()
     }
-    const [chatSwap, setChatSwap] = useState(false)
+    
     const chatHandler = () =>{
         setChatSwap(!chatSwap)
     }
     const commentsEndRef = useRef(null)
     const scrollToBottom = () => {
-        commentsEndRef.current.scrollTo({  
-            top: commentsEndRef.current.scrollHeight,
-            behavior: 'smooth' 
-        })
+        if(commentsEndRef){
+            commentsEndRef.current.scrollTo({  
+                top: commentsEndRef.current.scrollHeight,
+                behavior: 'smooth' 
+            })
+        } 
     }
     useEffect(() =>{
         if(!(helpRequested && gotHelp)){
@@ -112,8 +128,8 @@ const UserChat = (props) =>{
                 {/* <p id="onlineOperators">Numero de operadores online: {adminsOnline}</p> */}
                 {(!helpRequested && adminsOnline > 0) && <button id="requestHelpBtn" onClick={requestHelp} type="button">CHATEAR</button>}
                 {adminsOnline === 0 && <p id="noOperatorsOnline">En estos momentos no hay operadores, Por favor contactanos a: mardelcasas@gmail.com</p>}
-                {(helpRequested && !gotHelp) && <p id="helpRequested">Ayuda solicitada! por favor espere...</p>}
-                {(helpRequested && gotHelp) && <>
+                {(helpRequested && !gotHelp && adminsOnline > 0) && <p id="helpRequested">Ayuda solicitada! por favor espere...</p>}
+                {(helpRequested && gotHelp && adminsOnline > 0) && <>
                     <div id="chatBox" ref={commentsEndRef}>
                         {messages.map((message, index) => 
                             <span key={index}>  
