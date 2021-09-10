@@ -11,14 +11,21 @@ const Admin = (props) =>{
     const [clients, setClients] = useState([])
     const [users, setUsers] = useState([])
     const [tabs, setTabs] = useState([])
+    console.log(token)
     useEffect(()=>{
-        setSocket(io('http://localhost:4000', {
-            auth:{
-                token: token
-            }
-        }))
+        if(!token){
+            socket && socket.disconnect()
+            return false
+        }else{
+            setSocket(io('http://localhost:4000', {
+                auth:{
+                    token: token
+                }
+            }))
+        }
+        
      //eslint-disable-next-line
-    },[])
+    },[token])
     // console.log(messages)
     useEffect(()=>{
         if(!token){
@@ -36,7 +43,11 @@ const Admin = (props) =>{
         socket.on("newMessage", (message) =>{
             setMessages(messages => [...messages, {message: message.message, sender: message.sender}])
         })
+        socket.on("resetAll", ()=>{
+                console.log("se reseteo")
+        })
     },[socket])
+    
     const [newMessage, setNewMessage] = useState({
         message: '',
         sendTo: ''
@@ -112,7 +123,6 @@ const Admin = (props) =>{
         if(messages.length === 0){
             return
         }
-        scrollToBottom()
         let msgs = [...messages]
         console.log(msgs)
         let newMsg = msgs.pop()
@@ -125,6 +135,7 @@ const Admin = (props) =>{
         })
         console.log(mistabs)
         setTabs(mistabs)
+        setTimeout(() => scrollToBottom(), 1000)
 
     },[messages])
     // pestañanas [{sender: id, messages: ["messages"]}]
@@ -148,20 +159,17 @@ const Admin = (props) =>{
                     <p>Id: {users.find(user => user.id === willHelp.whoToHelp).id}</p>
                     </div>}
                 </div>
-
                 <h4>Chat de Soporte</h4>
-                {tabs.map(tab => {
-                    return(
-                    <div className="chatBox" style={willHelp.whoToHelp === tab.sender ? {display:"block"} : {display:"none"}} key={tab.sender} ref={commentsEndRef}>
-                        <h2>{tab.sender}</h2>
-                        <div>
+                {tabs.map(tab => <h2 style={willHelp.whoToHelp === tab.sender ? {display:"block"} : {display:"none"}}>{tab.sender}</h2>)}
+                <div className="chatBox" ref={commentsEndRef}>
+                    {tabs.map(tab => {
+                        return(
+                        <div style={willHelp.whoToHelp === tab.sender ? {display:"block"} : {display:"none"}} key={tab.sender} >
+                            {/* <h2>{tab.sender}</h2> */}
                             {tab.messages.map((message, index) => <p key={index}>{message.sender}: {message.message}</p>)}
-                        </div>
-                    </div>)
-                })}
-                {/* <div className="chatBox" ref={commentsEndRef}>
-                    {messages.map((message, index) => <p key={index}>{message.sender === "Me" ? 'Yo: ' : "Usuario: "}{message.message}</p>)}
-                </div> */}
+                        </div>)
+                    })}
+                </div>
                 <div className="inputToSend">
                     <input onChange={inputHandler} onKeyDown={keySubmit} type="text" name="message" value={newMessage.message}></input>
                     <button onClick={sendMessage}>ENVIAR</button>
@@ -183,20 +191,11 @@ const Admin = (props) =>{
             </div>
             <div className="whoImHelpingContainer">
                 <h4>Lista de Usuarios conectados:</h4>
-                {users.find(user => user.id === willHelp.whoToHelp) && 
-                <div>
-                    <p>Nombre: {users.find(user => user.id === willHelp.whoToHelp).firstName}</p>
-                    <p>Email: {users.find(user => user.id === willHelp.whoToHelp).eMail}</p>
-                    <p>Id: {users.find(user => user.id === willHelp.whoToHelp).id}</p>
-                </div>}
-            </div>
-            <div>
-            {/* <div className="usersConnected">
                 {users.length > 0 && users.map(user => <div key={user.id}>
                 <p>Nombre: {user.firstName}</p>
                 <p>Email: {user.eMail}</p>
                 <p id={user.id} onClick={handleClient}>Id: {user.id}</p>
-                </div>)*/}
+                </div>)}
             </div>
         </div>
     )
