@@ -30,7 +30,7 @@ const WishList = (props) => {
     return (
         <div className="wishList">
             <div className="wishListTitle">
-                <h3>Favoritos</h3>
+                <h3>Tus propiedades favoritas</h3>
                 <div onClick={() => props.closeWishList()} className="closeButton"><BsX /></div>                
             </div>
             <div className="wishListBox">
@@ -45,7 +45,6 @@ const WishList = (props) => {
 const mapStateToProps = (state) => {
     return {
         token: state.user.token,
-        likedProperties: state.user.likedProperties,
     }
 }
 
