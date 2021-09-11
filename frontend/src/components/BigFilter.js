@@ -6,6 +6,7 @@ import propertiesActions from "../redux/action/propertiesActions"
 import CardProperty from "./CardProperty"
 import FiltersSelected from "./FiltersSelected"
 import citiesActions from "../redux/action/citiesActions"
+import Swal from "sweetalert2"
 // import "animate.css"
 
 const BigFilter = (props) => {
@@ -24,13 +25,13 @@ const BigFilter = (props) => {
         if (!cities.length) {
             getCities().then(res => {
                 if(!res.success){
-                    throw new Error('Something went wrong')
+                    throw new Error()
                 }
-                console.log(res.response)
-                })
-                .catch(err => console.log(err))
+            })
+            .catch(() => {
+                renderToast("Tenemos un problema, por favor intenta más tarde", "warning")
+            })
         }        
-        console.log("el filtro la PRIMERA VEZ QUE LLEGA", filterObj)
     }, [])
 
     useEffect(() => {
@@ -90,6 +91,24 @@ const BigFilter = (props) => {
         return objectAux
     }
 
+    const renderToast = (message, type) => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 4000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer)
+            toast.addEventListener("mouseleave", Swal.resumeTimer)
+          },
+        })
+        Toast.fire({
+          icon: type,
+          title: message,
+        })
+    }
+    
     const operationHandler = (e) => {
         switch (e.target.value) {
             case "allCases":
@@ -150,18 +169,15 @@ const BigFilter = (props) => {
     }
 
     const searchProperties = () => {
-        console.log("objeto que filtra")
-        console.log(bigFilter)// llamar al action con axios
         props.getPropertiesFiltered(bigFilter)
         .then(res => {
             if(!res.success){
-                throw new Error('Something went wrong')
+                throw new Error()
             }
-            console.log(res.response)
         })
-        .catch(err => console.log(err))
-        console.log("objeto con las opciones actuales")
-        console.log(formFilter)
+        .catch(() => {
+            renderToast("Tenemos un problema, por favor intenta más tarde", "warning")
+        })
         setSelectFilters(false)
     }
 
