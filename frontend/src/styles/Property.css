@@ -229,7 +229,7 @@
 
 @media only screen and (min-width: 1024px) {
   .propertyMain {
-    min-height: 80vh !important;
+    height: 100% !important;
   }
 
   .propertyMain .houseStyleH1 {
