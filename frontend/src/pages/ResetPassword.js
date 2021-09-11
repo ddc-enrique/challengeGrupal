@@ -3,6 +3,7 @@ import React from "react"
 import userActions from "../redux/action/userActions"
 import { connect } from "react-redux"
 import { useState } from "react"
+import Swal from "sweetalert2"
 
 const ResetPassword = (props) => {
   const [user, setUser] = useState({})
@@ -10,14 +11,32 @@ const ResetPassword = (props) => {
     try {
       let res = await props.sendIdPassword(props.match.params.id, user)
       if (res.success) {
-        alert("Tu contraseña se cambió con éxito")
+        renderToast("Tu contraseña se cambió con éxito", "success")
         return props.history.push("/")
       } else {
-        throw res.error
+        throw new Error()
       }
-    } catch (e) {
-      console.log(e)
+    } catch {
+      renderToast("Hubo un error, intente nuevamente más tarde", "warning")
     }
+  }
+
+  const renderToast = (message, type) => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 4000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer)
+        toast.addEventListener("mouseleave", Swal.resumeTimer)
+      },
+    })
+    Toast.fire({
+      icon: type,
+      title: message,
+    })
   }
 
   return (
