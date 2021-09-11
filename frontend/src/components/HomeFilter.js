@@ -5,7 +5,7 @@ import propertiesActions from '../redux/action/propertiesActions'
 
 const HomeFilter = (props) => {
 
-    const [filter, setFilter] = useState({ forSale: true, shortRental: false,isBrandNew: false, haveGarage: false })
+    const [filter, setFilter] = useState({ forSale: true, shortRental: false})
 
     const history = useHistory()
 

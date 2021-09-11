@@ -33,65 +33,51 @@ const BigFilter = (props) => {
         console.log("el filtro la PRIMERA VEZ QUE LLEGA", filterObj)
     }, [])
 
-    useEffect( () => {
+    useEffect(() => {
+        let newOperation = "allCases"
+        let numOfBath = "allCases"  
+        let numOfBed = "allCases"
+        let numOfRoom = "allCases"
+        let isHouse = "allCases"
+        let roofed = "allCases"
         setBigFilter(filterObj)
-        let nameFormFilter
-        let valueFormFilter
-        let enterOperation = false
-        if(Object.keys(filterObj).length){
-            Object.keys(filterObj).forEach( key => {
-                if(key==="forSale" && filterObj[key]){
-                    nameFormFilter = "operation"
-                    valueFormFilter = "forSale"
-                    enterOperation = true
-                } 
-                if(key === "shortRental" && filterObj[key]){
-                    valueFormFilter = "shortRental"
-                    nameFormFilter = "operation"
-                    enterOperation = true
-                }
-                if( !enterOperation && !filterObj.shortRental && !filterObj.forSale){
-                    valueFormFilter = "forRental"
-                    nameFormFilter = "operation"
-                    enterOperation = true
-                } 
-                if( key.startsWith("numberOf") ){
-                    nameFormFilter = key
-                    valueFormFilter = typeof filterObj[key]  === "object" ? "6AndMore" : filterObj[key]
-                }
-                if (key === "isHouse") {
-                    nameFormFilter = key
-                    valueFormFilter = filterObj[key] ? "house" : "apartment"
-                } 
-                if (key ==="greater" || key === "lower") {
-                    nameFormFilter = key
-                    valueFormFilter = filterObj[key]>=0 ? filterObj[key] : ""
-                }
-                if (key === "city") {
-                    nameFormFilter = key
-                    valueFormFilter = filterObj[key]
-                }
-                if(key === "isBrandNew"){
-                    nameFormFilter = key
-                    valueFormFilter = filterObj[key]
-                }
-                if(key.startsWith("have")){
-                    nameFormFilter = key
-                    valueFormFilter = filterObj[key] ? true : false
-                }            
-                if(key !== "forsale" && key !== "shortRental"){
-                    setFormFilter({ ...formFilter, [nameFormFilter]: valueFormFilter})
-                } else {
-                    if (enterOperation) {
-                        setFormFilter({ ...formFilter, [nameFormFilter]: valueFormFilter})
-                    }
-                }
-            })
+        console.log(numOfBed)
+        if(Object.keys(filterObj).length > 0){
+            if(filterObj.forSale){
+                newOperation = "forSale"
+            } 
+            if(typeof filterObj.forSale === "boolean" && typeof filterObj.shortRental === "boolean"){
+              if(!filterObj.forSale && !filterObj.shortRental){
+                  newOperation = "forRental"
+              }
+              if(!filterObj.forSale && filterObj.shortRental){
+                  newOperation = "shortRental"
+              }
+            }
+            if(filterObj.numberOfBathrooms){
+                console.log(filterObj.numberOfBathrooms)
+                numOfBath = typeof filterObj.numberOfBathrooms  === "object" ? "6AndMore" : filterObj.numberOfBathrooms
+                console.log(numOfBath)
+            }
+            if(filterObj.numberOfBedrooms){
+                console.log(filterObj.numberOfBedrooms)
+                numOfBed = typeof filterObj.numberOfBedrooms  === "object" ? "6AndMore" : filterObj.numberOfBedrooms
+                console.log(numOfBed)
+            }
+            if(filterObj.numberOfRooms){
+              console.log(filterObj.numberOfRooms)
+              numOfRoom = typeof filterObj.numberOfRooms  === "object" ? "6AndMore" : filterObj.numberOfRooms
+              console.log(numOfBed)
+            }
+    
+            if(typeof filterObj.isHouse !== "undefined"){
+                isHouse = filterObj.isHouse ? 'house' : 'apartment'
+            }        
         }
-
-        console.log("Valores del formulario en BigFilter", formFilter)
+        setFormFilter({...formFilter,...filterObj, operation: newOperation, numberOfRooms: numOfRoom, numberOfBedrooms: numOfBed, numberOfBathrooms: numOfBath, isHouse: isHouse, roofedArea: roofed})
     // eslint-disable-next-line
     },[filterObj])
+
     // variable de estado para que se muestre o no los formularios del filtro
     const [selectFilters, setSelectFilters] = useState(false)
 
@@ -179,53 +165,6 @@ const BigFilter = (props) => {
         setSelectFilters(false)
     }
 
-    console.log("Aca tengo las properties q vienen de props")
-    console.log(properties)
-    const [sortedProperties, setSortedProperties] = useState(properties)
-    useEffect(()=>{
-        setSortedProperties(properties)
-    },[properties])
-    const listFilterHandler = (e) => {
-        switch (e.target.value){
-            case "minPrice":
-                setSortedProperties(
-                    sortedProperties.sort((a, b) => {
-                        return a.price - b.price;
-                    })
-                )
-                break;
-            case "maxPrice":
-                setSortedProperties(
-                    sortedProperties.sort((a, b) => {
-                        return b.price - a.price;
-                    })
-                )
-                break;
-            case "minArea":
-                setSortedProperties(
-                    sortedProperties.sort((a, b) => {
-                        return a.roofedArea - b.roofedArea;
-                    })
-                )
-                break;
-            case "maxArea":
-                setSortedProperties(
-                    sortedProperties.sort((a, b) => {
-                        return b.roofedArea - a.roofedArea;
-                    })
-                )
-                break;
-            default:
-                setSortedProperties(properties)
-                return   
-        }
-        
-        console.log(e.target.value)
-        console.log("ordenar")
-        console.log(sortedProperties) //ESTE ARRAY SE TIENE QUE ENVIAR EN 
-    }
-    console.log("antes de entrar en el return", properties)
-    console.log(formFilter)
     return (
         <div className="bigFilter">
             <div className="image"></div>          
@@ -310,7 +249,7 @@ const BigFilter = (props) => {
                     </div>
                     <div> {/* 4 */}
                         <div className="metrosBigFilterDesktopResponsive"> {/* 5 responsividad desktop */}
-                            <h5>M² Metro Cuadrados Cubiertos</h5>
+                            {/* <h5>M² Metro Cuadrados Cubiertos</h5>
                             <select name="roofedArea" value={formFilter.roofedArea} onChange={(e) => selectHandler(e, e.target.value,((e.target.value.length===8 && e.target.value) || JSON.parse(e.target.value)), null)}>
                                 <option value="allCases">Todas</option>
                                 <option value='{"$lte": 40}'>Hasta 40m²</option>
@@ -318,7 +257,7 @@ const BigFilter = (props) => {
                                 <option value='{"$gte":81,"$lte": 200}'>81m² a 200m²</option>
                                 <option value='{"$gte":201,"$lte": 600}'>201m² a 600m²</option>
                                 <option value='{"$gte":600}'>601m² o más</option>
-                            </select>
+                            </select> */}
                         </div>
                         <div>
                             <h5>Moneda</h5>
@@ -339,7 +278,7 @@ const BigFilter = (props) => {
 
                     </div>
                     <div> {/* 5 */}
-                        <h5>M² Metro Cuadrados Cubiertos</h5>
+                        {/* <h5>M² Metro Cuadrados Cubiertos</h5>
                         <select name="roofedArea" value={formFilter.roofedArea} onChange={(e) => selectHandler(e, e.target.value,((e.target.value.length===8 && e.target.value) || JSON.parse(e.target.value)), null)}>
                             <option value="allCases">Todas</option>
                             <option value='{"$lte": 40}'>Hasta 40m²</option>
@@ -347,7 +286,7 @@ const BigFilter = (props) => {
                             <option value='{"$gte":81,"$lte": 200}'>81m² a 200m²</option>
                             <option value='{"$gte":201,"$lte": 600}'>201m² a 600m²</option>
                             <option value='{"$gte":600}'>601m² o más</option>
-                        </select>
+                        </select> */}
                     </div>
                     <div> {/* 6 */}
                         <div>
@@ -378,16 +317,6 @@ const BigFilter = (props) => {
                         <button onClick={searchProperties}>Buscar</button>
                     </div>
                 </div>}
-            </div>
-
-            <div className="sortList">
-                <select onChange={listFilterHandler}>
-                    <option value="noSort">Mas relevante</option>
-                    <option value="minPrice">Menor precio</option>
-                    <option value="maxPrice">Mayor precio</option>
-                    <option value="minArea">Menor superficie</option>
-                    <option value="maxArea">Mayor superficie</option>
-                </select>
             </div>
         </div>
     )

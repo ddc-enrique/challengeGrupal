@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { XOctagon } from 'react-bootstrap-icons'
 import { connect } from "react-redux"
 import propertiesActions from '../redux/action/propertiesActions'
+import Swal from "sweetalert2"
 
 const FiltersSelected = (props) => {
     const {deletePropertieFromObject, formFilter, setFormFilter, cities, getPropertiesFiltered, selectFilters} = props
@@ -11,10 +12,10 @@ const FiltersSelected = (props) => {
         console.log("FiltersSelected")
         console.log("Array de Formfilter en UseEffect", formFilter)
         console.log("filtros listos para eliminar", filtersSelected)
-        let arrayAux =[] 
+        let arrayAux = [] 
         Object.keys(formFilter).forEach((key, i) =>{
-            if (!(formFilter[key] === "allCases" || formFilter[key] === false || formFilter[key] === "")){ 
-                let cityName = cities.filter(city => city._id === formFilter.city)[0].cityName
+            
+            if (!(formFilter[key] === "allCases" || formFilter[key] === false || formFilter[key] === "" || key === "shortRental" || key === "forSale" || key === "roofedArea") ){ 
                 let nameDelete, valueDelete
                 switch (key) {
                     case "operation":
@@ -24,12 +25,12 @@ const FiltersSelected = (props) => {
                         } else  if (formFilter.operation === "forRental") {
                             valueDelete = "Alquiler"
                         } else {
-                            valueDelete = "Alquiler Termporario"
+                            valueDelete = "Alquiler Temporario"
                         }
                         break;
                     case "city":
                         nameDelete = "Ciudad/Región: "
-                        valueDelete = cityName
+                        valueDelete = cities.filter(city => city._id === formFilter.city)[0].cityName
                         break;
                     case "isHouse":
                         nameDelete = "Tipo: "
@@ -61,7 +62,11 @@ const FiltersSelected = (props) => {
                         break;
                     case "roofedArea":
                         nameDelete = "Area Cubierta: "
-                        switch (formFilter.roofedArea) {
+                        let valueRoofed = formFilter.roofedArea
+                        if(typeof formFilter.roofedArea === "object"){
+                            valueRoofed = JSON.stringify(formFilter.roofedArea)
+                        }
+                        switch (valueRoofed) {
                             case '{"$lte": 40}':
                                 valueDelete = "hasta 40m²"
                                 break;
@@ -72,7 +77,7 @@ const FiltersSelected = (props) => {
                                 valueDelete = "81m² a 200m²"
                                 break;
                             case '{"$gte":201,"$lte": 600}':
-                                valueDelete = "201m² a 600m²²"
+                                valueDelete = "201m² a 600m²"
                                 break;
                             case '{"$gte":600}':
                                 valueDelete = "600m² o más"
@@ -109,6 +114,24 @@ const FiltersSelected = (props) => {
         setFiltersSelected(arrayAux)
     }, [formFilter])
 
+    const renderToast = (message, type) => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 4000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer)
+            toast.addEventListener("mouseleave", Swal.resumeTimer)
+          },
+        })
+        Toast.fire({
+          icon: type,
+          title: message,
+        })
+      }
+    
     const resetInputSelect = (e, nameInputSelect, i) => {
         console.log(nameInputSelect)
         let initialValue
@@ -140,16 +163,17 @@ const FiltersSelected = (props) => {
         console.log("Array de bloques antes de eliminar uno", filtersSelected)
         setFiltersSelected( filtersSelected.filter((block, j) => i!==j))
         setFormFilter( { ...formFilter, [nameInputSelect]: initialValue})
-        let newFilter = deletePropertieFromObject(nameInputSelect) // cambiar el objeto filter en redux
+        let newFilter = deletePropertieFromObject(nameInputSelect) 
         console.log("nuevo filtro despues de eliminar bloque", newFilter)
         getPropertiesFiltered(newFilter)
         .then(res => {
             if(!res.success){
                 throw new Error(res.error)
             }
-            console.log(res.response)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            renderToast(err, "warning")
+        })
     }
 
     return (
@@ -158,12 +182,12 @@ const FiltersSelected = (props) => {
             {filtersSelected.map((eachFilter, i) => {
                 if (eachFilter) {
                     return <p 
-                        key={eachFilter[2] + "F"}
-                        onClick={(e) => resetInputSelect(e, eachFilter[2], i)}
-                    >
-                        {`${eachFilter[0]} ${eachFilter[1]} `}<XOctagon/> 
-                    </p> 
-                }
+                                key={eachFilter[2] + "F"}
+                                onClick={(e) => resetInputSelect(e, eachFilter[2], i)}
+                            >
+                                {`${eachFilter[0]} ${eachFilter[1]} `}<XOctagon/> 
+                            </p> 
+                } 
                 return false
             })}
         </div>
