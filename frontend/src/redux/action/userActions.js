@@ -1,76 +1,151 @@
-import axios from "axios";
+import axios from "axios"
+
 const userActions = {
   createUser: (user) => {
     return async () => {
-      let res = await axios.post("http://localhost:4000/api/user/register", {
-        ...user,
-      });
-      return res.data;
-    };
-  },
-  logIn: (user) => {
-    return async (dispatch) => {
-      let res = await axios.post("http://localhost:4000/api/user/login", {
-        ...user,
-      });
-      if (res.data.success) {
-        dispatch({ type: "LOG_IN", payload: res.data.response });
-      } else {
-        dispatch({ type: "LOG_OUT" });
+      try {
+        let res = await axios.post("http://localhost:4000/api/user/register", {
+          ...user,
+        })
+        console.log(res.data.errors)
+        if (res.data.success) {
+          return {success: true, response: res.data.response}
+        } else {
+          if (typeof res.data.errors !== "undefined") {
+            return {success: false, errors: res.data.errors} 
+          } else {
+            return {success: false, errors: [
+              {message: "El mail ya esta registrado", path: ["extra"]},
+            ]}
+          }
+        }
+      } catch {
+        return {success: false, errors: "Error de conexión. Intente mas tarde"}
       }
-      return res.data;
-    };
-  },
-  validationUserToken: (token) => {
-    return async () => {
-      let res = await axios.get("http://localhost:4000/api/user/validatemail", {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
-      return res.data;
-    };
-  },
-  validationUserEmail: (eMail) => {
-    return async () => {
-      let res = await axios.post(
-        "http://localhost:4000/api/user/validatemail",
-        { eMail }
-      );
-      return res.data;
-    };
-  },
-  changePassword: (eMail) => {
-    return async () => {
-      let res = await axios.post(
-        "http://localhost:4000/api/user/resetpassword",
-        { eMail }
-      );
-      return res.data;
-    };
-  },
-  sendIdValidation: (id) => {
-    return async () => {
-      let res = await axios.get(
-        `http://localhost:4000/api/user/validatemail/${id}`
-      );
-      return res.data;
-    };
-  },
-  sendIdPassword: (id, password) => {
-    return async () => {
-      let res = await axios.put(
-        `http://localhost:4000/api/user/resetpassword/${id}`,
-        password
-      );
-      return res.data;
-    };
-  },
-  logOut: () => {
-    return (dispatch) => {
-      dispatch({ type:"LOG_OUT" })
     }
   },
+  
+  logIn: (user) => {
+    return async (dispatch) => {
+      try {
+        let res = await axios.post("http://localhost:4000/api/user/login", {
+          ...user,
+        })
+        if (res.data.success) {
+          dispatch({ type: "LOG_IN", payload: res.data.response })
+          return {success: true}
+        } else {
+          dispatch({ type: "LOG_OUT" })
+          return {success: false, error: res.data.response}
+        }
+      } catch {
+        return {success: false, error: "Error de conexión. Intente mas tarde"}
+      }
+    }
+  },
+
+  validationUserToken: (token) => {
+    return async () => {
+      try {
+        let res = await axios.get("http://localhost:4000/api/user/validatemail", {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        })
+        if (res.data.success) {
+          return {success: true, response: res.data.response}
+        } else {
+          throw new Error()
+        }
+      } catch {
+        return {success: false, error: "Error de conexión. Intente mas tarde"}
+      }
+    }
+  },
+
+  validationUserEmail: (eMail) => {
+    return async () => {
+      try {
+        let res = await axios.post(
+          "http://localhost:4000/api/user/validatemail",
+          { eMail }
+        )
+        if (res.data.success) {
+          return {success: true, response: res.data.response}
+        } else {
+          throw new Error()
+        }
+      } catch {
+        return {success: false, error: "Error de conexión. Intente mas tarde"}
+      }
+    }
+  },
+
+  changePassword: (eMail) => {
+    return async () => {
+      try {
+        let res = await axios.post(
+          "http://localhost:4000/api/user/resetpassword",
+          { eMail }
+        )
+        if (res.data.success) {
+          return {success: true, response: res.data.response}
+        } else {
+          throw new Error()
+        }
+      } catch {
+        return {success: false, error: "Error de conexión. Intente mas tarde"}
+      }
+    }
+  },
+
+  sendIdValidation: (id) => {
+    return async () => {
+      try {
+        let res = await axios.get(
+          `http://localhost:4000/api/user/validatemail/${id}`
+        )
+        if (res.data.success) {
+          return {success: true, response: res.data.response}
+        } else {
+          // console.log(res.data)
+          throw new Error()
+        }
+      } catch {
+        return {success: false, error: "Error de conexión. Intente mas tarde"}
+      }
+    }
+  },
+
+  sendIdPassword: (id, password) => {
+    return async () => {
+      try {
+        let res = await axios.put(
+          `http://localhost:4000/api/user/resetpassword/${id}`,
+          password
+        )
+        if (res.data.success) {
+          return {success: true, response: res.data.response}
+        } else {
+          throw new Error()
+        }
+      } catch {
+        return {success: false, error: "Error de conexión. Intente mas tarde"}
+      }
+    }
+  },
+
+  logOut: () => {
+    return (dispatch) => {
+      try {
+        dispatch({ type:"LOG_OUT" })
+        return {success: true}
+      } catch {
+        return {success: false, error: "Error de conexión. Intente mas tarde"}
+      }
+    }
+  },
+
   putSubscribeEmail: (token) => {
     return async () => {
       try {
@@ -91,28 +166,44 @@ const userActions = {
       }
     }
   },
+
   updateWishList: (token, propertyId) => {
-    console.log("token en updateWishList", token)    
-    return async (dispatch) => {
-      let res = await axios.get(
-        `http://localhost:4000/api/user/like/${propertyId}`,
-        {headers: {
-          authorization: 'Bearer ' + token
-        }}
-      );      
-      if(res.data.success) dispatch({ type:"UPDATE_WISHLIST", payload: res.data.response})
-      return res.data;
-    };
+    try {
+      console.log("token en updateWishList", token)
+      return async (dispatch) => {
+        let res = await axios.get(
+          `http://localhost:4000/api/user/like/${propertyId}`,
+          {headers: {
+            authorization: 'Bearer ' + token
+          }}
+        )
+        if(res.data.success) {
+          dispatch({ type:"UPDATE_WISHLIST", payload: res.data.response})
+          return {success: true, response: res.data.response}
+        } else {
+          throw new Error()
+        }
+      }
+    } catch {
+      return {success: false, error: "Error de conexión. Intente mas tarde"}
+    }
   },
 
   getWishList: (token) => {
     return async (dispatch) => {
-        let response = await axios.get("http://localhost:4000/api/user/favourites", { headers: { authorization: "Bearer " + token }})
-        console.log(response.data.response) 
-        dispatch({ type: "GET_USERS_FAVOURITES", payload: response.data.response }) 
-        return response
+      try {
+        let res = await axios.get("http://localhost:4000/api/user/favourites", { headers: { authorization: "Bearer " + token }})
+        if (res.data.response) {
+          dispatch({ type: "GET_USERS_FAVOURITES", payload: res.data.response }) 
+          return {success: true, response: res.data.response}
+        } else {
+          throw new Error()
+        }
+      } catch {
+        return {success: false, error: "Error de conexión. Intente mas tarde"}
+      }
     }
   },
-};
+}
 
-export default userActions;
+export default userActions

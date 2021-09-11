@@ -6,6 +6,7 @@ import { io } from "socket.io-client"
 
 const Admin = (props) =>{
     const {token, admin} = props
+    const [errorBackend, setErrorBackend] = useState(false)
     const [socket, setSocket] = useState(null)
     const [messages, setMessages] = useState([])
     const [clients, setClients] = useState([])
@@ -44,7 +45,8 @@ const Admin = (props) =>{
             setMessages(messages => [...messages, {message: message.message, sender: message.sender}])
         })
         socket.on("resetAll", ()=>{
-                console.log("se reseteo")
+            console.log("se reseteo")
+            setErrorBackend(true)
         })
     },[socket])
     
@@ -197,6 +199,12 @@ const Admin = (props) =>{
                 <p id={user.id} onClick={handleClient}>Id: {user.id}</p>
                 </div>)}
             </div>
+            {errorBackend && 
+                <div className="errorBackend">
+                    <p>Acaba de ocurrir un reinicio de la base de datos.</p>
+                    <p>Para continuar, cierre y vuelva a abrir el navegador.</p>
+                </div>
+            } {/*este div sirve para dar un mensaje de error cuando el backend se reinicia, debe tener position absolute y tapar todo lo demas*/}
         </div>
     )
 }

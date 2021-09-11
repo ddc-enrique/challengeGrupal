@@ -1,46 +1,62 @@
-import axios from "axios";
+import axios from "axios"
 
 const propertiesActions = {
   getPropertiesFiltered: (filter) => {
     console.log("filter que se aplica al endpoint en redux", filter)
-      return async (dispatch) => {
-          let res = await axios.put("http://localhost:4000/api/properties", {filter: filter})
+    return async (dispatch) => {
+      try {
+        let res = await axios.put("http://localhost:4000/api/properties", {filter: filter})
+        if (res.data.response) {
           console.log("array de propiedades en action getProperties")
           console.log(res.data.response)
           dispatch({ type: "GET_PROPERTIES_FILTERED", payload:{ filterObj: filter, response: res.data.response }})
-          return res
-      }
-  },
-  
-  getProperty: (id) => {
-    return async () => {
-      try {
-        let response = await axios.get(`http://localhost:4000/api/property/${id}`)
-        if (response.data.success) {
-          return {success: true, response: response.data.response}
+          return {success: true, response: res.data.response}
         } else {
           throw new Error()
         }
       } catch {
-        return{success: false, error: "Error de conexión. Intente mas tarde"}
+        return {success: false, error: "Error de conexión. Intente mas tarde"}
       }
     }
   },
 
-    getNumberOfProperties: (id) => {
+  getProperty: (id) => {
     return async () => {
-      let res = await axios.get(
-        `http://localhost:4000/api/getnumberofprops/${id}`
-      );
-      return res.data;
-    };
+      try {
+        let res = await axios.get(`http://localhost:4000/api/property/${id}`)
+        if (res.data.success) {
+          return {success: true, response: res.data.response}
+        } else {
+          throw new Error()
+        }
+      } catch {
+        return {success: false, error: "Error de conexión. Intente mas tarde"}
+      }
+    }
+  },
+
+  getNumberOfProperties: (id) => {
+    return async () => {
+      try {
+        let res = await axios.get(
+          `http://localhost:4000/api/getnumberofprops/${id}`
+        )
+        if (res.data.response) {
+          return {success: true, response: res.data.response}
+        } else {
+          throw new Error()
+        }
+      } catch {
+        return {success: false, error: "Error de conexión. Intente mas tarde"}
+      }
+    }
   },
 
   setFilter: (filter) => {
     return (dispatch) => {
       dispatch({ type: "SET_FILTER", payload: filter})
     }
-  },
+  }, //este setFilter creo que no se usa. Confirmar. Escrito por Diego :)
 
   postNewProperty: (newProperty, token) =>{
     return async () => {
@@ -60,7 +76,6 @@ const propertiesActions = {
       }
     }
   }
+}
 
-};
-
-export default propertiesActions;
+export default propertiesActions
