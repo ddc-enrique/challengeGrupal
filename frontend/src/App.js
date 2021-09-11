@@ -1,22 +1,40 @@
 import "./styles/App.css";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import Home from "./routes/Home";
-import PropertiesList from "./routes/PropertiesList";
-import SignUp from "./routes/SignUp";
-import SignIn from "./routes/SignIn";
-
-function App() {
+import Home from "./pages/Home";
+import PropertiesList from "./pages/PropertiesList";
+import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
+import Property from "./pages/Property"
+import ValidateEmail from "./pages/ValidateEmail";
+import UserChat from "./components/UserChat";
+import Admin from "./pages/Admin";
+import AdminForm from "./pages/AdminForm";
+import { connect } from "react-redux";
+import ResetPassword from "./pages/ResetPassword";
+function App (props) {
+  const {admin, token} = props
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Home} />
+        <Route path="/usuario/validar-email/:id" component={ValidateEmail} />
+        <Route path="/usuario/restablecer-contraseña/:id" component={ResetPassword} />
         <Route path="/lista-de-propiedades" component={PropertiesList} />
-        <Route path="/registrarse" component={SignUp} />
-        <Route path="/iniciar-sesion" component={SignIn} />
-        {/* <Redirect to="/" /> */}
+        <Route path="/propiedad/:id" component={Property}/>
+        {!token && <Route path="/registrarse" component={SignUp} />}
+        {!token && <Route path="/iniciar-sesion" component={SignIn} />}
+        {admin && <Route path="/admin" component={Admin}/>}
+        <Route path="/addprop" component={AdminForm}/>
+        <Redirect to="/" />
       </Switch>
+      {(!admin) && <UserChat/>}
     </BrowserRouter>
   );
 }
-
-export default App;
+const mapStateToProps = (state) =>{
+  return {
+    admin: state.user.admin,
+    token: state.user.token
+  } 
+}
+export default connect(mapStateToProps)(App);

@@ -33,11 +33,15 @@ router.route('/user/validatemail') // revisar
     passport.authenticate('jwt', {session: false}),
     userControllers.sendValidationMail
 )
+.post(
+    validatorControllers.validatorPasswordResetEmailSend,
+    userControllers.sendValidationMailByMail
+)
 router.route('/user/validatemail/:id') // revisar
 .get(userControllers.validateUser)
 router.route('/user/resetpassword')
 .post(
-    validatorControllers.validatorPasswordResetEmailSend,
+    // validatorControllers.validatorPasswordResetEmailSend,
     userControllers.sendResetPasswordMail
 )
 router.route('/user/resetpassword/:id')
@@ -51,6 +55,17 @@ router.route('/user/managefilter')
 .put(
     passport.authenticate('jwt', {session: false}),
     userControllers.manageDreamHouseOfUser
+)
+// USER ROUTES LIKE PROP, TRAER FAV PROPS
+router.route('/user/like/:id')
+.get(
+    passport.authenticate('jwt', {session: false}), 
+    userControllers.updateLikedProperties
+)
+router.route('/user/favourites')
+.get(
+    passport.authenticate('jwt', {session: false}),
+    userControllers.populateProperties
 )
 // USER ROUTES ADMIN / SUPPORT POWERS
 router.route('/user/manageuser')

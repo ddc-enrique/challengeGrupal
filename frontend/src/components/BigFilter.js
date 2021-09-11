@@ -1,72 +1,99 @@
-import "../styles/BigFilter.css"
+import "../styles/BigFilter2.css"
 import React, { useEffect, useState } from 'react'
-import { PlusSquare } from "react-bootstrap-icons"
+import { PlusSquare, Search } from "react-bootstrap-icons"
 import {connect} from 'react-redux'
 import propertiesActions from "../redux/action/propertiesActions"
 import CardProperty from "./CardProperty"
+import FiltersSelected from "./FiltersSelected"
+import citiesActions from "../redux/action/citiesActions"
+// import "animate.css"
 
 const BigFilter = (props) => {
-    const {filterObj} = props
+    const {filterObj, setFilter, getCities, cities, properties} = props
     console.log("Estoy en Big Filter")
-    console.log(filterObj)
-    // const {firstFilter} = props; por ahora un objeto vacio pero sera el filtro que llega desde Home
-    // variable de estado que controla los valores de formulario, esto en realidad esta seteado pq el filtro llega vacio.
-    // Pero lo voy a cambiar para que se inicialice en base a lo que me llegue desde el filtro
-    // evaluar operation --<
-    //forSale (shortrental false, forsale true)
-    //shortRental ( forSale false, shortrental true)
-    //forRental ( shortRental false y forSale false)
-    // spredear lo de abajo y pisar operation
+    console.log("Filter que llega del store", filterObj)
+    const [bigFilter, setBigFilter] = useState(filterObj)
     const [formFilter, setFormFilter] = useState({
         operation: "allCases",  city:"allCases", isHouse: "allCases", 
         numberOfRooms:"allCases", numberOfBedrooms: "allCases", numberOfBathrooms: "allCases",
         isUSD:"allCases", greater:"", lower:"", roofedArea:"allCases",
         isBrandNew:false, haveGarden:false, haveGarage:false, havePool:false
     })
-    console.log("Form Filter")
-    console.log(formFilter)
-    //variable de estado que se envia al fetchear para filtrar
-    const [bigFilter, setBigFilter] = useState(filterObj)
+
+    useEffect(() => {
+        if (!cities.length) {
+            getCities().then(res => {
+                if(!res.data.success){
+                    throw new Error('Something went wrong')
+                }
+                console.log(res.data.response)
+                })
+                .catch(err => console.log(err))
+        }        
+        console.log("el filtro la PRIMERA VEZ QUE LLEGA", filterObj)
+    }, [])
+
     useEffect( () => {
-        let newOperation = "allCases"
-        let numOfBath = "allCases"  
-        let numOfBed = "allCases"
         setBigFilter(filterObj)
-        console.log(numOfBed)
-        if(Object.keys(filterObj).length > 0){
-            if(filterObj.forSale){
-                newOperation = "forSale"
-            }else if(!filterObj.forSale && !filterObj.shortRental){
-                newOperation = "forRental"
-            }else if(!filterObj.forSale && filterObj.shortRental){
-                newOperation = "shortRental"
-            }
-            if(filterObj.numberOfBathrooms){
-                console.log(filterObj.numberOfBathrooms)
-                numOfBath = typeof filterObj.numberOfBathrooms  === "object" ? "6AndMore" : filterObj.numberOfBathrooms
-                console.log(numOfBath)
-            }
-            if(filterObj.numberOfBedrooms){
-                console.log(filterObj.numberOfBedrooms)
-                numOfBed = typeof filterObj.numberOfBathrooms  === "object" ? "6AndMore" : filterObj.numberOfBedrooms
-                console.log(numOfBed)
-            }
+        let nameFormFilter
+        let valueFormFilter
+        let enterOperation = false
+        if(Object.keys(filterObj).length){
+            Object.keys(filterObj).forEach( key => {
+                if(key==="forSale" && filterObj[key]){
+                    nameFormFilter = "operation"
+                    valueFormFilter = "forSale"
+                    enterOperation = true
+                } 
+                if(key === "shortRental" && filterObj[key]){
+                    valueFormFilter = "shortRental"
+                    nameFormFilter = "operation"
+                    enterOperation = true
+                }
+                if( !enterOperation && !filterObj.shortRental && !filterObj.forSale){
+                    valueFormFilter = "forRental"
+                    nameFormFilter = "operation"
+                    enterOperation = true
+                } 
+                if( key.startsWith("numberOf") ){
+                    nameFormFilter = key
+                    valueFormFilter = typeof filterObj[key]  === "object" ? "6AndMore" : filterObj[key]
+                }
+                if (key === "isHouse") {
+                    nameFormFilter = key
+                    valueFormFilter = filterObj[key] ? "house" : "apartment"
+                } 
+                if (key ==="greater" || key === "lower") {
+                    nameFormFilter = key
+                    valueFormFilter = filterObj[key]>=0 ? filterObj[key] : ""
+                }
+                if (key === "city") {
+                    nameFormFilter = key
+                    valueFormFilter = filterObj[key]
+                }
+                if(key === "isBrandNew"){
+                    nameFormFilter = key
+                    valueFormFilter = filterObj[key]
+                }
+                if(key.startsWith("have")){
+                    nameFormFilter = key
+                    valueFormFilter = filterObj[key] ? true : false
+                }            
+                if(key !== "forsale" && key !== "shortRental"){
+                    setFormFilter({ ...formFilter, [nameFormFilter]: valueFormFilter})
+                } else {
+                    if (enterOperation) {
+                        setFormFilter({ ...formFilter, [nameFormFilter]: valueFormFilter})
+                    }
+                }
+            })
         }
-        setFormFilter({...formFilter,...filterObj, operation: newOperation, numberOfBedrooms: numOfBed, numberOfBathrooms: numOfBath})
+
+        console.log("Valores del formulario en BigFilter", formFilter)
     // eslint-disable-next-line
     },[filterObj])
-    console.log("Big Filter")
-    console.log(bigFilter)
     // variable de estado para que se muestre o no los formularios del filtro
     const [selectFilters, setSelectFilters] = useState(false)
-    // let countDeleteFirstFilter = 0
-    
-    // eliminar array al fetchear de la api cities
-    const cities = props.cities
-
-    // useEffect(() => {
-    //     if(countDeleteFirstFilter === 0) setBigFilter({})
-    // }, [countDeleteFirstFilter])
 
     const deletePropertieFromObject = (name) => {
         let objectAux = {};
@@ -74,6 +101,7 @@ const BigFilter = (props) => {
             if(key !== name) objectAux[key] = bigFilter[key] //limpio el objeto filtro sin esta propiedad
         })
         setBigFilter(objectAux)
+        return objectAux
     }
 
     const operationHandler = (e) => {
@@ -150,12 +178,13 @@ const BigFilter = (props) => {
         console.log(formFilter)
         setSelectFilters(false)
     }
+
     console.log("Aca tengo las properties q vienen de props")
-    console.log(props.properties)
-    const [sortedProperties, setSortedProperties] = useState(props.properties)
+    console.log(properties)
+    const [sortedProperties, setSortedProperties] = useState(properties)
     useEffect(()=>{
-        setSortedProperties(props.properties)
-    },[props.properties])
+        setSortedProperties(properties)
+    },[properties])
     const listFilterHandler = (e) => {
         switch (e.target.value){
             case "minPrice":
@@ -187,138 +216,169 @@ const BigFilter = (props) => {
                 )
                 break;
             default:
-                setSortedProperties(props.properties)
+                setSortedProperties(properties)
                 return   
         }
         
         console.log(e.target.value)
         console.log("ordenar")
-        console.log(sortedProperties)
+        console.log(sortedProperties) //ESTE ARRAY SE TIENE QUE ENVIAR EN 
     }
-
+    console.log("antes de entrar en el return", properties)
+    console.log(formFilter)
     return (
         <div className="bigFilter">
-            <div>
-                {!selectFilters &&
-                <button onClick={() => {
-                    // countDeleteFirstFilter+=1 
-                    setSelectFilters(true)
-                }}>
-                    Más Filtros <PlusSquare />
-                </button>}
-                <div className="filtersSelected">
-                    <p> Place Holder </p> <p> Place Holder </p> <p> Place Holder </p> 
+            <div className="image"></div>          
+            <div className="bigFilterBox">
+                <div>
+                    {!selectFilters &&
+                    <button onClick={() => setSelectFilters(true) }>
+                        Más Filtros <PlusSquare />
+                    </button>}
+                    {selectFilters &&
+                    <button onClick={searchProperties}>
+                        Buscar <Search />
+                    </button>}
+                    <FiltersSelected 
+                        deletePropertieFromObject={deletePropertieFromObject}
+                        formFilter={formFilter}
+                        setFormFilter={setFormFilter}
+                        selectFilters={selectFilters}
+                    />
                 </div>
+                {selectFilters &&   
+                <div className="filtersToSelect">
+                    <div> {/* 1 */}
+                        <div>
+                            <h5>Operación</h5>
+                            <select name="operation" value={formFilter.operation} onChange={operationHandler}>
+                                <option value="allCases">Todas las Operaciones</option>
+                                <option value="forSale">Venta</option>
+                                <option value="forRental">Alquiler</option>
+                                <option value="shortRental">Alquiler Temporario</option>
+                            </select>
+                        </div>
+                        <div>
+                            <h5>Ciudad o región</h5>
+                            <select name="city" value={filterObj.city} onChange={(e) => selectHandler(e, e.target.value, e.target.value, null)}>
+                                <option value="allCases">Todas</option>
+                                { cities.map(city => <option value={city._id} key={city._id}>{city.cityName}</option> )}
+                            </select>
+                        </div>
+                    </div>
+                    <div> { /* 2 */}
+                        <h5>Tipo de propiedad</h5>
+                        <select name="isHouse" value={formFilter.isHouse} onChange={(e) => selectHandler(e, "house", true, false)}>
+                            <option value="allCases">Todos</option>
+                            <option value="house">Casa</option>
+                            <option value="apartment">Departamento</option>
+                        </select>
+                    </div>                
+                    <div> {/* 3 */}
+                        <div className="propiedadBigFilterDesktopResponsive"> { /* 2 - responsividad desktop */}
+                            <h5>Tipo de propiedad</h5>
+                            <select name="isHouse" value={formFilter.isHouse} onChange={(e) => selectHandler(e, "house", true, false)}>
+                                <option value="allCases">Todos</option>
+                                <option value="house">Casa</option>
+                                <option value="apartment">Departamento</option>
+                            </select>
+                        </div>
+                        <div>
+                            <h5>Ambientes</h5>
+                            <select name="numberOfRooms" value={formFilter.numberOfRooms} onChange={(e) => selectHandler(e, "6AndMore",{"$gte":6}, parseInt(e.target.value))}>
+                                <option value="allCases">Todos</option>
+                                {[1,2,3,4,5].map((x )=> <option value={x} key={x}>{x}</option>)}
+                                <option value="6AndMore"> 6 o más</option>
+                            </select>
+                        </div>
+                        <div>
+                            <h5>Dormitorios</h5>
+                            <select name="numberOfBedrooms" value={formFilter.numberOfBedrooms} onChange={(e) => selectHandler(e, "6AndMore",{"$gte":6}, parseInt(e.target.value))}>
+                                <option value="allCases">Todos</option>
+                                {[1,2,3,4,5].map((x )=> <option value={x} key={x+10}>{x}</option>)}
+                                <option value="6AndMore"> 6 o más</option>
+                            </select>
+                        </div>
+                        <div>
+                            <h5>Baños</h5>
+                            <select name="numberOfBathrooms" value={formFilter.numberOfBathrooms} onChange={(e) => selectHandler(e, "6AndMore",{"$gte":6}, parseInt(e.target.value))}>
+                                <option value="allCases">Todos</option>
+                                {[1,2,3,4,5].map((x )=> <option value={x} key={x+20}>{x}</option>)}
+                                <option value="6AndMore"> 6 o más</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div> {/* 4 */}
+                        <div className="metrosBigFilterDesktopResponsive"> {/* 5 responsividad desktop */}
+                            <h5>M² Metro Cuadrados Cubiertos</h5>
+                            <select name="roofedArea" value={formFilter.roofedArea} onChange={(e) => selectHandler(e, e.target.value,((e.target.value.length===8 && e.target.value) || JSON.parse(e.target.value)), null)}>
+                                <option value="allCases">Todas</option>
+                                <option value='{"$lte": 40}'>Hasta 40m²</option>
+                                <option value='{"$gte":41,"$lte": 80}'>41m² a 80m²</option>
+                                <option value='{"$gte":81,"$lte": 200}'>81m² a 200m²</option>
+                                <option value='{"$gte":201,"$lte": 600}'>201m² a 600m²</option>
+                                <option value='{"$gte":600}'>601m² o más</option>
+                            </select>
+                        </div>
+                        <div>
+                            <h5>Moneda</h5>
+                            <select name="isUSD" value={formFilter.isUSD} onChange={(e) => selectHandler(e, "pesos", false, true)}>
+                                <option value="allCases">Todas</option>
+                                <option value="pesos">Pesos</option>
+                                <option value="dolars">Dólares</option>
+                            </select>
+                        </div>
+                        <div>
+                            <h5>Precio desde</h5>
+                            <input type="number" name="greater" min={0} value={formFilter.greater} onChange={priceHandler} />
+                        </div>
+                        <div>
+                            <h5>Precio hasta</h5>
+                            <input type="number" name="lower" min={0} value={formFilter.lower} onChange={priceHandler} />
+                        </div>
+
+                    </div>
+                    <div> {/* 5 */}
+                        <h5>M² Metro Cuadrados Cubiertos</h5>
+                        <select name="roofedArea" value={formFilter.roofedArea} onChange={(e) => selectHandler(e, e.target.value,((e.target.value.length===8 && e.target.value) || JSON.parse(e.target.value)), null)}>
+                            <option value="allCases">Todas</option>
+                            <option value='{"$lte": 40}'>Hasta 40m²</option>
+                            <option value='{"$gte":41,"$lte": 80}'>41m² a 80m²</option>
+                            <option value='{"$gte":81,"$lte": 200}'>81m² a 200m²</option>
+                            <option value='{"$gte":201,"$lte": 600}'>201m² a 600m²</option>
+                            <option value='{"$gte":600}'>601m² o más</option>
+                        </select>
+                    </div>
+                    <div> {/* 6 */}
+                        <div>
+                            <div>
+                                <input type="checkbox" id="isBrandNew" name="isBrandNew" checked={formFilter.isBrandNew} onChange={checkBoxHandler}/>
+                                <label htmlFor="isBrandNew" >Solo a estrenar</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="haveGarden" name="haveGarden" checked={formFilter.haveGarden} onChange={checkBoxHandler}/>
+                                <label htmlFor="haveGarden" >Con Jardín </label>
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <input type="checkbox" id="haveGarage" name="haveGarage" checked={formFilter.haveGarage} onChange={checkBoxHandler}/>
+                                <label htmlFor="haveGarage" >Con Cochera</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="havePool" name="havePool" checked={formFilter.havePool} onChange={checkBoxHandler}/>
+                                <label htmlFor="havePool" >Con Pileta</label>
+                            </div>
+                        </div>
+                        <div className="buscarBigFilterResponsiveDesktop"> {/* 7 */}
+                            <button onClick={searchProperties}>Buscar</button>
+                        </div>
+                    </div>
+                    <div> {/* 7 */}
+                        <button onClick={searchProperties}>Buscar</button>
+                    </div>
+                </div>}
             </div>
-            {selectFilters &&            
-            <div className="filtersToSelect">
-                <div> {/* 1 */}
-                    <div>
-                        <h5>Operación</h5>
-                        <select name="operation" value={formFilter.operation} onChange={operationHandler}>
-                            <option value="allCases">Todas las Operaciones</option>
-                            <option value="forSale">Venta</option>
-                            <option value="forRental">Alquiler</option>
-                            <option value="shortRental">Alquiler Temporario</option>
-                        </select>
-                    </div>
-                    <div> {/* AXIOS DE CITIES */}
-                        <h5>Ciudad o región</h5>
-                        <select name="city" value={bigFilter.city} onChange={(e) => selectHandler(e, e.target.value, e.target.value, null)}>
-                            <option value="allCases">Todas</option>
-                            { cities.map(city => <option value={city._id} key={city._id}>{city.cityName}</option> )}
-                        </select>
-                    </div>
-                </div>
-                <div> { /* 2 */}
-                    <h5>Tipo de propiedad</h5>
-                    <select name="isHouse" value={formFilter.isHouse} onChange={(e) => selectHandler(e, "house", true, false)}>
-                        <option value="allCases">Todos</option>
-                        <option value="house">Casa</option>
-                        <option value="apartment">Departamento</option>
-                    </select>
-                </div>                
-                <div> {/* 3 */}
-                    <div>
-                        <h5>Ambientes</h5>
-                        <select name="numberOfRooms" value={formFilter.numberOfRooms} onChange={(e) => selectHandler(e, "6AndMore",{"$gte":6}, parseInt(e.target.value))}>
-                            <option value="allCases">Todos</option>
-                            {[1,2,3,4,5].map((x )=> <option value={x} key={x}>{x}</option>)}
-                            <option value="6AndMore"> 6 o más</option>
-                        </select>
-                    </div>
-                    <div>
-                        <h5>Dormitorios</h5>
-                        <select name="numberOfBedrooms" value={formFilter.numberOfBedrooms} onChange={(e) => selectHandler(e, "6AndMore",{"$gte":6}, parseInt(e.target.value))}>
-                            <option value="allCases">Todos</option>
-                            {[1,2,3,4,5].map((x )=> <option value={x} key={x+10}>{x}</option>)}
-                            <option value="6AndMore"> 6 o más</option>
-                        </select>
-                    </div>
-                    <div>
-                        <h5>Baños</h5>
-                        <select name="numberOfBathrooms" value={formFilter.numberOfBathrooms} onChange={(e) => selectHandler(e, "6AndMore",{"$gte":6}, parseInt(e.target.value))}>
-                            <option value="allCases">Todos</option>
-                            {[1,2,3,4,5].map((x )=> <option value={x} key={x+20}>{x}</option>)}
-                            <option value="6AndMore"> 6 o más</option>
-                        </select>
-                    </div>
-                </div>
-                <div> {/* 4 */}
-                    <div>
-                        <h5>Moneda</h5>
-                        <select name="isUSD" value={formFilter.isUSD} onChange={(e) => selectHandler(e, "pesos", false, true)}>
-                            <option value="allCases">Todas</option>
-                            <option value="pesos">Pesos</option>
-                            <option value="dolars">Dólares</option>
-                        </select>
-                    </div>
-                    <div>
-                        <h5>Precio desde</h5>
-                        <input type="number" name="greater" min={0} value={formFilter.greater} onChange={priceHandler} />
-                    </div>
-                    <div>
-                        <h5>Precio hasta</h5>
-                        <input type="number" name="lower" min={0} value={formFilter.lower} onChange={priceHandler} />
-                    </div>
-                </div>
-                <div> {/* 5 */}
-                    <h5>M² Metro Cuadrados Cubiertos</h5>
-                    <select name="roofedArea" value={formFilter.roofedArea} onChange={(e) => selectHandler(e, e.target.value, JSON.parse(e.target.value), null)}>
-                        <option value="allCases">Todas</option>
-                        <option value='{"$lte": 40}'>Hasta 40m²</option>
-                        <option value='{"$gte":41,"$lte": 80}'>41m² a 80m²</option>
-                        <option value='{"$gte":81,"$lte": 200}'>81m² a 200m²</option>
-                        <option value='{"$gte":201,"$lte": 600}'>201m² a 600m²</option>
-                        <option value='{"$gte":600}'>601m² o más</option>
-                    </select>
-                </div>
-                <div> {/* 6 */}
-                    <div>
-                        <div>
-                            <input type="checkbox" id="isBrandNew" name="isBrandNew" checked={formFilter.isBrandNew} onChange={checkBoxHandler}/>
-                            <label htmlFor="isBrandNew" >Solo a estrenar</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="haveGarden" name="haveGarden" checked={formFilter.haveGarden} onChange={checkBoxHandler}/>
-                            <label htmlFor="haveGarden" >Con Jardín </label>
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <input type="checkbox" id="haveGarage" name="haveGarage" checked={formFilter.haveGarage} onChange={checkBoxHandler}/>
-                            <label htmlFor="haveGarage" >Con Cochera</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="havePool" name="havePool" checked={formFilter.havePool} onChange={checkBoxHandler}/>
-                            <label htmlFor="havePool" >Con Pileta</label>
-                        </div>
-                    </div>
-                </div>
-                <div> {/* 7 */}
-                    <button onClick={searchProperties}>Buscar</button>
-                </div>
-            </div>}
 
             <div className="sortList">
                 <select onChange={listFilterHandler}>
@@ -328,9 +388,6 @@ const BigFilter = (props) => {
                     <option value="minArea">Menor superficie</option>
                     <option value="maxArea">Mayor superficie</option>
                 </select>
-            </div>
-            <div className="propertiesCardList">
-                <CardProperty properties={props.properties}/>
             </div>
         </div>
     )
@@ -342,7 +399,9 @@ const mapStateToProps = (state) =>{
     }
 }
 const mapDispatchToProps = {
-    getPropertiesFiltered: propertiesActions.getPropertiesFiltered
+    getPropertiesFiltered: propertiesActions.getPropertiesFiltered,
+    setFilter: propertiesActions.setFilter,
+    getCities: citiesActions.getCities
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(BigFilter)

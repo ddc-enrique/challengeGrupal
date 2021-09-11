@@ -18,15 +18,18 @@ const Main = (props) => {
     };
     getCities();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  }, []); 
   const city = props.cities.map((city) => (
-    <CardCity key={city._id} city={city} />
+    <CardCity {...props} key={city._id} city={city} />
   ));
   return (
     <main>
-      <h1 className="mainTitle">Buscá en alguna de estas localidades</h1>
-      {city}
+      <div className="mainTitle">
+        <h1>Buscá en alguna de estas localidades</h1>
+      </div>
+      <div className="mainCityCarBox">
+        {city}
+      </div>
     </main>
   );
 };
