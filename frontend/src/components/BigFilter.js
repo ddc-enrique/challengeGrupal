@@ -13,6 +13,7 @@ const BigFilter = (props) => {
     console.log("Estoy en Big Filter")
     console.log("Filter que llega del store", filterObj)
     const [bigFilter, setBigFilter] = useState(filterObj)
+    const [render, setRender] = useState(false)
     const [formFilter, setFormFilter] = useState({
         operation: "allCases",  city:"allCases", isHouse: "allCases", 
         numberOfRooms:"allCases", numberOfBedrooms: "allCases", numberOfBathrooms: "allCases",
@@ -32,64 +33,41 @@ const BigFilter = (props) => {
         }        
         console.log("el filtro la PRIMERA VEZ QUE LLEGA", filterObj)
     }, [])
-
     useEffect( () => {
+        let newOperation = "allCases"
+        let numOfBath = "allCases"  
+        let numOfBed = "allCases"
+        let isHouse = "allCases"
         setBigFilter(filterObj)
-        let nameFormFilter
-        let valueFormFilter
-        let enterOperation = false
-        if(Object.keys(filterObj).length){
-            Object.keys(filterObj).forEach( key => {
-                if(key==="forSale" && filterObj[key]){
-                    nameFormFilter = "operation"
-                    valueFormFilter = "forSale"
-                    enterOperation = true
-                } 
-                if(key === "shortRental" && filterObj[key]){
-                    valueFormFilter = "shortRental"
-                    nameFormFilter = "operation"
-                    enterOperation = true
+        console.log(numOfBed)
+        if(Object.keys(filterObj).length > 0){
+            if(filterObj.forSale){
+                newOperation = "forSale"
+            }
+            if(typeof filterObj.forSale === "boolean" && typeof filterObj.shortRental === "boolean"){
+                if(!filterObj.forSale && !filterObj.shortRental){
+                    newOperation = "forRental"
                 }
-                if( !enterOperation && !filterObj.shortRental && !filterObj.forSale){
-                    valueFormFilter = "forRental"
-                    nameFormFilter = "operation"
-                    enterOperation = true
-                } 
-                if( key.startsWith("numberOf") ){
-                    nameFormFilter = key
-                    valueFormFilter = typeof filterObj[key]  === "object" ? "6AndMore" : filterObj[key]
+                if(!filterObj.forSale && filterObj.shortRental){
+                    newOperation = "shortRental"
                 }
-                if (key === "isHouse") {
-                    nameFormFilter = key
-                    valueFormFilter = filterObj[key] ? "house" : "apartment"
-                } 
-                if (key ==="greater" || key === "lower") {
-                    nameFormFilter = key
-                    valueFormFilter = filterObj[key]>=0 ? filterObj[key] : ""
-                }
-                if (key === "city") {
-                    nameFormFilter = key
-                    valueFormFilter = filterObj[key]
-                }
-                if(key === "isBrandNew"){
-                    nameFormFilter = key
-                    valueFormFilter = filterObj[key]
-                }
-                if(key.startsWith("have")){
-                    nameFormFilter = key
-                    valueFormFilter = filterObj[key] ? true : false
-                }            
-                if(key !== "forsale" && key !== "shortRental"){
-                    setFormFilter({ ...formFilter, [nameFormFilter]: valueFormFilter})
-                } else {
-                    if (enterOperation) {
-                        setFormFilter({ ...formFilter, [nameFormFilter]: valueFormFilter})
-                    }
-                }
-            })
+            }
+            if(filterObj.numberOfBathrooms){
+                console.log(filterObj.numberOfBathrooms)
+                numOfBath = typeof filterObj.numberOfBathrooms  === "object" ? "6AndMore" : filterObj.numberOfBathrooms
+                console.log(numOfBath)
+            }
+            if(filterObj.numberOfBedrooms){
+                console.log(filterObj.numberOfBedrooms)
+                numOfBed = typeof filterObj.numberOfBathrooms  === "object" ? "6AndMore" : filterObj.numberOfBedrooms
+                console.log(numOfBed)
+            }
+            if(typeof filterObj.isHouse !== "undefined"){
+                isHouse = filterObj.isHouse ? 'house' : 'apartment'
+            }
+            
         }
-
-        console.log("Valores del formulario en BigFilter", formFilter)
+        setFormFilter({...formFilter,...filterObj, operation: newOperation, numberOfBedrooms: numOfBed, numberOfBathrooms: numOfBath, isHouse: isHouse})
     // eslint-disable-next-line
     },[filterObj])
     // variable de estado para que se muestre o no los formularios del filtro
@@ -223,6 +201,7 @@ const BigFilter = (props) => {
         console.log(e.target.value)
         console.log("ordenar")
         console.log(sortedProperties) //ESTE ARRAY SE TIENE QUE ENVIAR EN 
+        setRender(!render)
     }
     console.log("antes de entrar en el return", properties)
     console.log(formFilter)
@@ -239,12 +218,6 @@ const BigFilter = (props) => {
                     <button onClick={searchProperties}>
                         Buscar <Search />
                     </button>}
-                    <FiltersSelected 
-                        deletePropertieFromObject={deletePropertieFromObject}
-                        formFilter={formFilter}
-                        setFormFilter={setFormFilter}
-                        selectFilters={selectFilters}
-                    />
                 </div>
                 {selectFilters &&   
                 <div className="filtersToSelect">

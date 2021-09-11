@@ -14,17 +14,6 @@ const PropertiesList = (props) => {
     const {filterObj, getCities, getPropertiesFiltered, cities, properties, token} = props
     // console.log(props)
     useEffect(() => {
-        if (properties.length === 0) {
-            getPropertiesFiltered({})
-            .then(res => {
-                if(!res.data.success){
-                    throw new Error('Something went wrong')
-                }
-                console.log(res.data.response)
-            })
-            .catch(err => console.log(err))
-            console.log("Properties List se monto y se cargo prop")
-        }
         if (cities === 0) {
             getCities().then(res => {
                 if(!res.data.success){
