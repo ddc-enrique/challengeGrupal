@@ -85,6 +85,7 @@ const userControllers = {
                 <p>Dir: Jujuy 995, Mar del Plata, Buenos Aires</p>
                 <p>Telefono: +54 2235391098</p>
                 <p style="color:red;">+ INFO!: <span style="color:blue;">mardelcasas@gmail.com</span></p>
+                <img src="cid:marDelCasasLogo@mardelcasas.com" style="width:150px;heigth:150px;"/>
             </footer>
             
         `//reemplazar esta URL por una de frontend, que vaya en params un ID, que en front monte componente y useEffect did mount, haga pedido a esa ruta de api con el req params id
@@ -94,6 +95,11 @@ const userControllers = {
             subject: `Bienvenido ${req.user.firstName}!`,
             text: message,
             html: message,
+            attachments: [{   
+                filename: "MARDELCASAS-L.png",
+                path: __dirname+"/MARDELCASAS-L.png", 
+                cid: "marDelCasasLogo@mardelcasas.com"
+            }],
         }
         transporter.sendMail(mailOptions, (err, data) => {
             err ? res.json({success: false, response: err}) : res.json({success: true, response: data})
@@ -130,6 +136,7 @@ const userControllers = {
                     <p>Dir: Jujuy 995, Mar del Plata, Buenos Aires</p>
                     <p>Telefono: +54 2235391098</p>
                     <p style="color:red;">+ INFO!: <span style="color:blue;">mardelcasas@gmail.com</span></p>
+                    <img src="cid:marDelCasasLogo@mardelcasas.com" style="width:150px;heigth:150px;"/>
                 </footer>
             `//reemplazar esta URL por una de frontend, que vaya en params un ID, que en front monte componente y useEffect did mount, haga pedido a esa ruta de api con el req params id
             let mailOptions = {
@@ -137,7 +144,12 @@ const userControllers = {
                 to: `${user.firstName} <${user.eMail}>`,
                 subject: `Hola ${user.firstName}!`,
                 text: message,
-                html: message
+                html: message,
+                attachments: [{  
+                    filename: "MARDELCASAS-L.png",
+                    path: __dirname+"/MARDELCASAS-L.png",
+                    cid: "marDelCasasLogo@mardelcasas.com"
+                }],
             }
             transporter.sendMail(mailOptions, (err, data) => {
                 err ? res.json({success: false, response: err}) : res.json({success: true, response: data})
@@ -169,6 +181,7 @@ const userControllers = {
                         <p>Dir: Jujuy 995, Mar del Plata, Buenos Aires</p>
                         <p>Telefono: +54 2235391098</p>
                         <p style="color:red;">+ INFO!: <span style="color:blue;">mardelcasas@gmail.com</span></p>
+                        <img src="cid:marDelCasasLogo@mardelcasas.com" style="width:150px;heigth:150px;"/>
                     </footer>
                 `//mandarlo a frontend a una pagina con 2 input para la contraseña y que cuando el tipo toque enviar le pegues a ese endpoint, con ese params id y el paquete en el body
                 let mailOptions = {
@@ -176,7 +189,12 @@ const userControllers = {
                     to: `${user.firstName} <${user.eMail}>`,
                     subject: `Cambio de contrasena ${user.firstName}!`,
                     text: message,
-                    html: message
+                    html: message,
+                    attachments: [{   
+                        filename: "MARDELCASAS-L.png",
+                        path: __dirname+"/MARDELCASAS-L.png",
+                        cid: "marDelCasasLogo@mardelcasas.com"
+                    }],
                 }
                 transporter.sendMail(mailOptions, (err, data) => {
                     err ? res.json({success: false, response: err}) : res.json({success: true, response: data})
@@ -209,6 +227,7 @@ const userControllers = {
                         <p>Dir: Jujuy 995, Mar del Plata, Buenos Aires</p>
                         <p>Telefono: +54 2235391098</p>
                         <p style="color:red;">+ INFO!: <span style="color:blue;">mardelcasas@gmail.com</span></p>
+                        <img src="cid:marDelCasasLogo@mardelcasas.com" style="width:150px;heigth:150px;"/>
                     </footer>
                 `//mandarlo a frontend a una pagina de datos de contacto con una confirmación si quiere desabilitar su cuenta!
                 let mailOptions = {
@@ -216,7 +235,12 @@ const userControllers = {
                     to: `${user.firstName} <${user.eMail}>`,
                     subject: `Tu contrasena cambio ${user.firstName}!`,
                     text: message,
-                    html: message
+                    html: message,
+                    attachments: [{  
+                        filename: "MARDELCASAS-L.png",
+                        path: __dirname+"/MARDELCASAS-L.png", 
+                        cid: "marDelCasasLogo@mardelcasas.com"
+                    }],
                 }
                 transporter.sendMail(mailOptions, (err, data) => {
                     err ? res.json({success: true, response: 'contrasena cambiada pero email fallo'}) : res.json({success: true, response: 'contrasena cambiada y email enviado'})
