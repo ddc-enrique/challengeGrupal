@@ -10,7 +10,7 @@ import Swal from "sweetalert2"
 
 const SignUp = (props) => {
   const [openValidation, setOpenValidation] = useState(false)
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState([])
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -56,6 +56,7 @@ const SignUp = (props) => {
     } else {
       try {
         let res = await props.registerUser(user)
+        console.log(res)
         if (!res.success) {
           typeof res.errors !== "string" ?
           setErrors(res.errors) :
@@ -89,6 +90,7 @@ const SignUp = (props) => {
   const sendValidationEmail = async () => {
     try {
       let res = await props.validationUserEmail(user.eMail)
+      console.log(res)
       if (res.success) {
         renderToast("Te enviamos un mail para que valides tu cuenta", "success")
       } else {
@@ -115,9 +117,9 @@ const SignUp = (props) => {
       } else {
         try {
           renderToast("Usuario registrado con éxito", "success")
-          let res = await props.validationUserToken(res.response.token)
-          if (res.success)
-            renderToast("Te enviamos un mail para que valides tu cuenta", "warning")
+          let response = await props.validationUserToken(res.response.token)
+          if (response.success)
+            renderToast("Te enviamos un mail para que valides tu cuenta", "success")
           else {
             renderToast("Hubo un error, intente nuevamente más tarde", "warning")
           }

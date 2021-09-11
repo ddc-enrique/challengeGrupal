@@ -13,6 +13,7 @@ import {GiCctvCamera, GiParkBench} from "react-icons/gi"
 import {FaSwimmingPool} from "react-icons/fa"
 import { BookmarkStar, BookmarkStarFill } from "react-bootstrap-icons";
 import userActions from "../redux/action/userActions"
+import Swal from "sweetalert2"
 
 const Property = (props) => {
     const [connectionWithAPI, setConnectionWithAPI] = useState("connected")
@@ -40,21 +41,38 @@ const Property = (props) => {
         if(props.wishList){
             setFlagWishList(props.wishList.includes(property._id))
         }
-        
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const renderToast = (message, type) => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 4000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer)
+            toast.addEventListener("mouseleave", Swal.resumeTimer)
+          },
+        })
+        Toast.fire({
+          icon: type,
+          title: message,
+        })
+    }
+    
     const modifyWishList = async () => {
         if (props.token){
             try {
                 let res = await props.updateWishList(props.token, property._id)
                 if(!res.success) throw res.error
                 setFlagWishList(res.response.includes(property._id))
-            } catch (error) {
-                console.log(error)
+            } catch {
+                renderToast("Tenemos un problema, por favor intenta más tarde", "warning")
             }
         } else {
-            alert("iniciar sesion")
+            renderToast("Debes iniciar sesión para guardar esta propiedad", "warning")
         }
     }
 
