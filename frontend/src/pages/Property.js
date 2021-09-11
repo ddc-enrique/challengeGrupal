@@ -5,15 +5,11 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CarouselImg from "../components/CarouselImg";
 import "../styles/Property.css";
-import {BiArea} from "react-icons/bi"
+import {BiArea, BiDoorOpen, BiBath, BiCar} from "react-icons/bi"
 import {RiRuler2Line} from "react-icons/ri"
-import {BiDoorOpen} from "react-icons/bi"
 import {IoBedOutline} from "react-icons/io5"
-import {BiBath} from "react-icons/bi"
 import {VscPerson} from "react-icons/vsc"
-import {GiCctvCamera} from "react-icons/gi"
-import {BiCar} from "react-icons/bi"
-import {GiParkBench} from "react-icons/gi"
+import {GiCctvCamera, GiParkBench} from "react-icons/gi"
 import {FaSwimmingPool} from "react-icons/fa"
 import { BookmarkStar, BookmarkStarFill } from "react-bootstrap-icons";
 import userActions from "../redux/action/userActions"
@@ -48,12 +44,11 @@ const Property = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-
     const modifyWishList = async () => {
         if (props.token){
             try {
                 let res = await props.updateWishList(props.token, property._id)
-                if(!res.success) throw res.response
+                if(!res.success) throw res.error
                 setFlagWishList(res.response.includes(property._id))
             } catch (error) {
                 console.log(error)

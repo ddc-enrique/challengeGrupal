@@ -17,22 +17,23 @@ const PropertiesList = (props) => {
         if (properties.length === 0) {
             getPropertiesFiltered({})
             .then(res => {
-                if(!res.data.success){
-                    throw new Error('Something went wrong')
+                if(!res.success){
+                    throw new Error(res.error)
                 }
-                console.log(res.data.response)
+                console.log(res.response)
             })
             .catch(err => console.log(err))
             console.log("Properties List se monto y se cargo prop")
         }
         if (cities === 0) {
-            getCities().then(res => {
-                if(!res.data.success){
-                    throw new Error('Something went wrong')
+            getCities()
+            .then(res => {
+                if(!res.success){
+                    throw new Error(res.error)
                 }
-                console.log(res.data.response)
-                })
-                .catch(err => console.log(err))
+                console.log(res.response)
+            })
+            .catch(err => console.log(err))
         }
     }, [])
 

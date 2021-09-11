@@ -1,22 +1,25 @@
-import "../styles/App.css";
-import React from "react";
-import userActions from "../redux/action/userActions";
-import { connect } from "react-redux";
-import { useState } from "react";
+import "../styles/App.css"
+import React from "react"
+import userActions from "../redux/action/userActions"
+import { connect } from "react-redux"
+import { useState } from "react"
+
 const ResetPassword = (props) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({})
   const submitPassword = async () => {
     try {
-      let res = await props.sendIdPassword(props.match.params.id, user);
+      let res = await props.sendIdPassword(props.match.params.id, user)
       if (res.success) {
-        alert("Tu contraseña se cambió con éxito");
-        return props.history.push("/");
+        alert("Tu contraseña se cambió con éxito")
+        return props.history.push("/")
+      } else {
+        throw res.error
       }
-      if (!res.success) throw res;
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
+
   return (
     <div className="formSign">
       <form>
@@ -34,10 +37,11 @@ const ResetPassword = (props) => {
         <button onClick={submitPassword}>Enviar</button>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const mapDispatchToProps = {
   sendIdPassword: userActions.sendIdPassword,
-};
-export default connect(null, mapDispatchToProps)(ResetPassword);
+}
+
+export default connect(null, mapDispatchToProps)(ResetPassword)
