@@ -8,40 +8,109 @@ import propertiesActions from "../redux/action/propertiesActions"
 import userActions from "../redux/action/userActions"
 import citiesActions from "../redux/action/citiesActions"
 import CardProperty from "../components/CardProperty"
+import Swal from "sweetalert2"
 
 const PropertiesList = (props) => {
-    const [subscription, setSubscription] = useState("")
     const {filterObj, getCities, getPropertiesFiltered, cities, properties, token} = props
-    // console.log(props)
+    const [sortedProperties, setSortedProperties] = useState(properties)
+    const [renderSort, setRenderSort] = useState(false)
+    const [subscription, setSubscription] = useState("")
+
     useEffect(() => {
-        if (properties.length === 0) {
-            getPropertiesFiltered({})
-            .then(res => {
-                if(!res.data.success){
-                    throw new Error('Something went wrong')
-                }
-                console.log(res.data.response)
-            })
-            .catch(err => console.log(err))
-            console.log("Properties List se monto y se cargo prop")
-        }
+        // if (properties.length === 0) {
+        //     getPropertiesFiltered({})
+        //     .then(res => {
+        //         if(!res.success){
+        //             throw new Error(res.error)
+        //         }
+        //         console.log(res.response)
+        //     })
+        //     .catch(err => console.log(err))
+        //     console.log("Properties List se monto y se cargo prop")
+        // }
         if (cities === 0) {
-            getCities().then(res => {
-                if(!res.data.success){
-                    throw new Error('Something went wrong')
+            getCities()
+            .then(res => {
+                if(!res.success){
+                    throw new Error(res.error)
                 }
-                console.log(res.data.response)
-                })
-                .catch(err => console.log(err))
+            })
+            .catch(err => {
+            renderToast(err, "warning")
+            })
         }
     }, [])
 
+    useEffect(()=>{
+        setSortedProperties(properties)
+    },[properties])
+    const listFilterHandler = (e) => {
+        switch (e.target.value){
+            case "minPrice":
+                setSortedProperties(
+                    sortedProperties.sort((a, b) => {
+                        return a.price - b.price;
+                    })
+                )
+                break;
+            case "maxPrice":
+                setSortedProperties(
+                    sortedProperties.sort((a, b) => {
+                        return b.price - a.price;
+                    })
+                )
+                break;
+            case "minArea":
+                setSortedProperties(
+                    sortedProperties.sort((a, b) => {
+                        return a.roofedArea - b.roofedArea;
+                    })
+                )
+                break;
+            case "maxArea":
+                setSortedProperties(
+                    sortedProperties.sort((a, b) => {
+                        return b.roofedArea - a.roofedArea;
+                    })
+                )
+                break;
+            default:
+                setSortedProperties(properties)
+                return   
+        }
+        console.log(e.target.value)
+        console.log("ordenar")
+        console.log(sortedProperties) //ESTE ARRAY SE TIENE QUE ENVIAR EN 
+        setRenderSort(!renderSort)
+    }
+
+    const renderToast = (message, type) => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 4000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer)
+            toast.addEventListener("mouseleave", Swal.resumeTimer)
+          },
+        })
+        Toast.fire({
+          icon: type,
+          title: message,
+        })
+      }
+    
     const subscribeEmail = () => {
         props.putSubscribeEmail(token)
         .then(res => {
             res.success ?
             setSubscription("Gracias por suscribirte! Te enviaremos un mail cuando tengamos nuevas casas disponibles") :
             setSubscription(res.error)
+        })
+        .catch(err => {
+            renderToast(err, "warning")
         })
     }
 
@@ -70,7 +139,15 @@ const PropertiesList = (props) => {
         <div className="containerPropertiesList">
             <Header />
             <BigFilter filterObj={filterObj}/>
-            {/* select para ordenar */}
+            <div className="sortList">
+                <select onChange={listFilterHandler}>
+                    <option value="noSort">Mas relevante</option>
+                    <option value="minPrice">Menor precio</option>
+                    <option value="maxPrice">Mayor precio</option>
+                    <option value="minArea">Menor superficie</option>
+                    <option value="maxArea">Mayor superficie</option>
+                </select>
+            </div>
             {properties.length !== 0 ?
                 <div className="propertiesCardList">
                     {properties.map(property =><CardProperty key={property._id} property={property}/>)}

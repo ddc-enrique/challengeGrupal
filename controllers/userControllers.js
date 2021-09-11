@@ -78,7 +78,7 @@ const userControllers = {
             </header>
             <main style="text-align:center;margin-bottom:20px;">
                 <p style="color:black;font-size:20px;text-align:center;">Por favor para confirmar su cuenta haga click en el siguiente link:</p>
-                <a href="https://mardelcasas.herokuapp.com/api/user/validatemail/${req.user._id}" style="font-size:25px;text-align:center;display:block;">CLICK AQUI!</a>
+                <a href="http://localhost:3000/usuario/validar-email/${req.user._id}" style="font-size:25px;text-align:center;display:block;">CLICK AQUI!</a>
             </main>
             <footer style="text-align:center;">
                 <p>MarDeLasCasas SRL</p>
@@ -100,6 +100,7 @@ const userControllers = {
         })
     },
     validateUser: (req, res)=>{
+        console.log(req.params.id)
         console.log("Received Validate User Email Petition:" + Date())
         User.findOneAndUpdate({_id: req.params.id}, {validated: true})
         .then(user => user ? res.json({success: true}) : res.json({success: false, response: "Didn't find that user"}))
@@ -123,7 +124,7 @@ const userControllers = {
                 </header>
                 <main style="text-align:center;margin-bottom:20px;">
                     <p style="color:black;font-size:20px;text-align:center;">Por favor para confirmar tu cuenta sigue a:</p>
-                    <a href="https://mardelcasas.herokuapp.com/usuario/validar-email/${user._id}" style="font-size:25px;text-align:center;display:block;">CLICK AQUI!</a>
+                    <a href="http://localhost:3000/usuario/validar-email/${user._id}" style="font-size:25px;text-align:center;display:block;">CLICK AQUI!</a>
                 </main>
                 <footer style="text-align:center;">
                     <p>MarDeLasCasas SRL</p>

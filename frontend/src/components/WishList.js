@@ -1,30 +1,28 @@
-import "../styles/WishList.css";
+import "../styles/WishList.css"
 import React, { useEffect, useState } from 'react'
-import { BsX } from "react-icons/bs";
+import { BsX } from "react-icons/bs"
 import { connect } from "react-redux"
-import CardProperty from "./CardProperty";
+import CardProperty from "./CardProperty"
 import userActions from '../redux/action/userActions'
 
 const WishList = (props) => {
-
     const [wishList, setWishList] = useState([])
 
     useEffect(() => {
         async function getWishList() {
             try {
                 let res = await props.getWishList(props.token)
-                if (!res.data.success) {
-                    throw res.data.response
+                if (!res.success) {
+                    throw new Error()
                 } else {
-                    setWishList(res.data.response)
+                    setWishList(res.response)
                 }
-                if (!res.data.response) throw res.data.response
+                if (!res.response) throw res.response
             } catch (err) {
                 console.log(err)
-            } 
+            }
         }
         getWishList()
-    
     }, [])
 
     return (
@@ -53,5 +51,3 @@ const mapDispatchToProps = {
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(WishList)
-
-

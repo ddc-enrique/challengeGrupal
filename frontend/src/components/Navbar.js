@@ -1,36 +1,42 @@
-import "../styles/NavBar.css";
-import React from "react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import userActions from "../redux/action/userActions";
-import WishList from "./WishList";
+import "../styles/NavBar.css"
+import React from "react"
+import { useState } from "react"
+import { Link } from "react-router-dom"
+import { connect } from "react-redux"
+import userActions from "../redux/action/userActions"
+import WishList from "./WishList"
 
 const NavBar = ({token, logOut, photoURL}) => {
-  const [navOpen, setNavOpen] = useState(false);
-  const [wishlist, setWishList] = useState(false);
+  const [navOpen, setNavOpen] = useState(false)
+  const [wishlist, setWishList] = useState(false)
 
   console.log(token)
   
   const showWishList = () => {
-    setWishList(!wishlist);
+    setWishList(!wishlist)
   }
 
   const closeWishList = () => {
     setWishList(false)
   }
 
-  const nav = !token ? [  { name: "Ingresar", route: "/iniciar-sesion", action: null },
-                        { name: "Registrarse", route: "/registrarse", action: null },]
-                      : [ { name:"Cerrar Sesión", route: "#", action: logOut }, 
-                          { name:"Favoritos", route:"#", action: showWishList }]
+  const nav = !token ?
+    [
+      { name: "Ingresar", route: "/iniciar-sesion", action: null },
+      { name: "Registrarse", route: "/registrarse", action: null },
+    ] :
+    [ 
+      { name:"Cerrar Sesión", route: "#", action: logOut}, 
+      { name:"Favoritos", route:"#", action: showWishList }
+    ]
 
   var navMap = nav.map((a, index) => (
     <Link key={index} to={a.route} onClick={a.action}>
       {a.name}
     </Link>
-  ));
-    console.log(photoURL)
+  ))
+  console.log(photoURL)
+
   return (
     <div className="navBar">
       <button onClick={() => setNavOpen(!navOpen)}>
@@ -49,8 +55,8 @@ const NavBar = ({token, logOut, photoURL}) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
 const mapDispatchToProps = {
   logOut: userActions.logOut,
@@ -63,7 +69,7 @@ const mapStateToProps = (state) =>{
   } 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar)
 
 
  // <img

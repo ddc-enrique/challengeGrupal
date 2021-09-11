@@ -5,18 +5,15 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CarouselImg from "../components/CarouselImg";
 import "../styles/Property.css";
-import {BiArea} from "react-icons/bi"
+import {BiArea, BiDoorOpen, BiBath, BiCar} from "react-icons/bi"
 import {RiRuler2Line} from "react-icons/ri"
-import {BiDoorOpen} from "react-icons/bi"
 import {IoBedOutline} from "react-icons/io5"
-import {BiBath} from "react-icons/bi"
 import {VscPerson} from "react-icons/vsc"
-import {GiCctvCamera} from "react-icons/gi"
-import {BiCar} from "react-icons/bi"
-import {GiParkBench} from "react-icons/gi"
+import {GiCctvCamera, GiParkBench} from "react-icons/gi"
 import {FaSwimmingPool} from "react-icons/fa"
 import { BookmarkStar, BookmarkStarFill } from "react-bootstrap-icons";
 import userActions from "../redux/action/userActions"
+import Swal from "sweetalert2"
 
 const Property = (props) => {
     const [connectionWithAPI, setConnectionWithAPI] = useState("connected")
@@ -43,22 +40,38 @@ const Property = (props) => {
         if(props.wishList){
             setFlagWishList(props.wishList.includes(property._id))
         }
-        
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-
+    const renderToast = (message, type) => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 4000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer)
+            toast.addEventListener("mouseleave", Swal.resumeTimer)
+          },
+        })
+        Toast.fire({
+          icon: type,
+          title: message,
+        })
+    }
+    
     const modifyWishList = async () => {
         if (props.token){
             try {
                 let res = await props.updateWishList(props.token, property._id)
-                if(!res.success) throw res.response
+                if(!res.success) throw res.error
                 setFlagWishList(res.response.includes(property._id))
-            } catch (error) {
-                console.log(error)
+            } catch {
+                renderToast("Tenemos un problema, por favor intenta más tarde", "warning")
             }
         } else {
-            alert("iniciar sesion")
+            renderToast("Debes iniciar sesión para guardar esta propiedad", "warning")
         }
     }
 
