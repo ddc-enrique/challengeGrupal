@@ -23,10 +23,10 @@ const BigFilter = (props) => {
     useEffect(() => {
         if (!cities.length) {
             getCities().then(res => {
-                if(!res.data.success){
+                if(!res.success){
                     throw new Error('Something went wrong')
                 }
-                console.log(res.data.response)
+                console.log(res.response)
                 })
                 .catch(err => console.log(err))
         }        
@@ -168,10 +168,10 @@ const BigFilter = (props) => {
         console.log(bigFilter)// llamar al action con axios
         props.getPropertiesFiltered(bigFilter)
         .then(res => {
-            if(!res.data.success){
+            if(!res.success){
                 throw new Error('Something went wrong')
             }
-            console.log(res.data.response)
+            console.log(res.response)
         })
         .catch(err => console.log(err))
         console.log("objeto con las opciones actuales")
