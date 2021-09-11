@@ -157,6 +157,21 @@ const userActions = {
     }
   },
 
+  disableUser: (userId) => {
+    return async () => {
+        try {
+        let res = await axios.get(`http://localhost:4000/api/user/compromised/${userId}`)
+        if (res.data.success) {
+          return {success: true, response: res.data.response}
+        } else {
+          throw new Error()
+        }
+      } catch {
+        return {success: false, error: "Error de conexión. Intente mas tarde"}
+      }
+    }
+  },
+
   updateWishList: (token, propertyId) => {
     try {
       console.log("token en updateWishList", token)

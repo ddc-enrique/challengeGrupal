@@ -146,7 +146,7 @@ const userControllers = {
         .catch(err => handleError(res, err))
     },
     sendResetPasswordMail: (req, res) =>{
-        console.log(req)
+        // console.log(req)
         console.log("Received Send Reset Password Mail Petition:" + Date())
         const {eMail} = req.body
         User.findOne({eMail: eMail})
@@ -162,7 +162,7 @@ const userControllers = {
                     </header>
                     <main style="text-align:center;margin-bottom:20px;">
                         <p style="color:black;font-size:20px;text-align:center;">Por favor cambie su contraseña en este link:</p>
-                        <a href="https://mardelcasas.herokuapp.com/usuario/restablecer-contraseña/${user._id}" style="font-size:25px;text-align:center;display:block;">CLICK AQUI!</a>
+                        <a href="http://localhost:3000/usuario/restablecer-contraseña/${user._id}" style="font-size:25px;text-align:center;display:block;">CLICK AQUI!</a>
                     </main>
                     <footer style="text-align:center;">
                         <p>MarDeLasCasas SRL</p>
@@ -202,7 +202,7 @@ const userControllers = {
                     <main style="text-align:center;margin-bottom:20px;">
                         <p style="color:black;font-size:20px;text-align:center;">Queremos informarte que tu contrasena fue reiniciada!</p>
                         <p style="color:black;font-size:20px;text-align:center;">Si no fuiste tu quien cambio tu contrasena, y quieres deshabilitar tu cuenta, por favor sigue al siguiente link:</p>
-                        <a href="https://mardelcasas.herokuapp.com/api/user/compromised/${user._id}" style="font-size:25px;text-align:center;display:block;">No fui yo quien reinicio la contrasena, ayuda!</a>
+                        <a href="http://localhost:3000/usuario/confirmacion-deshabilitar-cuenta/${user._id}" style="font-size:25px;text-align:center;display:block;">No fui yo quien reinicio la contrasena, ayuda!</a>
                     </main>
                     <footer style="text-align:center;">
                         <p>MarDeLasCasas SRL</p>
@@ -230,7 +230,7 @@ const userControllers = {
     disableUser: (req, res)=>{
         console.log("Received Disable User because Compromised Petition:" + Date())
         User.findOneAndUpdate({_id: req.params.id}, {banned: true})
-        .then(user => user ? res.json({success: true, response: 'usuario bloqueado satisfactoriamente'}) : res.json({success: false, response: 'usuario no encontrado'}))
+        .then(user => user ? res.json({success: true, response: {response: 'usuario bloqueado satisfactoriamente', userName: user.firstName, userEmail: user.eMail }}) : res.json({success: false, response: 'usuario no encontrado'}))
         .catch(err => handleError(res, err))
     },
     manageUser: (req, res)=>{ // posible future feature, send mail for BANNED users only, consider appealing at help component
@@ -270,4 +270,3 @@ const userControllers = {
 }
 
 module.exports = userControllers
-
