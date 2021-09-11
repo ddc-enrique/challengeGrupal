@@ -20,6 +20,7 @@ const Property = (props) => {
     const [loading, setLoading] = useState(true)
     const [property, setProperty] = useState({})
     const [flagWishList, setFlagWishList] = useState(false)
+    
     useEffect(() => {
         window.scroll(0,0)
         if (props.properties.length === 0) {
@@ -104,7 +105,7 @@ const Property = (props) => {
 
     const renderProperty = () => {
         return (
-            <>
+            <div>
                 <h1 className="houseStyleH1">{property.houseStyle}</h1>
                 {renderCarrousel()}
                 <section className="dataSection">
@@ -160,28 +161,28 @@ const Property = (props) => {
                     </article>
                 </section>
                 {renderVideo()}
-            </>
+            </div>
         )
     }
     
     return (
-        <>
+        <div>
             <Header/>
-            <main className="propertyMain">
-                {
-                    loading ?
-                    <section className="propertyLoading">
-                        <p>Cargando...</p>
-                    </section> :
-                    connectionWithAPI === "connected" ?
-                    renderProperty() :
-                    <section className="propertyErrorConnection">
-                        <p>{connectionWithAPI}</p>
-                    </section>
-                }
-            </main>
+                <main className="propertyMain">
+                    {
+                        loading ?
+                        <section className="propertyLoading">
+                            <p>Cargando...</p>
+                        </section> :
+                        connectionWithAPI === "connected" ?
+                        renderProperty() :
+                        <section className="propertyErrorConnection">
+                            <p>{connectionWithAPI}</p>
+                        </section>
+                    }
+                </main>
             <Footer/>
-        </>
+        </div>
     )
 }
 
