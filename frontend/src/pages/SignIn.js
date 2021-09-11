@@ -51,8 +51,8 @@ const SignIn = (props) => {
         !res.success ?
         renderToast(res.error, "warning") :
         renderToast("¡Bienvenido de nuevo!", "success")
-      } catch (e) {
-        console.log(e)
+      } catch {
+        renderToast("Tenemos un problema, por favor intenta más tarde", "warning")
       }
     }
   }
