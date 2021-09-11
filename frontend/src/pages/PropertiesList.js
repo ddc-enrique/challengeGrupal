@@ -1,46 +1,117 @@
-import "../styles/PropertiesList.css";
-import React, { useEffect, useState } from "react";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import BigFilter from "../components/BigFilter";
-import { connect } from "react-redux";
-import propertiesActions from "../redux/action/propertiesActions";
-import userActions from "../redux/action/userActions";
-import citiesActions from "../redux/action/citiesActions";
-import CardProperty from "../components/CardProperty";
+import "../styles/PropertiesList.css"
+import React, { useEffect, useState } from 'react'
+import Footer from '../components/Footer'
+import Header from '../components/Header'
+import BigFilter from "../components/BigFilter"
+import { connect } from "react-redux"
+import propertiesActions from "../redux/action/propertiesActions"
+import userActions from "../redux/action/userActions"
+import citiesActions from "../redux/action/citiesActions"
+import CardProperty from "../components/CardProperty"
+import Swal from "sweetalert2"
 
 const PropertiesList = (props) => {
-  const {
-    filterObj,
-    getCities,
-    getPropertiesFiltered,
-    cities,
-    properties,
-    token,
-  } = props;
-  const [renderSort, setRenderSort] = useState(false);
-  const [sortedProperties, setSortedProperties] = useState(properties);
-  const [subscription, setSubscription] = useState("");
-  useEffect(() => {
-    if (properties.length === 0) {
-      getPropertiesFiltered({})
-        .then((res) => {
-          if (!res.data.success) {
-            throw new Error("Something went wrong");
-          }
-          console.log(res.data.response);
-        })
-        .catch((err) => console.log(err));
+    const {filterObj, getCities, getPropertiesFiltered, cities, properties, token} = props
+    const [sortedProperties, setSortedProperties] = useState(properties)
+    const [renderSort, setRenderSort] = useState(false)
+    const [subscription, setSubscription] = useState("")
+
+    useEffect(() => {
+        // if (properties.length === 0) {
+        //     getPropertiesFiltered({})
+        //     .then(res => {
+        //         if(!res.success){
+        //             throw new Error(res.error)
+        //         }
+        //         console.log(res.response)
+        //     })
+        //     .catch(err => console.log(err))
+        //     console.log("Properties List se monto y se cargo prop")
+        // }
+        if (cities === 0) {
+            getCities()
+            .then(res => {
+                if(!res.success){
+                    throw new Error(res.error)
+                }
+            })
+            .catch(err => {
+            renderToast(err, "warning")
+            })
+        }
+    }, [])
+
+    useEffect(()=>{
+        setSortedProperties(properties)
+    },[properties])
+    const listFilterHandler = (e) => {
+        switch (e.target.value){
+            case "minPrice":
+                setSortedProperties(
+                    sortedProperties.sort((a, b) => {
+                        return a.price - b.price;
+                    })
+                )
+                break;
+            case "maxPrice":
+                setSortedProperties(
+                    sortedProperties.sort((a, b) => {
+                        return b.price - a.price;
+                    })
+                )
+                break;
+            case "minArea":
+                setSortedProperties(
+                    sortedProperties.sort((a, b) => {
+                        return a.roofedArea - b.roofedArea;
+                    })
+                )
+                break;
+            case "maxArea":
+                setSortedProperties(
+                    sortedProperties.sort((a, b) => {
+                        return b.roofedArea - a.roofedArea;
+                    })
+                )
+                break;
+            default:
+                setSortedProperties(properties)
+                return   
+        }
+        console.log(e.target.value)
+        console.log("ordenar")
+        console.log(sortedProperties) //ESTE ARRAY SE TIENE QUE ENVIAR EN 
+        setRenderSort(!renderSort)
     }
-    if (cities === 0) {
-      getCities()
-        .then((res) => {
-          if (!res.data.success) {
-            throw new Error("Something went wrong");
-          }
-          console.log(res.data.response);
+
+    const renderToast = (message, type) => {
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 4000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer)
+            toast.addEventListener("mouseleave", Swal.resumeTimer)
+          },
         })
-        .catch((err) => console.log(err));
+        Toast.fire({
+          icon: type,
+          title: message,
+        })
+      }
+    
+    const subscribeEmail = () => {
+        props.putSubscribeEmail(token)
+        .then(res => {
+            res.success ?
+            setSubscription("Gracias por suscribirte! Te enviaremos un mail cuando tengamos nuevas casas disponibles") :
+            setSubscription(res.error)
+        })
+        .catch(err => {
+            renderToast(err, "warning")
+        })
     }
   }, []);
 

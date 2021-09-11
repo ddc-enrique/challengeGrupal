@@ -1,3 +1,17 @@
+.errorBackend {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #2B302A;
+  color: #EAD7DB;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.9;
+}
+
 .supportChatContainer h4 {
   font-size: 1.5rem;
 }

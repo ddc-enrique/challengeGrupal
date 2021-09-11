@@ -1,27 +1,33 @@
-import "../styles/CardCity2.css"; //css contiene main y cardCity
-import React from "react";
-import CardCity from "./CardCity";
-import { connect } from "react-redux";
-import { useEffect } from "react";
-import citiesActions from "../redux/action/citiesActions";
+
+import "../styles/CardCity2.css" //css contiene main y cardCity
+import React from "react"
+import CardCity from "./CardCity"
+import { connect } from "react-redux"
+import { useEffect } from "react"
+import citiesActions from "../redux/action/citiesActions"
 
 const Main = (props) => {
   useEffect(() => {
     const getCities = async () => {
       try {
-        let res = await props.allCities();
-        if (!res.data.success) throw res.data.response;
-        if (!res.data.response.length) throw res.data.response;
+        let res = await props.allCities()
+        if (!res.success) {
+          throw new Error()
+        }
+        if (!res.response.length) throw res.response
       } catch (err) {
-        console.log(err);
+        console.log(err)
       }
-    };
-    getCities();
+    }
+    getCities()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
+  }, [])
+
   const city = props.cities.map((city) => (
     <CardCity {...props} key={city._id} city={city} />
-  ));
+  ))
+
   return (
     <main>
       <div className="mainTitle">
@@ -29,15 +35,16 @@ const Main = (props) => {
       </div>
       <div className="mainCityCarBox">{city}</div>
     </main>
-  );
-};
+  )
+}
+
 const mapDispatchToProps = {
   allCities: citiesActions.getCities,
-};
+}
 
 const mapStateToProps = (state) => {
   return {
     cities: state.allCities.cities,
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Main)
