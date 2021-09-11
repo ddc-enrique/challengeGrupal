@@ -7,20 +7,22 @@ form h1 {
   color: rgb(243, 243, 243);
   padding: 1rem;
 }
-select, input[type="checkbox"], input[type="radio"], input {
-  cursor: pointer!important;
+.labelCheckbox {
+  cursor: pointer !important;
+  padding: 0.4rem;
+  background-color: rgba(255, 255, 255, 0.308);
+  margin-left: 1rem;
 }
 div select {
-  width: 15rem;
-  padding: .2rem;
-  margin-bottom: .2rem;
+  padding: 0.2rem;
+  margin-bottom: 0.2rem;
 }
 @media only screen and (min-width: 375px) {
   .formSign {
     min-height: 100vh;
     flex-direction: column;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     background-image: url("../assets/12.jpg");
     /* background-image: url("../assets/17.jpg"); */
@@ -99,10 +101,9 @@ div select {
     padding: 0.8rem !important;
     font-size: 0.7rem;
   }
- 
+
   .formProperties div input[type="checkbox"] {
     visibility: hidden;
-
   }
   .errorInputs {
     color: red;
@@ -131,7 +132,6 @@ div select {
 @media only screen and (min-width: 576px) {
 }
 @media only screen and (min-width: 768px) {
-
   .formSign .logGoogle button,
   .formSign .logGoogle .buttonText {
     width: 14.8rem;
@@ -147,20 +147,18 @@ div select {
   .formProperties .formAdmin {
     background-color: rgba(95, 95, 95, 0.185);
     width: 55%;
-    border-radius: .8rem;
+    border-radius: 0.8rem;
     padding: 1rem;
   }
   .formAdmin div {
     padding-left: 1rem;
   }
   form input.price {
-    width: 8rem!important;
+    width: 8rem !important;
   }
-
 }
 
 @media only screen and (min-width: 1024px) {
-
 }
 
 @media only screen and (min-width: 1440px) {

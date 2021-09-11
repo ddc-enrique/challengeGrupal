@@ -28,7 +28,7 @@
     z-index: 2;
     backdrop-filter: blur(14.5px);
     box-shadow: 6px 2px 5px #2e302e7a;
-    margin-left: -2rem;
+    margin-left: -7rem;
   }
 
   .navBar .userMenu > a {
@@ -75,6 +75,9 @@
 }
 
 @media only screen and (min-width: 768px) {
+  .navBar .userMenu {
+    margin-left: -5rem;
+  }
 }
 
 @media only screen and (min-width: 991px) {
@@ -84,6 +87,7 @@
   .navBar .userMenu {
     width: 13rem;
     margin-top: 1.2rem;
+    margin-left: -6rem;
   }
 }
 

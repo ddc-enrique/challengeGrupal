@@ -6,31 +6,36 @@ import { connect } from "react-redux";
 import userActions from "../redux/action/userActions";
 import WishList from "./WishList";
 
-const NavBar = ({token, logOut, photoURL}) => {
+const NavBar = ({ token, logOut, photoURL }) => {
   const [navOpen, setNavOpen] = useState(false);
   const [wishlist, setWishList] = useState(false);
 
-  console.log(token)
-  
+  console.log(token);
+
   const showWishList = () => {
     setWishList(true);
-  }
+  };
 
   const closeWishList = () => {
-    setWishList(false)
-  }
+    setWishList(false);
+  };
 
-  const nav = !token ? [  { name: "Ingresar", route: "/iniciar-sesion", action: null },
-                        { name: "Registrarse", route: "/registrarse", action: null },]
-                      : [ { name:"Cerrar Sesión", route: "#", action: logOut }, 
-                          { name:"Favoritos", route:"#", action: showWishList }]
+  const nav = !token
+    ? [
+        { name: "Ingresar", route: "/iniciar-sesion", action: null },
+        { name: "Registrarse", route: "/registrarse", action: null },
+      ]
+    : [
+        { name: "Cerrar Sesión", route: "#", action: logOut },
+        { name: "Favoritos", route: "#", action: showWishList },
+      ];
 
   var navMap = nav.map((a, index) => (
     <Link key={index} to={a.route} onClick={a.action}>
       {a.name}
     </Link>
   ));
-    console.log(photoURL)
+  console.log(photoURL);
   return (
     <div className="navBar">
       <button onClick={() => setNavOpen(!navOpen)}>
@@ -42,16 +47,12 @@ const NavBar = ({token, logOut, photoURL}) => {
           height="50px"
         />
       </button>
-      {wishlist &&  <WishList closeWishList={closeWishList} />}
+      {wishlist && <WishList closeWishList={closeWishList} />}
       {navOpen && (
         <div>
           <nav className="userMenu">{navMap}</nav>
-          <div className="closeDiv1" 
-            onClick={() => setNavOpen(false)}>
-          </div>
-          <div className="closeDiv2" 
-            onClick={() => setNavOpen(false)}>
-          </div>
+          <div className="closeDiv1" onClick={() => setNavOpen(false)}></div>
+          <div className="closeDiv2" onClick={() => setNavOpen(false)}></div>
         </div>
       )}
     </div>
@@ -60,13 +61,13 @@ const NavBar = ({token, logOut, photoURL}) => {
 
 const mapDispatchToProps = {
   logOut: userActions.logOut,
-}
+};
 
-const mapStateToProps = (state) =>{
+const mapStateToProps = (state) => {
   return {
     token: state.user.token,
-    photoURL: state.user.photoURL
-  } 
-}
+    photoURL: state.user.photoURL,
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

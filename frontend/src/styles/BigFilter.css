@@ -30,20 +30,32 @@
 
   /* FILTROS SELECCIONADOS */
   .bigFilter div .filtersSelected {
-    align-self: flex-end;
+    /* align-self: flex-start; */
+    margin: .8rem 0;
     flex: 1;
     display: flex;
     flex-wrap: wrap;
-    background-color: hotpink;
-  }
+}
 
+.bigFilter div .filtersSelected p.infoP{
+  font-size: 1.5rem;
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
+    color: black
+}
+
+.bigFilter div .filtersSelected p svg {
+  color: rgb(255, 255, 255);
+  background-color:rgb(255, 68, 68);
+  border-radius: 3rem;
+}
   .bigFilter div .filtersSelected p {
     display: inline-block;
     vertical-align: middle;
     padding: 0.3rem;
     margin: 0.1rem 0.2rem;
     border-radius: 0.3rem;
-    border: 1px solid black;
     cursor: pointer;
     animation: bounceIn;
     animation-duration: 1s;
@@ -138,8 +150,6 @@
     align-items: center;
   }
 
-  .bigFilter .filtersToSelect > div:nth-child(4) h5 {
-  }
 
   .bigFilter .filtersToSelect > div:nth-child(4) select {
     width: 100%;
@@ -300,18 +310,18 @@
     flex: 1;
     display: flex;
     flex-wrap: wrap;
-    background-color: hotpink;
   }
-
-  .bigFilter div .filtersSelected p {
-    display: inline-block;
-    vertical-align: middle;
-    padding: 0.3rem;
-    margin: 0.1rem 0.2rem;
-    border-radius: 0.3rem;
-    border: 1px solid black;
-    cursor: pointer;
-  }
+  .bigFilter .bigFilterBox div .expandWidth{
+    width: 100%;
+    margin-right: 5rem;
+}
+.bigFilter div .filtersSelected p {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0.3rem;
+  margin: 0.1rem 0.2rem;
+  cursor: pointer;
+}
 
   .bigFilter div .filtersSelected p * {
     vertical-align: middle;
@@ -577,10 +587,7 @@
   }
   /* revisar  */
   .bigFilter .bigFilterBox {
-    display: flex;
-    justify-content: space-between;
     width: 94%;
-    flex-direction: row-reverse;
     padding: 0.8rem;
   }
   .bigFilter .sortList {
@@ -606,18 +613,20 @@
     flex: 1;
     display: flex;
     flex-wrap: wrap;
-    background-color: hotpink;
   }
 
   .bigFilter div .filtersSelected p {
+    font-size: 1.5rem;
     display: inline-block;
     vertical-align: middle;
     padding: 0.3rem;
     margin: 0.1rem 0.2rem;
+    color: white;
     border-radius: 0.3rem;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     cursor: pointer;
-  }
+    background-color: #007ee8f7;
+}
 
   .bigFilter div .filtersSelected p * {
     vertical-align: middle;

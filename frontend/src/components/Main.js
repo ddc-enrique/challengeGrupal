@@ -1,4 +1,4 @@
-import "../styles/CardCity.css"; //css contiene main y cardCity
+import "../styles/CardCity2.css"; //css contiene main y cardCity
 import React from "react";
 import CardCity from "./CardCity";
 import { connect } from "react-redux";
@@ -18,7 +18,7 @@ const Main = (props) => {
     };
     getCities();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); 
+  }, []);
   const city = props.cities.map((city) => (
     <CardCity {...props} key={city._id} city={city} />
   ));
@@ -27,9 +27,7 @@ const Main = (props) => {
       <div className="mainTitle">
         <h1>Buscá en alguna de estas localidades</h1>
       </div>
-      <div className="mainCityCarBox">
-        {city}
-      </div>
+      <div className="mainCityCarBox">{city}</div>
     </main>
   );
 };

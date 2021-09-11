@@ -5,8 +5,7 @@ main {
   /* width: 100vw;
   height: 100vh; */
 }
-
-.divCard{
+.mainCityCarBox{
   background-color: rgb(255, 255, 255);
   display: flex;
   justify-content: center;

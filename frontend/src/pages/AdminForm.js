@@ -181,263 +181,263 @@ const AdminForm = (props) => {
 
   return (
     <div className="formProperties">
-    <form className="formAdmin">
-      <h1>Cargar propiedades:</h1>
-      <div>
-        <h4>Locación:</h4>
-        <label htmlFor="address">Domicilio:</label>
-        <input
-          type="text"
-          name="address"
-          id="address"
-          onChange={inputHandler}
-          value={newForm.address}
-        ></input>
-        <label htmlFor="district">Barrio:</label>
-        <input
-          type="text"
-          name="district"
-          id="district"
-          onChange={inputHandler}
-          value={newForm.district}
-        ></input>
-      </div>
-      <div>
-        <h4>Video:</h4>
-        <label htmlFor="videoURL">Url Video youtube:</label>
-        <input
-          type="text"
-          name="videoURL"
-          id="videoURL"
-          onChange={inputHandler}
-          value={newForm.videoURL}
-        ></input>
-      </div>
-      <div>
-        <h4>Venta, Alquiler, Alquiler temporario:</h4>
-        <label htmlFor="isRental">Alquiler:</label>
-        <input
-          type="radio"
-          name="isForSaleOrWhat"
-          value="rental"
-          id="isRental"
-          onChange={forSaleHandler}
-        ></input>
-        <label htmlFor="isShortRental">Alquiler Temporario:</label>
-        <input
-          type="radio"
-          name="isForSaleOrWhat"
-          value="shortRental"
-          id="isShortRental"
-          onChange={forSaleHandler}
-        ></input>
-        <label htmlFor="isForSale">Venta:</label>
-        <input
-          type="radio"
-          name="isForSaleOrWhat"
-          value="forSale"
-          id="isForSale"
-          onChange={forSaleHandler}
-          checked={newForm.forSale}
-        ></input>
-
+      <form className="formAdmin">
+        <h1>Cargar propiedades:</h1>
         <div>
-        <label htmlFor="rentDuration">
-          Duración del contrato (SI ES ALQUILER):
-        </label>
-        <input
-          type="number"
-          name="rentDuration"
-          id="rentDuration"
-          onChange={inputHandler}
-          value={newForm.rentDuration}
-        ></input>
+          <h4>Locación:</h4>
+          <label htmlFor="address">Domicilio:</label>
+          <input
+            type="text"
+            name="address"
+            id="address"
+            onChange={inputHandler}
+            value={newForm.address}
+          ></input>
+          <label htmlFor="district">Barrio:</label>
+          <input
+            type="text"
+            name="district"
+            id="district"
+            onChange={inputHandler}
+            value={newForm.district}
+          ></input>
         </div>
-        <label htmlFor="price">Precio:</label>
-        <input
-        className="price"
-          type="number"
-          name="price"
-          id="price"
-          onChange={inputHandler}
-          value={newForm.price}
-        ></input>
-        <label  htmlFor="isUSD">
-          {newForm.isUSD ? "En dolares" : "En pesos"}
-        </label>
-        <input
-          type="checkbox"
-          name="isUSD"
-          id="isUSD"
-          checked={newForm.isUSD}
-          onChange={checkBoxHandler}
-        ></input>
-      </div>
-      <div>
-        <h4>Cantidades y precio:</h4>
-        <label htmlFor="numberOfBathrooms">Número de baños:</label>
-        <input
-          type="number"
-          name="numberOfBathrooms"
-          id="numberOfBathrooms"
-          onChange={inputHandler}
-          value={newForm.numberOfBathrooms}
-        ></input>
-        <label htmlFor="numberOfBedrooms">Número de dormitorios:</label>
-        <input
-          type="number"
-          name="numberOfBedrooms"
-          id="numberOfBedrooms"
-          onChange={inputHandler}
-          value={newForm.numberOfBedrooms}
-        ></input>
-        <label htmlFor="numberOfRooms">Número de ambientes:</label>
-        <input
-          type="number"
-          name="numberOfRooms"
-          id="numberOfRooms"
-          onChange={inputHandler}
-          value={newForm.numberOfRooms}
-        ></input>
-        <label htmlFor="roofedArea">Superficie cubierta:</label>
-        <input
-          type="number"
-          name="roofedArea"
-          id="roofedArea"
-          onChange={inputHandler}
-          value={newForm.roofedArea}
-        ></input>
-        <label htmlFor="totalArea">Superficie total:</label>
-        <input
-          type="number"
-          name="totalArea"
-          id="totalArea"
-          onChange={inputHandler}
-          value={newForm.totalArea}
-        ></input>
-      </div>
-      <div>
-        <h4>Tipo propiedad</h4>
-        <label htmlFor="isHouse">
-          {newForm.isHouse ? "Casa" : "Departamento"}
-        </label>
-        <input
-          type="checkbox"
-          name="isHouse"
-          id="isHouse"
-          checked={newForm.isHouse}
-          onChange={checkBoxHandler}
-        ></input>
-      </div>
-      <div>
-        <h4>Informacion adicional:</h4>
-        <label htmlFor="isBrandNew">A estrenar:</label>
-        <input
-          type="checkbox"
-          name="isBrandNew"
-          id="isBrandNew"
-          checked={newForm.isBrandNew}
-          onChange={checkBoxHandler}
-        ></input>
-        <label htmlFor="haveGarage">Tiene garage:</label>
-        <input
-          type="checkbox"
-          name="haveGarage"
-          id="haveGarage"
-          checked={newForm.haveGarage}
-          onChange={checkBoxHandler}
-        ></input>
-        <label htmlFor="havePool">Tiene piscina:</label>
-        <input
-          type="checkbox"
-          name="havePool"
-          id="havePool"
-          checked={newForm.havePool}
-          onChange={checkBoxHandler}
-        ></input>
-        <label htmlFor="haveGarden">Tiene jardín:</label>
-        <input
-          type="checkbox"
-          name="haveGarden"
-          id="haveGarden"
-          checked={newForm.haveGarden}
-          onChange={checkBoxHandler}
-        ></input>
-        <label htmlFor="hasAttendant">Tiene portero:</label>
-        <input
-          type="checkbox"
-          name="hasAttendant"
-          id="hasAttendant"
-          checked={newForm.hasAttendant}
-          onChange={checkBoxHandler}
-        ></input>
-        <label htmlFor="haveCameras">Tiene camaras:</label>
-        <input
-          type="checkbox"
-          name="haveCameras"
-          id="haveCameras"
-          checked={newForm.haveCameras}
-          onChange={checkBoxHandler}
-        ></input>
-      </div>
-      <div>
-        <h4>Descripcion:</h4>
-        <label htmlFor="houseStyle">
-          Descripcion de la propiedad (MAX 200 caracteres):
-        </label>
-        <textarea
-          id="houseStyle"
-          name="houseStyle"
-          rows="4"
-          cols="50"
-          onChange={inputHandler}
-          value={newForm.houseStyle}
-        ></textarea>
-      </div>
-      <div>
-        <h4>URL fotos:</h4>
-        <label htmlFor="photosURL1">Foto 1:</label>
-        <input
-          type="text"
-          name="photosURL1"
-          id="photosURL1"
-          onChange={photoHandler}
-          value={newForm.photosURL[0]}
-        ></input>
-        <label htmlFor="photosURL2">Foto 2:</label>
-        <input
-          type="text"
-          name="photosURL2"
-          id="photosURL2"
-          onChange={photoHandler}
-          value={newForm.photosURL[1]}
-        ></input>
-        <label htmlFor="photosURL3">Foto 3:</label>
-        <input
-          type="text"
-          name="photosURL3"
-          id="photosURL3"
-          onChange={photoHandler}
-          value={newForm.photosURL[2]}
-        ></input>
-        <label htmlFor="photosURL4">Foto 4:</label>
-        <input
-          type="text"
-          name="photosURL4"
-          id="photosURL4"
-          onChange={photoHandler}
-          value={newForm.photosURL[3]}
-        ></input>
-      </div>
-      <div>
-        <h4>Ciudad:</h4>
-        <label htmlFor="city-select">Seleccione ciudad:</label>
-        <select name="city" id="city-select" onChange={selectCityHandler}>
-          {props.cities.map((city) => (
-            <option key={city._id}>{city.cityName}</option>
-          ))}
-        </select>
-      </div>
+        <div>
+          <h4>Video:</h4>
+          <label htmlFor="videoURL">Url Video youtube:</label>
+          <input
+            type="text"
+            name="videoURL"
+            id="videoURL"
+            onChange={inputHandler}
+            value={newForm.videoURL}
+          ></input>
+        </div>
+        <div>
+          <h4>Venta, Alquiler, Alquiler temporario:</h4>
+          <label htmlFor="isRental">Alquiler:</label>
+          <input
+            type="radio"
+            name="isForSaleOrWhat"
+            value="rental"
+            id="isRental"
+            onChange={forSaleHandler}
+          ></input>
+          <label htmlFor="isShortRental">Alquiler Temporario:</label>
+          <input
+            type="radio"
+            name="isForSaleOrWhat"
+            value="shortRental"
+            id="isShortRental"
+            onChange={forSaleHandler}
+          ></input>
+          <label htmlFor="isForSale">Venta:</label>
+          <input
+            type="radio"
+            name="isForSaleOrWhat"
+            value="forSale"
+            id="isForSale"
+            onChange={forSaleHandler}
+            checked={newForm.forSale}
+          ></input>
+
+          <div>
+            <label htmlFor="rentDuration">
+              Duración del contrato (SI ES ALQUILER):
+            </label>
+            <input
+              type="number"
+              name="rentDuration"
+              id="rentDuration"
+              onChange={inputHandler}
+              value={newForm.rentDuration}
+            ></input>
+          </div>
+          <label htmlFor="price">Precio:</label>
+          <input
+            className="price"
+            type="number"
+            name="price"
+            id="price"
+            onChange={inputHandler}
+            value={newForm.price}
+          ></input>
+          <label className="labelCheckbox" htmlFor="isUSD">
+            {newForm.isUSD ? "En dolares" : "En pesos"}
+          </label>
+          <input
+            type="checkbox"
+            name="isUSD"
+            id="isUSD"
+            checked={newForm.isUSD}
+            onChange={checkBoxHandler}
+          ></input>
+        </div>
+        <div>
+          <h4>Cantidades y precio:</h4>
+          <label htmlFor="numberOfBathrooms">Número de baños:</label>
+          <input
+            type="number"
+            name="numberOfBathrooms"
+            id="numberOfBathrooms"
+            onChange={inputHandler}
+            value={newForm.numberOfBathrooms}
+          ></input>
+          <label htmlFor="numberOfBedrooms">Número de dormitorios:</label>
+          <input
+            type="number"
+            name="numberOfBedrooms"
+            id="numberOfBedrooms"
+            onChange={inputHandler}
+            value={newForm.numberOfBedrooms}
+          ></input>
+          <label htmlFor="numberOfRooms">Número de ambientes:</label>
+          <input
+            type="number"
+            name="numberOfRooms"
+            id="numberOfRooms"
+            onChange={inputHandler}
+            value={newForm.numberOfRooms}
+          ></input>
+          <label htmlFor="roofedArea">Superficie cubierta:</label>
+          <input
+            type="number"
+            name="roofedArea"
+            id="roofedArea"
+            onChange={inputHandler}
+            value={newForm.roofedArea}
+          ></input>
+          <label htmlFor="totalArea">Superficie total:</label>
+          <input
+            type="number"
+            name="totalArea"
+            id="totalArea"
+            onChange={inputHandler}
+            value={newForm.totalArea}
+          ></input>
+        </div>
+        <div>
+          <h4>Tipo propiedad</h4>
+          <label className="labelCheckbox" htmlFor="isHouse">
+            {newForm.isHouse ? "Casa" : "Departamento"}
+          </label>
+          <input
+            type="checkbox"
+            name="isHouse"
+            id="isHouse"
+            checked={newForm.isHouse}
+            onChange={checkBoxHandler}
+          ></input>
+        </div>
+        <div>
+          <h4>Informacion adicional:</h4>
+          <label htmlFor="isBrandNew">A estrenar:</label>
+          <input
+            type="checkbox"
+            name="isBrandNew"
+            id="isBrandNew"
+            checked={newForm.isBrandNew}
+            onChange={checkBoxHandler}
+          ></input>
+          <label htmlFor="haveGarage">Tiene garage:</label>
+          <input
+            type="checkbox"
+            name="haveGarage"
+            id="haveGarage"
+            checked={newForm.haveGarage}
+            onChange={checkBoxHandler}
+          ></input>
+          <label htmlFor="havePool">Tiene piscina:</label>
+          <input
+            type="checkbox"
+            name="havePool"
+            id="havePool"
+            checked={newForm.havePool}
+            onChange={checkBoxHandler}
+          ></input>
+          <label htmlFor="haveGarden">Tiene jardín:</label>
+          <input
+            type="checkbox"
+            name="haveGarden"
+            id="haveGarden"
+            checked={newForm.haveGarden}
+            onChange={checkBoxHandler}
+          ></input>
+          <label htmlFor="hasAttendant">Tiene portero:</label>
+          <input
+            type="checkbox"
+            name="hasAttendant"
+            id="hasAttendant"
+            checked={newForm.hasAttendant}
+            onChange={checkBoxHandler}
+          ></input>
+          <label htmlFor="haveCameras">Tiene camaras:</label>
+          <input
+            type="checkbox"
+            name="haveCameras"
+            id="haveCameras"
+            checked={newForm.haveCameras}
+            onChange={checkBoxHandler}
+          ></input>
+        </div>
+        <div>
+          <h4>Descripcion:</h4>
+          <label htmlFor="houseStyle">
+            Descripcion de la propiedad (MAX 200 caracteres):
+          </label>
+          <textarea
+            id="houseStyle"
+            name="houseStyle"
+            rows="4"
+            cols="50"
+            onChange={inputHandler}
+            value={newForm.houseStyle}
+          ></textarea>
+        </div>
+        <div>
+          <h4>URL fotos:</h4>
+          <label htmlFor="photosURL1">Foto 1:</label>
+          <input
+            type="text"
+            name="photosURL1"
+            id="photosURL1"
+            onChange={photoHandler}
+            value={newForm.photosURL[0]}
+          ></input>
+          <label htmlFor="photosURL2">Foto 2:</label>
+          <input
+            type="text"
+            name="photosURL2"
+            id="photosURL2"
+            onChange={photoHandler}
+            value={newForm.photosURL[1]}
+          ></input>
+          <label htmlFor="photosURL3">Foto 3:</label>
+          <input
+            type="text"
+            name="photosURL3"
+            id="photosURL3"
+            onChange={photoHandler}
+            value={newForm.photosURL[2]}
+          ></input>
+          <label htmlFor="photosURL4">Foto 4:</label>
+          <input
+            type="text"
+            name="photosURL4"
+            id="photosURL4"
+            onChange={photoHandler}
+            value={newForm.photosURL[3]}
+          ></input>
+        </div>
+        <div>
+          <h4>Ciudad:</h4>
+          <label htmlFor="city-select">Seleccione ciudad:</label>
+          <select name="city" id="city-select" onChange={selectCityHandler}>
+            {props.cities.map((city) => (
+              <option key={city._id}>{city.cityName}</option>
+            ))}
+          </select>
+        </div>
       </form>
       <button type="button" onClick={submitPropertyHandler}>
         CARGAR PROPIEDAD

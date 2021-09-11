@@ -1,7 +1,7 @@
 import "../styles/Form.css";
 import React from "react";
 import { Link } from "react-router-dom";
-import NavBar from "../components/Navbar";
+import Header from "../components/Header";
 import { useState } from "react";
 import { connect } from "react-redux";
 import userActions from "../redux/action/userActions";
@@ -94,7 +94,7 @@ const SignIn = (props) => {
 
   return (
     <div className="formSign">
-      <NavBar />
+      <Header/>
       <form>
         <h1>Inicia Sesión</h1>
         <div>

@@ -24,40 +24,43 @@ const CardCity = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const searchInPropertiesList = async () => {
-    try {            
-        let res = await props.getPropertiesFiltered({ city: _id })
-        console.log("array de propiedades en home despues de hacer primera busqueda")
-        console.log(res.data.response)
-        if (!res.data.success) {
-            throw res.data.response
-        } else {
-            props.history.push("/lista-de-propiedades") 
-        }
-        if (!res.data.response) throw res.data.response
+    try {
+      let res = await props.getPropertiesFiltered({ city: _id });
+      console.log(
+        "array de propiedades en home despues de hacer primera busqueda"
+      );
+      console.log(res.data.response);
+      if (!res.data.success) {
+        throw res.data.response;
+      } else {
+        props.history.push("/lista-de-propiedades");
+      }
+      if (!res.data.response) throw res.data.response;
     } catch (err) {
-        console.log(err)
+      console.log(err);
     }
-  }
+  };
   return (
     <div className="divCard">
-      <div  onClick={searchInPropertiesList}>
-          <div
-            className="cardCity"
-            style={{ backgroundImage: `url(${photoURL})` }}
-           
-          >
-          </div>
-         <div>
-         <h1>{cityName}</h1>
-            <p>({numberProperties} propiedades)</p>
-         </div>
+      <div onClick={searchInPropertiesList}>
+        <div
+          className="cardCity"
+          style={{ backgroundImage: `url(${photoURL})` }}
+        >
+          <h1>{cityName}</h1>
+          <p>({numberProperties} propiedades)</p>
+        </div>
+        {/* <div>
+          <h1>{cityName}</h1>
+          <p>({numberProperties} propiedades)</p>
+        </div> */}
       </div>
     </div>
   );
 };
 const mapDispatchToProps = {
   getNumberOfProperties: propertiesActions.getNumberOfProperties,
-  getPropertiesFiltered: propertiesActions.getPropertiesFiltered
+  getPropertiesFiltered: propertiesActions.getPropertiesFiltered,
 };
 
 export default connect(null, mapDispatchToProps)(CardCity);
