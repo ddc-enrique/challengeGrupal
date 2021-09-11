@@ -1,8 +1,8 @@
-import React from "react";
-import { useHistory ,Link } from "react-router-dom";
-import Navbar from "./Navbar";
+import React from "react"
+import { useHistory ,Link } from "react-router-dom"
+import Navbar from "./Navbar"
 import { ArrowLeftCircle } from "react-bootstrap-icons"
-import { connect } from "react-redux";
+import { connect } from "react-redux"
 
 const Header = ({admin}) => {
   const history = useHistory()
@@ -46,8 +46,8 @@ const Header = ({admin}) => {
         <Navbar />
       </div>
     </header>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) =>{
   return {
@@ -55,4 +55,4 @@ const mapStateToProps = (state) =>{
   } 
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(Header)

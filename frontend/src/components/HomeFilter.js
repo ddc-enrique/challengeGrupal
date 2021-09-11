@@ -13,13 +13,13 @@ const HomeFilter = (props) => {
         try {            
             let res = await props.getPropertiesFiltered(filter)
             console.log("array de propiedades en home despues de hacer primera busqueda")
-            console.log(res.data.response)
-            if (!res.data.success) {
-                throw res.data.response
+            console.log(res.response)
+            if (!res.success) {
+                throw res.response
             } else {
                 history.push("/lista-de-propiedades") 
             }
-            if (!res.data.response) throw res.data.response
+            if (!res.response) throw res.response
         } catch (err) {
             console.log(err)
         }

@@ -3,7 +3,6 @@ import { XOctagon } from 'react-bootstrap-icons'
 import { connect } from "react-redux"
 import propertiesActions from '../redux/action/propertiesActions'
 
-
 const FiltersSelected = (props) => {
     const {deletePropertieFromObject, formFilter, setFormFilter, cities, getPropertiesFiltered, selectFilters} = props
     const [filtersSelected, setFiltersSelected] = useState([])
@@ -145,10 +144,10 @@ const FiltersSelected = (props) => {
         console.log("nuevo filtro despues de eliminar bloque", newFilter)
         getPropertiesFiltered(newFilter)
         .then(res => {
-            if(!res.data.success){
-                throw new Error('Something went wrong')
+            if(!res.success){
+                throw new Error(res.error)
             }
-            console.log(res.data.response)
+            console.log(res.response)
         })
         .catch(err => console.log(err))
     }
@@ -159,12 +158,12 @@ const FiltersSelected = (props) => {
             {filtersSelected.map((eachFilter, i) => {
                 if (eachFilter) {
                     return <p 
-                                key={eachFilter[2] + "F"}
-                                onClick={(e) => resetInputSelect(e, eachFilter[2], i)}
-                            >
-                                {`${eachFilter[0]} ${eachFilter[1]} `}<XOctagon/> 
-                            </p> 
-                } 
+                        key={eachFilter[2] + "F"}
+                        onClick={(e) => resetInputSelect(e, eachFilter[2], i)}
+                    >
+                        {`${eachFilter[0]} ${eachFilter[1]} `}<XOctagon/> 
+                    </p> 
+                }
                 return false
             })}
         </div>

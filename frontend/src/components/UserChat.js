@@ -1,10 +1,11 @@
 import { connect } from "react-redux"
 import { useEffect, useState, useRef } from "react"
 import { io } from "socket.io-client"
-import "../styles/userChat.css";
+import "../styles/userChat.css"
 import "../styles/UserChat1.css"
 import {ArrowBarDown, ArrowBarUp, XCircle} from "react-bootstrap-icons"
 import { BiSend } from "react-icons/bi"
+
 const UserChat = (props) =>{
     const {token} = props
     const [socket, setSocket] = useState(null)
@@ -51,6 +52,7 @@ const UserChat = (props) =>{
             // console.log("Despues de pushearlo", messages)
         })
     },[socket])
+
     if(socket){
         socket.on("resetAll", () =>{
             console.log("estoy aca")
@@ -88,7 +90,9 @@ const UserChat = (props) =>{
     const chatHandler = () =>{
         setChatSwap(!chatSwap)
     }
+
     const commentsEndRef = useRef(null)
+
     const scrollToBottom = () => {
         if(commentsEndRef){
             commentsEndRef.current.scrollTo({  
@@ -97,6 +101,7 @@ const UserChat = (props) =>{
             })
         } 
     }
+
     useEffect(() =>{
         if(!(helpRequested && gotHelp)){
             return false
@@ -106,6 +111,7 @@ const UserChat = (props) =>{
         }
         scrollToBottom()
     },[messages, chatSwap])
+
     if(!token){
         return(
             <div className="haveToBeLogged">
@@ -113,6 +119,7 @@ const UserChat = (props) =>{
             </div>
         )
     }
+
     return(
         <div id="chatBoxHandler" className={chatSwap ? "growHeight" : "dontGrowHeight"}>
             {/* {!chatSwap && <button id="openSupportBtn" onClick={chatHandler}></button>} */}
@@ -149,13 +156,12 @@ const UserChat = (props) =>{
         </div>
     )
 }
+
 const mapStateToProps = (state) =>{
     return {
         token: state.user.token,
         admin: state.user.admin
     }
 }
-const mapDispatchToProps = {
 
-}
-export default connect(mapStateToProps, mapDispatchToProps)(UserChat)
+export default connect(mapStateToProps)(UserChat)
