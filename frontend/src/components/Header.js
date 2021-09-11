@@ -32,12 +32,12 @@ const Header = ({admin}) => {
       </div>
 
       {admin &&
-        <Link to="/admin" id="admin">
+        <Link to="/chat-soporte" id="admin">
           Panel Admin
         </Link>
       }
       {admin &&
-        <Link to="/addprop" id="adminForm">
+        <Link to="/formulario-propiedades" id="adminForm">
           Admin Form
         </Link>
       }
