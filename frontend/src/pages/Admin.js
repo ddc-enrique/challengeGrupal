@@ -26,7 +26,7 @@ const Admin = (props) =>{
             }))
         }
         
-     //eslint-disable-next-line
+     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[token])
     // console.log(messages)
     useEffect(()=>{
@@ -49,6 +49,7 @@ const Admin = (props) =>{
             console.log("se reseteo")
             setErrorBackend(true)
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[socket])
     
     const [newMessage, setNewMessage] = useState({
@@ -139,7 +140,7 @@ const Admin = (props) =>{
         console.log(mistabs)
         setTabs(mistabs)
         setTimeout(() => scrollToBottom(), 1000)
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[messages])
     // pestañanas [{sender: id, messages: ["messages"]}]
     // al apretar ayudar a, pushear a ese arreglo un nuevo [{sender: xxxx, messages: ["blabla"]}]

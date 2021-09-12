@@ -11,7 +11,6 @@ import CardProperty from "../components/CardProperty"
 import Swal from "sweetalert2"
 import Preloader from "../components/Preloader"
 
-
 const PropertiesList = (props) => {
     const {filterObj, getCities, getPropertiesFiltered, cities, properties, token} = props
     const [sortedProperties, setSortedProperties] = useState(properties)
