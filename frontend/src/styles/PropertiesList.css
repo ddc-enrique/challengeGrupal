@@ -36,6 +36,25 @@
     border-radius: 0.5rem;
     box-shadow: 0.5px 0.5px 8px #0f0f0f;
   }
+
+  .propertiesListNoHousesDiv .noHouses {
+    background-image: url("../assets/noHouses.jpeg");
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+  }
+
+  .propertiesListNoHousesDiv .noHouses p {
+    color: red;
+    position: absolute;
+    top: 48%;
+    left: 12%;
+    font-weight: bold;
+    font-size: 1rem;
+    text-shadow: 1px 1px 1px gray;
+  }
   
   /* .propertiesListNoHousesDiv .imageDiv:before {
   content: "";
@@ -78,6 +97,15 @@
       border-radius: 0.3rem;
       box-shadow: 10px 10px 31px -1px rgba(0, 0, 0, 0.1);
     }
+
+    .propertiesListNoHousesDiv .noHouses {
+      width: 70%;
+      height: 100%;
+    }
+
+    .propertiesListNoHousesDiv .noHouses p{
+      left: 20%;
+    }
   }
   
   @media only screen and (min-width: 991px) {
@@ -118,6 +146,19 @@
       font-size: 1.6rem;
       height: 5vh;
       padding: 0 1rem;
+    }
+    .propertiesListNoHousesDiv .noHouses {
+      width: 70%;
+      height: 100%;
+      background-position-y: 25%;
+      background-position-x: center;
+      background-size: 80%;
+      background-repeat: no-repeat;
+    }
+    
+    .propertiesListNoHousesDiv .noHouses p {
+      left: 21%;
+      font-size: 2rem;
     }
   }
   

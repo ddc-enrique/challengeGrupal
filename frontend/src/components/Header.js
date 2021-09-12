@@ -29,6 +29,7 @@ const Header = ({admin}) => {
         }
       
         <Link to="/">
+          <img src="/assets/MARDELCASAS.png" alt="logoMarDelCasas" />
           <h1>MarDelCasas</h1>
         </Link>
       </div>

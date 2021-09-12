@@ -32,7 +32,7 @@ html * {
   header > div > .goBackPH {
     width: 2rem;
     height: 2rem;
-    margin-left: 1rem;
+    margin: 0 2.1rem;
   }
 
   header > div a svg {
@@ -42,6 +42,12 @@ html * {
 
   header div a {
     text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+
+  header div a img{
+    display: none;
   }
 
   header div a h1 {
@@ -140,6 +146,11 @@ html * {
     align-items: center;
     z-index: 1;
     box-shadow: 1px 1px 10px #0404045e;
+  }
+
+  header div a img{
+    height: 7rem;
+    display: block;
   }
   /* .containerHome .homeFilter .firstRow {
     width: 108% !important;

@@ -169,7 +169,7 @@ const Admin = (props) =>{
                         <img  src="/assets/MARDELCASAS-L1.jpg" alt="logo" />
                     </div>
                     <div className="helpedUsers">
-                        <h2>Chats habilitados:</h2>
+                        <h2>Chats habilitado para ID:</h2>
                         {tabs.map(tab => <h2 style={willHelp.whoToHelp === tab.sender ? {display:"block"} : {display:"none"}}>{tab.sender}</h2>)}
                     </div>
                 </div>

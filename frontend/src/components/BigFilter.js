@@ -32,6 +32,7 @@ const BigFilter = (props) => {
                 renderToast("Tenemos un problema, por favor intenta más tarde", "warning")
             })
         }        
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -264,7 +265,7 @@ const BigFilter = (props) => {
                         </div>
                     </div>
                     <div> {/* 4 */}
-                        <div className="metrosBigFilterDesktopResponsive"> {/* 5 responsividad desktop */}
+                        {/* <div className="metrosBigFilterDesktopResponsive"> 5 responsividad desktop */}
                             {/* <h5>M² Metro Cuadrados Cubiertos</h5>
                             <select name="roofedArea" value={formFilter.roofedArea} onChange={(e) => selectHandler(e, e.target.value,((e.target.value.length===8 && e.target.value) || JSON.parse(e.target.value)), null)}>
                                 <option value="allCases">Todas</option>
@@ -274,7 +275,7 @@ const BigFilter = (props) => {
                                 <option value='{"$gte":201,"$lte": 600}'>201m² a 600m²</option>
                                 <option value='{"$gte":600}'>601m² o más</option>
                             </select> */}
-                        </div>
+                        {/* </div> */}
                         <div>
                             <h5>Moneda</h5>
                             <select name="isUSD" value={formFilter.isUSD} onChange={(e) => selectHandler(e, "pesos", false, true)}>

@@ -80,6 +80,7 @@
 
 .supportChatContainer .chatBoxHandler .infoChat .helpedUsers{
   min-width: 15rem;
+  align-self: center;
 }
 
 .supportChatContainer .chatBoxHandler .infoChat .helpedUsers h2{
@@ -133,7 +134,13 @@ div .sendContainerChat > * {
   padding: 2rem;
   backdrop-filter: blur(14.5px);
   background-color: rgba(255, 255, 255, 0.918);
-  box-shadow: 0.5px 0.5px 9px #00000026;}
+  box-shadow: 0.5px 0.5px 9px #00000026;
+}
+
+.peopleToHelpContainer p {
+  cursor: pointer;
+}
+
 /* 8f3900 */
 .handleWhoToHelpContainer {
   color: white;

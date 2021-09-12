@@ -36,14 +36,13 @@
     height: 18rem;
     flex-direction: column;
     margin-bottom: 1rem;
-    border-radius: 0.5rem;
     background-position: center;
     background-size: cover;
     box-shadow: 0.5px 0.5px 8px #0f0f0f69;
   }
 
   .divCard .cardCity > * {
-    color: rgb(202, 202, 202);
+    color: rgb(251 251 251);
     z-index: 1;
   }
 
@@ -61,10 +60,10 @@
 @media only screen and (min-width: 576px) {
 }
 @media only screen and (min-width: 768px) {
-  main {
+  /* main {
     width: 100vw;
     height: 93vh;
-  }
+  } */
   .mainCityCarBox {
     width: 70%;
     height: 77%;
@@ -92,10 +91,10 @@
   main {
     /* width: 100vw; */
     height: 90vh;
-    background-image: url("../assets/16.jpg");
+    /* background-image: url("../assets/16.jpg");
     backdrop-filter: blur(14.5px);
     background-position: 100% 70%;
-    background-size: cover;
+    background-size: cover; */
   }
   .mainCityCarBox {
     height: 80%;
@@ -130,6 +129,7 @@
     height: 25rem;
     gap: 1rem;
     margin-left: 1rem !important;
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
   }
   .divCard .cardCity > * {
     font-size: 2rem !important;
