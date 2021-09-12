@@ -1,5 +1,5 @@
 import React from "react"
-import { useHistory ,Link } from "react-router-dom"
+import { useHistory, Link, NavLink } from "react-router-dom"
 import Navbar from "./Navbar"
 import { ArrowLeftCircle } from "react-bootstrap-icons"
 import { connect } from "react-redux"
@@ -7,7 +7,9 @@ import { connect } from "react-redux"
 const Header = ({admin}) => {
   const history = useHistory()
   const {pathname} = history.location
+  
   let linkValue
+  
   if (pathname.startsWith("/propiedad/")) {
     linkValue = "/lista-de-propiedades"
   } else {
@@ -32,14 +34,14 @@ const Header = ({admin}) => {
       </div>
 
       {admin &&
-        <Link to="/chat-soporte" id="admin">
-          Panel Admin
-        </Link>
+        <NavLink to="/chat-soporte" id="admin">
+          Chat de Soporte
+        </NavLink>
       }
       {admin &&
-        <Link to="/formulario-propiedades" id="adminForm">
-          Admin Form
-        </Link>
+        <NavLink to="/formulario-propiedades" id="adminForm">
+          Formulario de Propiedades
+        </NavLink>
       }
 
       <div className="nav">

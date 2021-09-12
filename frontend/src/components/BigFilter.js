@@ -1,4 +1,4 @@
-import "../styles/BigFilter2.css"
+import "../styles/BigFilter.css"
 import React, { useEffect, useState } from 'react'
 import { PlusSquare, Search } from "react-bootstrap-icons"
 import {connect} from 'react-redux'
