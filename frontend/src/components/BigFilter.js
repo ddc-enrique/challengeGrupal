@@ -14,6 +14,7 @@ const BigFilter = (props) => {
     console.log("Estoy en Big Filter")
     console.log("Filter que llega del store", filterObj)
     const [bigFilter, setBigFilter] = useState(filterObj)
+    const [render, setRender] = useState(false)
     const [formFilter, setFormFilter] = useState({
         operation: "allCases",  city:"allCases", isHouse: "allCases", 
         numberOfRooms:"allCases", numberOfBedrooms: "allCases", numberOfBathrooms: "allCases",
@@ -194,12 +195,6 @@ const BigFilter = (props) => {
                     <button onClick={searchProperties}>
                         Buscar <Search />
                     </button>}
-                    <FiltersSelected 
-                        deletePropertieFromObject={deletePropertieFromObject}
-                        formFilter={formFilter}
-                        setFormFilter={setFormFilter}
-                        selectFilters={selectFilters}
-                    />
                 </div>
                 {selectFilters &&   
                 <div className="filtersToSelect">
