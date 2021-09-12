@@ -19,17 +19,6 @@ const PropertiesList = (props) => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        // if (properties.length === 0) {
-        //     getPropertiesFiltered({})
-        //     .then(res => {
-        //         if(!res.success){
-        //             throw new Error(res.error)
-        //         }
-        //         console.log(res.response)
-        //     })
-        //     .catch(err => console.log(err))
-        //     console.log("Properties List se monto y se cargo prop")
-        // }
         if (cities === 0) {
             getCities()
             .then(res => {
@@ -123,13 +112,14 @@ const PropertiesList = (props) => {
             <div className="propertiesListNoHousesDiv">
                 {/* <div className="imageDiv" style={{backgroundImage: "url('./assets/noHouses.jpg')"}}>
                 </div> */}
-                <p>No hay resultados para tu busqueda</p>
                 {!token ?
-                <p>test</p> :
+                <div className="noHouses">
+                    <p>No hay resultados para tu búsqueda</p>                     
+                </div> :
                 subscription === "" ?
                 <div>
-                    <p>Suscribete para recibir un aviso cuando haya resultados nuevos</p>
-                    <button onClick={subscribeEmail}>Suscribete</button>
+                    <p>Suscríbete para recibir un aviso cuando haya resultados nuevos</p>
+                    <button onClick={subscribeEmail}>Suscríbete</button>
                 </div> :
                 <p>{subscription}</p>
                 }
