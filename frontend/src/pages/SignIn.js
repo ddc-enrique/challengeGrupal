@@ -141,7 +141,7 @@ const SignIn = (props) => {
           ¿Olvidaste la clave?
         </Link>
         {openPassword && (
-          <>
+          <div>
             <input
               type="text"
               name="eMail"
@@ -151,7 +151,7 @@ const SignIn = (props) => {
             <div className="">
               <button onClick={sendChangePassword}>Enviar</button>
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>
