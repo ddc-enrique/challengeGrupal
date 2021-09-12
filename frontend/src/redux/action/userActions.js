@@ -4,7 +4,7 @@ const userActions = {
   createUser: (user) => {
     return async () => {
       try {
-        let res = await axios.post("http://localhost:4000/api/user/register", {
+        let res = await axios.post("https://mardelcasas.herokuapp.com/api/user/register", {
           ...user,
         })
         console.log(res.data.errors)
@@ -28,7 +28,7 @@ const userActions = {
   logIn: (user) => {
     return async (dispatch) => {
       try {
-        let res = await axios.post("http://localhost:4000/api/user/login", {
+        let res = await axios.post("https://mardelcasas.herokuapp.com/api/user/login", {
           ...user,
         })
         if (res.data.success) {
@@ -47,7 +47,7 @@ const userActions = {
   validationUserToken: (token) => {
     return async () => {
       try {
-        let res = await axios.get("http://localhost:4000/api/user/validatemail", {
+        let res = await axios.get("https://mardelcasas.herokuapp.com/api/user/validatemail", {
           headers: {
             Authorization: "Bearer " + token,
           },
@@ -67,7 +67,7 @@ const userActions = {
     return async () => {
       try {
         let res = await axios.post(
-          "http://localhost:4000/api/user/validatemail",
+          "https://mardelcasas.herokuapp.com/api/user/validatemail",
           { eMail }
         )
         if (res.data.success) {
@@ -85,7 +85,7 @@ const userActions = {
     return async () => {
       try {
         let res = await axios.post(
-          "http://localhost:4000/api/user/resetpassword",
+          "https://mardelcasas.herokuapp.com/api/user/resetpassword",
           { eMail }
         )
         if (res.data.success) {
@@ -103,7 +103,7 @@ const userActions = {
     return async () => {
       try {
         let res = await axios.get(
-          `http://localhost:4000/api/user/validatemail/${id}`
+          `https://mardelcasas.herokuapp.com/api/user/validatemail/${id}`
         )
         if (res.data.success) {
           return {success: true, response: res.data.response}
@@ -121,7 +121,7 @@ const userActions = {
     return async () => {
       try {
         let res = await axios.put(
-          `http://localhost:4000/api/user/resetpassword/${id}`,
+          `https://mardelcasas.herokuapp.com/api/user/resetpassword/${id}`,
           password
         )
         if (res.data.success) {
@@ -150,7 +150,7 @@ const userActions = {
     return async () => {
       try {
         let response = await axios.put(
-          `http://localhost:4000/api/user/managefilter`,
+          `https://mardelcasas.herokuapp.com/api/user/managefilter`,
           {actionToDo: "add"},
           {headers: {
             authorization: 'Bearer ' + token
@@ -170,7 +170,7 @@ const userActions = {
   disableUser: (userId) => {
     return async () => {
         try {
-        let res = await axios.get(`http://localhost:4000/api/user/compromised/${userId}`)
+        let res = await axios.get(`https://mardelcasas.herokuapp.com/api/user/compromised/${userId}`)
         if (res.data.success) {
           return {success: true, response: res.data.response}
         } else {
@@ -187,7 +187,7 @@ const userActions = {
       console.log("token en updateWishList", token)
       return async (dispatch) => {
         let res = await axios.get(
-          `http://localhost:4000/api/user/like/${propertyId}`,
+          `https://mardelcasas.herokuapp.com/api/user/like/${propertyId}`,
           {headers: {
             authorization: 'Bearer ' + token
           }}
@@ -207,7 +207,7 @@ const userActions = {
   getWishList: (token) => {
     return async (dispatch) => {
       try {
-        let res = await axios.get("http://localhost:4000/api/user/favourites", { headers: { authorization: "Bearer " + token }})
+        let res = await axios.get("https://mardelcasas.herokuapp.com/api/user/favourites", { headers: { authorization: "Bearer " + token }})
         if (res.data.response) {
           dispatch({ type: "GET_USERS_FAVOURITES", payload: res.data.response }) 
           return {success: true, response: res.data.response}

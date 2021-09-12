@@ -19,7 +19,7 @@ const Admin = (props) =>{
             socket && socket.disconnect()
             return false
         }else{
-            setSocket(io('http://localhost:4000', {
+            setSocket(io('https://mardelcasas.herokuapp.com', {
                 auth:{
                     token: token
                 }

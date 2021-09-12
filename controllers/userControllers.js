@@ -78,7 +78,7 @@ const userControllers = {
             </header>
             <main style="text-align:center;margin-bottom:20px;">
                 <p style="color:black;font-size:20px;text-align:center;">Por favor para confirmar su cuenta haga click en el siguiente link:</p>
-                <a href="http://localhost:3000/usuario/validar-email/${req.user._id}" style="font-size:25px;text-align:center;display:block;">CLICK AQUI!</a>
+                <a href="https://mardelcasas.herokuapp.com/usuario/validar-email/${req.user._id}" style="font-size:25px;text-align:center;display:block;">CLICK AQUI!</a>
             </main>
             <footer style="text-align:center;">
                 <p>MarDeLasCasas SRL</p>
@@ -130,7 +130,7 @@ const userControllers = {
                 </header>
                 <main style="text-align:center;margin-bottom:20px;">
                     <p style="color:black;font-size:20px;text-align:center;">Por favor para confirmar tu cuenta sigue a:</p>
-                    <a href="http://localhost:3000/usuario/validar-email/${user._id}" style="font-size:25px;text-align:center;display:block;">CLICK AQUI!</a>
+                    <a href="https://mardelcasas.herokuapp.com/usuario/validar-email/${user._id}" style="font-size:25px;text-align:center;display:block;">CLICK AQUI!</a>
                 </main>
                 <footer style="text-align:center;">
                     <p>MarDeLasCasas SRL</p>
@@ -175,7 +175,7 @@ const userControllers = {
                     </header>
                     <main style="text-align:center;margin-bottom:20px;">
                         <p style="color:black;font-size:20px;text-align:center;">Por favor cambie su contraseña en este link:</p>
-                        <a href="http://localhost:3000/usuario/restablecer-contraseña/${user._id}" style="font-size:25px;text-align:center;display:block;">CLICK AQUI!</a>
+                        <a href="https://mardelcasas.herokuapp.com/usuario/restablecer-contraseña/${user._id}" style="font-size:25px;text-align:center;display:block;">CLICK AQUI!</a>
                     </main>
                     <footer style="text-align:center;">
                         <p>MarDeLasCasas SRL</p>
@@ -221,7 +221,7 @@ const userControllers = {
                     <main style="text-align:center;margin-bottom:20px;">
                         <p style="color:black;font-size:20px;text-align:center;">Queremos informarte que tu contrasena fue reiniciada!</p>
                         <p style="color:black;font-size:20px;text-align:center;">Si no fuiste tu quien cambio tu contrasena, y quieres deshabilitar tu cuenta, por favor sigue al siguiente link:</p>
-                        <a href="http://localhost:3000/usuario/confirmacion-deshabilitar-cuenta/${user._id}" style="font-size:25px;text-align:center;display:block;">No fui yo quien reinicio la contrasena, ayuda!</a>
+                        <a href="https://mardelcasas.herokuapp.com/usuario/confirmacion-deshabilitar-cuenta/${user._id}" style="font-size:25px;text-align:center;display:block;">No fui yo quien reinicio la contrasena, ayuda!</a>
                     </main>
                     <footer style="text-align:center;">
                         <p>MarDeLasCasas SRL</p>

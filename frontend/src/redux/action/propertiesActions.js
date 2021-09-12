@@ -5,7 +5,7 @@ const propertiesActions = {
     console.log("filter que se aplica al endpoint en redux", filter)
     return async (dispatch) => {
       try {
-        let res = await axios.put("http://localhost:4000/api/properties", {filter: filter})
+        let res = await axios.put("https://mardelcasas.herokuapp.com/api/properties", {filter: filter})
         if (res.data.response) {
           console.log("array de propiedades en action getProperties")
           console.log(res.data.response)
@@ -23,7 +23,7 @@ const propertiesActions = {
   getProperty: (id) => {
     return async () => {
       try {
-        let res = await axios.get(`http://localhost:4000/api/property/${id}`)
+        let res = await axios.get(`https://mardelcasas.herokuapp.com/api/property/${id}`)
         if (res.data.success) {
           return {success: true, response: res.data.response}
         } else {
@@ -39,7 +39,7 @@ const propertiesActions = {
     return async () => {
       try {
         let res = await axios.get(
-          `http://localhost:4000/api/getnumberofprops/${id}`
+          `https://mardelcasas.herokuapp.com/api/getnumberofprops/${id}`
         )
         if (res.data.response) {
           return {success: true, response: res.data.response}
@@ -61,7 +61,7 @@ const propertiesActions = {
   postNewProperty: (newProperty, token) =>{
     return async () => {
       try{
-        let res = await axios.post("http://localhost:4000/api/property", {...newProperty},{
+        let res = await axios.post("https://mardelcasas.herokuapp.com/property", {...newProperty},{
           headers:{
             Authorization: 'Bearer ' + token
           }
