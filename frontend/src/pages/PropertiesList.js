@@ -9,12 +9,14 @@ import userActions from "../redux/action/userActions"
 import citiesActions from "../redux/action/citiesActions"
 import CardProperty from "../components/CardProperty"
 import Swal from "sweetalert2"
+import Preloader from "../components/Preloader"
 
 const PropertiesList = (props) => {
     const {filterObj, getCities, getPropertiesFiltered, cities, properties, token} = props
     const [sortedProperties, setSortedProperties] = useState(properties)
     const [renderSort, setRenderSort] = useState(false)
     const [subscription, setSubscription] = useState("")
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         // if (properties.length === 0) {
@@ -39,6 +41,8 @@ const PropertiesList = (props) => {
             renderToast(err, "warning")
             })
         }
+        setLoading(false)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(()=>{
@@ -148,7 +152,8 @@ const PropertiesList = (props) => {
                     <option value="maxArea">Mayor superficie</option>
                 </select>
             </div>
-            {properties.length !== 0 ?
+            {loading ? <Preloader /> :
+            properties.length !== 0 ?
                 <div className="propertiesCardList">
                     {properties.map(property =><CardProperty key={property._id} property={property}/>)}
                 </div> :

@@ -2,6 +2,8 @@ import "../styles/Form.css";
 import { useState } from "react";
 import { connect } from "react-redux";
 import propertiesActions from "../redux/action/propertiesActions";
+import Swal from "sweetalert2"
+
 const AdminForm = (props) => {
   let initState = {
     agents: ["61376cc8c4636a73e669b809"], // hardcodeado 1
@@ -55,6 +57,24 @@ const AdminForm = (props) => {
     price: 0, // ok
     rentDuration: 0, // ok
   });
+
+  const renderToast = (message, type) => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 4000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer)
+        toast.addEventListener("mouseleave", Swal.resumeTimer)
+      },
+    })
+    Toast.fire({
+      icon: type,
+      title: message,
+    })
+  }
 
   const inputHandler = (e) => {
     setNewForm({
@@ -165,19 +185,16 @@ const AdminForm = (props) => {
       price: parseInt(newForm.price),
       rentDuration: parseInt(newForm.rentDuration),
     };
-    props.postNewProperty(treatedForm, props.token).then((res) => {
+    props.postNewProperty(treatedForm, props.token)
+    .then(res => {
       if (res.success) {
-        console.log("La casa se posteó");
-        // console.log(res.response)
-        setNewForm(initState);
+        renderToast("Propiedad cargada exitósamente", "success")
+        setNewForm(initState)
       } else {
-        console.log("La casa no se posteo");
-        console.log(res.response);
+        renderToast("Tenemos un problema, por favor intenta más tarde", "warning")
       }
-    });
-  };
-  // console.log(newForm)
-  // console.log(props.cities)
+    })
+  }
 
   return (
     <div className="formProperties">
