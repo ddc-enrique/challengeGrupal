@@ -14,6 +14,7 @@ import {FaSwimmingPool} from "react-icons/fa"
 import { BookmarkStar, BookmarkStarFill } from "react-bootstrap-icons";
 import userActions from "../redux/action/userActions"
 import Swal from "sweetalert2"
+import Preloader from "../components/Preloader";
 
 const Property = (props) => {
     const [connectionWithAPI, setConnectionWithAPI] = useState("connected")
@@ -171,9 +172,10 @@ const Property = (props) => {
                 <main className="propertyMain">
                     {
                         loading ?
-                        <section className="propertyLoading">
-                            <p>Cargando...</p>
-                        </section> :
+                        // <section className="propertyLoading">
+                        //     <p>Cargando...</p>
+                        // </section> 
+                        <Preloader /> :
                         connectionWithAPI === "connected" ?
                         renderProperty() :
                         <section className="propertyErrorConnection">
