@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { PlusSquare, Search } from "react-bootstrap-icons"
 import {connect} from 'react-redux'
 import propertiesActions from "../redux/action/propertiesActions"
-import CardProperty from "./CardProperty"
+// import CardProperty from "./CardProperty"
 import FiltersSelected from "./FiltersSelected"
 import citiesActions from "../redux/action/citiesActions"
 import Swal from "sweetalert2"
@@ -31,7 +31,8 @@ const BigFilter = (props) => {
             .catch(() => {
                 renderToast("Tenemos un problema, por favor intenta más tarde", "warning")
             })
-        }        
+        }   
+        // eslint-disable-next-line react-hooks/exhaustive-deps     
     }, [])
 
     useEffect(() => {
